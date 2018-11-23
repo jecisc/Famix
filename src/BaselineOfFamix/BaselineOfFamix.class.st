@@ -83,8 +83,8 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Famix-Test4-Tests' with: [ spec requires: #('Famix-Test4-Entities') ];
 				package: 'Famix-TestComposedSubmetamodel1-Entities' with: [ spec requires: #('Famix-Traits') ];
 				package: 'Famix-TestComposedSubmetamodel2-Entities' with: [ spec requires: #('Famix-Traits') ];
-				package: 'Famix-TestComposedMetamodel-Entities' with: [ spec requires: #('Famix-Test2-Entities' 'Famix-TestComposedSubmetamodel1-Entities' 'Famix-TestComposedSubmetamodel2-Entities');
-				package: 'Famix-TestComposedMetamodel' with: [ spec requires: #('Famix-TestComposedMetamodel-Entities') ] ].
+				package: 'Famix-TestComposedMetamodel-Entities' with: [ spec requires: #('Famix-Test2-Entities' 'Famix-TestComposedSubmetamodel1-Entities' 'Famix-TestComposedSubmetamodel2-Entities') ];
+				package: 'Famix-TestComposedMetamodel' with: [ spec requires: #('Famix-TestComposedMetamodel-Entities') ].
 				
 			"Groups"
 			spec
