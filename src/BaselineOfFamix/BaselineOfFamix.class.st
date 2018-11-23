@@ -127,7 +127,8 @@ BaselineOfFamix >> packageBlueprintTestResources: spec [
 
 { #category : #dependencies }
 BaselineOfFamix >> ring2: spec [
-	spec baseline: 'Ring2' with: [ spec repository: 'github://pavel-krivanek/Ring2:v1.0.2/src' ]
+	self flag: #todo.	"Maybe I should fork it and add more up to date releases to not point to a SHA."
+	spec baseline: 'Ring2' with: [ spec repository: 'github://pavel-krivanek/Ring2:1b93632413f8e73e712eb0aa5fed4a9357e7c270/src' ]
 ]
 
 { #category : #dependencies }
