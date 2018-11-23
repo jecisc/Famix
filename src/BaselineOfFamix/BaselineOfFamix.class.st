@@ -22,6 +22,7 @@ BaselineOfFamix >> baseline: spec [
 				kgbTestResources: spec;
 				mooseAlgos: spec;
 				packageBlueprintTestResources: spec;
+				ring2: spec;
 				roelTyper: spec.
 
 			"Packages"
@@ -32,7 +33,7 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Famix-Groups' with: [ spec requires: #('Moose-Core') ];
 				package: 'Famix-Traits' with: [ spec requires: #('Famix-Groups' 'Moose-Core') ];
 				
-				package: 'Famix-MetamodelBuilder-Core' with: [ spec requires: #('Famix-Traits') ];
+				package: 'Famix-MetamodelBuilder-Core' with: [ spec requires: #('Famix-Traits' 'Ring2') ];
 				package: 'Famix-MetamodelGeneration' with: [ spec requires: #('Famix-MetamodelBuilder-Core') ];
 				
 				package: 'Famix-BasicInfrastructure' with: [ spec requires: #('Famix-MetamodelBuilder-Core') ];
@@ -122,6 +123,11 @@ BaselineOfFamix >> mooseAlgos: spec [
 { #category : #dependencies }
 BaselineOfFamix >> packageBlueprintTestResources: spec [
 	spec baseline: 'PackageBlueprintTestResources' with: [ spec repository: 'github://jecisc/PackageBlueprintTestResources:v1.x.x/src' ]
+]
+
+{ #category : #dependencies }
+BaselineOfFamix >> ring2: spec [
+	spec baseline: 'Ring2' with: [ spec repository: 'github://pavel-krivanek/Ring2:v1.0.2/src' ]
 ]
 
 { #category : #dependencies }
