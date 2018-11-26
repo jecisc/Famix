@@ -22,6 +22,7 @@ BaselineOfFamix >> baseline: spec [
 				kgbTestResources: spec;
 				mooseAlgos: spec;
 				packageBlueprintTestResources: spec;
+				referenceTestResources: spec;
 				ring2: spec;
 				roelTyper: spec.
 
@@ -53,15 +54,11 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Famix-Java-Generator' with: [ spec requires: #('Basic') ];
 				package: 'Famix-Java-Entities' with: [ spec requires: #('Famix-MetamodelBuilder-Core' 'Famix-Traits') ];
 				
-				package: 'Moose-TestResources-Reference-External';
-				package: 'Moose-TestResources-Reference-Core';
-				package: 'Moose-TestResources-Reference-PackageOne' with: [ spec requires: #('Moose-TestResources-Reference-Core') ];
-				package: 'Moose-TestResources-Reference-PackageTwo' with: [ spec requires: #('Moose-TestResources-Reference-PackageOne' 'Moose-TestResources-Reference-External') ];
 				package: 'Moose-TestResources-LAN';
 				package: 'Moose-TestResources-LCOM';
 				
 				package: 'Moose-Query-Test' with: [ spec requires: #('Moose-Query' 'Famix-Compatibility-Entities') ];
-				package: 'Moose-Tests-Core' with: [ spec requires: #('Famix-Compatibility-Entities' 'Famix-Compatibility-Generator' 'Moose-SmalltalkImporter' 'Moose-TestResources-LAN' 'Moose-TestResources-LCOM' 'Moose-TestResources-Reference-Core') ];
+				package: 'Moose-Tests-Core' with: [ spec requires: #('Famix-Compatibility-Entities' 'Famix-Compatibility-Generator' 'Moose-SmalltalkImporter' 'Moose-TestResources-LAN' 'Moose-TestResources-LCOM' 'ReferenceTestResources') ];
 				
 				package: 'Famix-Smalltalk-Utils-Tests' with: [ spec requires: #('Famix-Smalltalk-Utils') ];
 				package: 'Moose-Tests-SmalltalkImporter-LAN' with: [ spec requires: #('Moose-Tests-Core') ];
@@ -92,7 +89,7 @@ BaselineOfFamix >> baseline: spec [
 			spec
 				group: 'Core' with: #('Famix-Traits' 'Moose-Query-Extensions');
 				group: 'Basic' with: #('Famix-BasicInfrastructure' 'Famix-MetamodelGeneration');
-				group: 'TestsResources' with: #('Moose-TestResources-Reference-Core' 'Moose-TestResources-Reference-PackageOne' 'Moose-TestResources-Reference-PackageTwo' 'Moose-TestResources-LAN' 'Moose-TestResources-LCOM' 'KGBTestResources' 'PackageBlueprintTestResources');
+				group: 'TestsResources' with: #('ReferenceTestResources' 'Moose-TestResources-LAN' 'Moose-TestResources-LCOM' 'KGBTestResources' 'PackageBlueprintTestResources');
 				group: 'ModelCompatibility' with: #('Famix-Compatibility-Generator' 'Famix-Compatibility-Entities');
 				group: 'ModelJava' with: #('Famix-Java-Generator' 'Famix-Java-Entities');
 				group: 'ModelSmalltalk' with: #('Famix-PharoSmalltalk-Generator' 'Famix-PharoSmalltalk-Entities' 'Famix-PharoSmalltalk-Importer');
@@ -124,6 +121,11 @@ BaselineOfFamix >> mooseAlgos: spec [
 { #category : #dependencies }
 BaselineOfFamix >> packageBlueprintTestResources: spec [
 	spec baseline: 'PackageBlueprintTestResources' with: [ spec repository: 'github://jecisc/PackageBlueprintTestResources:v1.x.x/src' ]
+]
+
+{ #category : #dependencies }
+BaselineOfFamix >> referenceTestResources: spec [
+	spec baseline: 'ReferenceTestResources' with: [ spec repository: 'github://jecisc/ReferenceTestResources:v1.x.x/src' ]
 ]
 
 { #category : #dependencies }
