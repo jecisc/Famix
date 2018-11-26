@@ -127,12 +127,11 @@ BaselineOfFamix >> packageBlueprintTestResources: spec [
 
 { #category : #dependencies }
 BaselineOfFamix >> ring2: spec [
-	self flag: #todo.	"Maybe I should fork it and add more up to date releases to not point to a SHA."
 	spec
 		baseline: 'Ring2'
 		with: [ spec
-				loads: 'calypso';
-				repository: 'github://pavel-krivanek/Ring2:1b93632413f8e73e712eb0aa5fed4a9357e7c270/src' ]
+				loads: 'runtimeSupport';
+				repository: 'github://pavel-krivanek/Ring2:1.1.1/src' ]
 ]
 
 { #category : #dependencies }
