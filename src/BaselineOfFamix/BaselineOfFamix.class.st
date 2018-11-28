@@ -28,7 +28,7 @@ BaselineOfFamix >> baseline: spec [
 
 			"Packages"
 			spec
-				package: 'Moose-Query' with: [ spec requires: #('Fame' 'DeepTraverser') ];
+				package: 'Moose-Query' with: [ spec requires: #('Fame' 'DeepTraverser' 'MooseAlgos') ];
 				package: 'Moose-Core' with: [ spec requires: #('Fame' 'Moose-Query') ];
 				package: 'Moose-Query-Extensions' with: [ spec requires: #('Moose-Query' 'Famix-Traits') ];
 				package: 'Famix-Groups' with: [ spec requires: #('Moose-Core') ];
