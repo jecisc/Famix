@@ -72,7 +72,7 @@ MooseAbstractGroup >> allWithSubTypesOf: aSmalltalkClass ofGroupClass:  aGroupSm
 			aGroupSmalltalkClass 
 				withAll: (aSmalltalkClass withMooseSubclasses flatCollect: [:each |
 		self entityStorage selectAllWithType: each ])
-				withDescription: 'All ' , (self plurialize: aSmalltalkClass name asLowercase) ]
+				withDescription: 'All ' , aSmalltalkClass name asLowercase asEnglishPlural]
 ]
 
 { #category : #groups }
@@ -87,7 +87,7 @@ MooseAbstractGroup >> allWithType: aSmalltalkClass ofGroupClass: aGroupSmalltalk
 		ifAbsentPut: [
 			aGroupSmalltalkClass 
 				withAll: (self entityStorage selectAllWithType: aSmalltalkClass)
-				withDescription: 'All ' , (self plurialize: aSmalltalkClass name asLowercase) ]
+				withDescription: 'All ' , aSmalltalkClass name asLowercase asEnglishPlural ]
 ]
 
 { #category : #accessing }
@@ -509,23 +509,6 @@ MooseAbstractGroup >> numberOfItems [
 MooseAbstractGroup >> occurrencesOf: anObject [ 
 	 
 	^self entities occurrencesOf: anObject
-]
-
-{ #category : #accessing }
-MooseAbstractGroup >> plurialize: aString [
-	"Answer the plural of the receiver.  Assumes the receiver is an English noun.
-	For a more comprehensive algorithm please refer to ''An Algorithmic Approach
-	to English Pluralization'' by Damian Conway."
-
-	aString size < 2 ifTrue: [ ^ aString ].
-	
-	aString = 'child' ifTrue: [ ^ 'children' ].
-	
-	(aString last == $y and: [ (aString at: aString size - 1) isVowel not ]) ifTrue: [ ^ aString replaceSuffix: 'y' with: 'ies' ].
-	
-	(aString endsWith: 's') ifTrue: [ ^ aString replaceSuffix: 's' with: 'ses' ].
-	
-	^ aString copyWith: $s
 ]
 
 { #category : #copying }

@@ -89,7 +89,7 @@ TDependencyQueryResult >> opposite: dep [
 
 { #category : #accessing }
 TDependencyQueryResult >> opposites [
-	^ self newObjectResultWith: (self storage flatCollectAsSet: [ :d | (self opposite: d) asOrderedCollection ])
+	^ self newObjectResultWith: (self storage flatCollectAsSet: [ :d | (self opposite: d) asCollection ])
 ]
 
 { #category : #filtering }
@@ -179,5 +179,5 @@ TDependencyQueryResult >> withinPackage: aFAMIXPackage [
 TDependencyQueryResult >> withoutSelfLoops [
 	"exclude dependencies which loop back to the receiver"
 
-	^ self reject: [ :dep | (self opposite: dep) asOrderedCollection anySatisfy: [ :opp | opp withAllParents includes: self receiver ] ]
+	^ self reject: [ :dep | (self opposite: dep) asCollection anySatisfy: [ :opp | opp withAllParents includes: self receiver ] ]
 ]
