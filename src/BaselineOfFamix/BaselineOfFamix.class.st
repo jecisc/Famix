@@ -20,7 +20,7 @@ BaselineOfFamix >> baseline: spec [
 				deepTraverser: spec;
 				fame: spec;
 				kgbTestResources: spec;
-				mooseAlgos: spec;
+				collectionExtensions: spec;
 				packageBlueprintTestResources: spec;
 				referenceTestResources: spec;
 				ring2: spec;
@@ -28,7 +28,7 @@ BaselineOfFamix >> baseline: spec [
 
 			"Packages"
 			spec
-				package: 'Moose-Query' with: [ spec requires: #('Fame' 'DeepTraverser' 'MooseAlgos') ];
+				package: 'Moose-Query' with: [ spec requires: #('Fame' 'DeepTraverser' 'CollectionExtensions') ];
 				package: 'Moose-Core' with: [ spec requires: #('Fame' 'Moose-Query') ];
 				package: 'Moose-Query-Extensions' with: [ spec requires: #('Moose-Query' 'Famix-Traits') ];
 				package: 'Famix-Groups' with: [ spec requires: #('Moose-Core') ];
@@ -99,6 +99,11 @@ BaselineOfFamix >> baseline: spec [
 ]
 
 { #category : #dependencies }
+BaselineOfFamix >> collectionExtensions: spec [
+	spec baseline: 'CollectionExtensions' with: [ spec repository: 'github://pharo-contributions/CollectionExtensions:v1.x.x/src' ]
+]
+
+{ #category : #dependencies }
 BaselineOfFamix >> deepTraverser: spec [
 	spec baseline: 'DeepTraverser' with: [ spec repository: 'github://pharo-contributions/DeepTraverser:v1.x.x/src' ]
 ]
@@ -111,11 +116,6 @@ BaselineOfFamix >> fame: spec [
 { #category : #dependencies }
 BaselineOfFamix >> kgbTestResources: spec [
 	spec baseline: 'KGBTestResources' with: [ spec repository: 'github://jecisc/KGBTestResources:v1.x.x/src' ]
-]
-
-{ #category : #dependencies }
-BaselineOfFamix >> mooseAlgos: spec [
-	spec baseline: 'MooseAlgos' with: [ spec repository: 'github://moosetechnology/MooseAlgos:v1.x.x/src' ]
 ]
 
 { #category : #dependencies }
