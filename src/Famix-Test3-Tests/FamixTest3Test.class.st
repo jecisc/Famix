@@ -27,7 +27,7 @@ FamixTest3Test >> checkAtScopeWithNonMatchingEntitiesDoWith: aBehavior [
 		mooseQueryResult 
 			atScope: aBehavior 
 			withNonMatchingEntitiesDo: [ :entities :matchingAtTheScope | 
-				nonMatching addAll: entities asCollection ]) hasSameElements: { c1. }.
+				nonMatching addAll: entities asOrderedCollection ]) hasSameElements: { c1. }.
 	self assertCollection: nonMatching hasSameElements: { pt1 }.
 
 ]

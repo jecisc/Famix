@@ -254,7 +254,7 @@ TDependencyQueries >> queryIncomingTypeDeclarationsIn: aCollection [
 		(self perform: (selectors at: index))
 			ifNotNil: [ :children | 
 				| coll |
-				1 to: (coll := children asCollection) size do: [ :i | (coll at: i) queryIncomingTypeDeclarationsIn: aCollection ] ] ].
+				1 to: (coll := children asOrderedCollection) size do: [ :i | (coll at: i) queryIncomingTypeDeclarationsIn: aCollection ] ] ].
 	aCollection addAll: self incomingTypeDeclarations.
 	^ aCollection
 ]
@@ -339,7 +339,7 @@ TDependencyQueries >> queryOutgoingTypeDeclarationsIn: aCollection [
 		(self perform: (selectors at: index))
 			ifNotNil: [ :children | 
 				| coll |
-				1 to: (coll := children asCollection) size do: [ :i | (coll at: i) queryOutgoingTypeDeclarationsIn: aCollection ] ] ].
+				1 to: (coll := children asOrderedCollection) size do: [ :i | (coll at: i) queryOutgoingTypeDeclarationsIn: aCollection ] ] ].
 	aCollection addAll: self outgoingTypeDeclarations.
 	^ aCollection
 ]

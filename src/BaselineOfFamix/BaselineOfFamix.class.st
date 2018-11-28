@@ -20,7 +20,6 @@ BaselineOfFamix >> baseline: spec [
 				deepTraverser: spec;
 				fame: spec;
 				kgbTestResources: spec;
-				mooseAlgos: spec;
 				packageBlueprintTestResources: spec;
 				referenceTestResources: spec;
 				ring2: spec;
@@ -111,11 +110,6 @@ BaselineOfFamix >> fame: spec [
 { #category : #dependencies }
 BaselineOfFamix >> kgbTestResources: spec [
 	spec baseline: 'KGBTestResources' with: [ spec repository: 'github://jecisc/KGBTestResources:v1.x.x/src' ]
-]
-
-{ #category : #dependencies }
-BaselineOfFamix >> mooseAlgos: spec [
-	spec baseline: 'MooseAlgos' with: [ spec repository: 'github://moosetechnology/MooseAlgos:v1.x.x/src' ]
 ]
 
 { #category : #dependencies }

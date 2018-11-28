@@ -61,7 +61,7 @@ MooseQueryCalculator >> query: aFAMIXClassAssociation for: anEntity in: aCollect
 		(anEntity perform: (selectors at: index))
 			ifNotNil: [ :children | 
 				| coll |
-				1 to: (coll := children asCollection) size do: [ :i | self query: aFAMIXClassAssociation for: (coll at: i) in: aCollection ] ] ].
+				1 to: (coll := children asOrderedCollection) size do: [ :i | self query: aFAMIXClassAssociation for: (coll at: i) in: aCollection ] ] ].
 	^ aCollection
 ]
 
@@ -79,7 +79,7 @@ MooseQueryCalculator >> queryAllFor: anEntity in: aCollection [
 		(anEntity perform: (selectors at: index))
 			ifNotNil: [ :children | 
 				| coll |
-				1 to: (coll := children asCollection) size do: [ :i | self queryAllFor: (coll at: i) in: aCollection ] ] ].
+				1 to: (coll := children asOrderedCollection) size do: [ :i | self queryAllFor: (coll at: i) in: aCollection ] ] ].
 	^ aCollection
 ]
 
@@ -93,7 +93,7 @@ MooseQueryCalculator >> queryAllLocalFor: anEntity [
 MooseQueryCalculator >> queryAllLocalFor: anEntity in: aCollection [
 	| properties |
 	"Instead of #to:do: we could just use #do: but this implementation is much faster. Maybe sista will remove the needs of the todo later."
-	1 to: (properties := self strategy msePropertiesOf: anEntity) size do: [ :ind | (anEntity perform: (properties at: ind) name) ifNotNil: [ :coll | aCollection addAll: coll asCollection ] ].
+	1 to: (properties := self strategy msePropertiesOf: anEntity) size do: [ :ind | (anEntity perform: (properties at: ind) name) ifNotNil: [ :coll | aCollection addAll: coll asOrderedCollection ] ].
 	^ aCollection
 ]
 
@@ -111,7 +111,7 @@ MooseQueryCalculator >> queryLocal: aFAMIXClassAssociation for: anEntity in: aCo
 	
 	| properties |
 	"Instead of #to:do: we could just use #do: but this implementation is much faster. Maybe sista will remove the needs of the todo later."
-	1 to: (properties := self strategy msePropertiesOf: anEntity) size do: [ :ind | (anEntity perform: (properties at: ind) name) ifNotNil: [ :coll | aCollection addAll: (coll asCollection select: [ :each | each isOfType: aFAMIXClassAssociation ]) ] ].
+	1 to: (properties := self strategy msePropertiesOf: anEntity) size do: [ :ind | (anEntity perform: (properties at: ind) name) ifNotNil: [ :coll | aCollection addAll: (coll asOrderedCollection select: [ :each | each isOfType: aFAMIXClassAssociation ]) ] ].
 	^ aCollection
 ]
 

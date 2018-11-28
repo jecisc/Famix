@@ -259,7 +259,7 @@ TEntityMetaLevelDependency >> allClients [
 
 { #category : #accessing }
 TEntityMetaLevelDependency >> allClientsAtScope: aClass [
-	^ (self queryIncomingDependencies atScope: aClass withNonMatchingEntitiesDo: [ :entities :res | entities ifNotNil: [ res addAll: entities asCollection ] ]) withoutSelfLoops
+	^ (self queryIncomingDependencies atScope: aClass withNonMatchingEntitiesDo: [ :entities :res | entities ifNotNil: [ res addAll: entities asOrderedCollection ] ]) withoutSelfLoops
 ]
 
 { #category : #accessing }
@@ -292,7 +292,7 @@ TEntityMetaLevelDependency >> allProviders [
 
 { #category : #accessing }
 TEntityMetaLevelDependency >> allProvidersAtScope: aClass [
-	^ (self queryOutgoingDependencies atScope: aClass withNonMatchingEntitiesDo: [ :entities :res | entities ifNotNil: [ res addAll: entities asCollection ] ]) withoutSelfLoops
+	^ (self queryOutgoingDependencies atScope: aClass withNonMatchingEntitiesDo: [ :entities :res | entities ifNotNil: [ res addAll: entities asOrderedCollection ] ]) withoutSelfLoops
 ]
 
 { #category : #scoping }
@@ -353,7 +353,7 @@ TEntityMetaLevelDependency >> atScope: aClassFAMIX in: aCollection [
 TEntityMetaLevelDependency >> children [
 	| res |
 	res := OrderedCollection new.
-	self childrenSelectors do: [ :accessor | (self perform: accessor) ifNotNil: [ :r | res addAll: r asCollection ] ].
+	self childrenSelectors do: [ :accessor | (self perform: accessor) ifNotNil: [ :r | res addAll: r asOrderedCollection ] ].
 	^ res asSet
 ]
 
@@ -407,7 +407,7 @@ TEntityMetaLevelDependency >> parentTypes [
 TEntityMetaLevelDependency >> parents [
 	| res |
 	res := OrderedCollection new.
-	self parentSelectors do: [ :accessor | (self perform: accessor) ifNotNil: [ :r | res addAll: r asCollection ] ].
+	self parentSelectors do: [ :accessor | (self perform: accessor) ifNotNil: [ :r | res addAll: r asOrderedCollection ] ].
 	^ res asSet
 ]
 
