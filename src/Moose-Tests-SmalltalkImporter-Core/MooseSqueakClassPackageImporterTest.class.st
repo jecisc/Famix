@@ -1,6 +1,6 @@
 Class {
 	#name : #MooseSqueakClassPackageImporterTest,
-	#superclass : #TestCase,
+	#superclass : #MooseTestWithSmalltalkDependency,
 	#category : #'Moose-Tests-SmalltalkImporter-Core'
 }
 
@@ -10,8 +10,7 @@ MooseSqueakClassPackageImporterTest >> numberOfClassesIn: categories [
 	"SIMD 23/11/2009: We reject trait as entities to importer for now."
 	^ (SystemOrganization categories select: [ :each | categories anySatisfy: [:c | c match: each]]) 
 		inject: 0
-		into: [ :sum :each | sum + ((SystemOrganization classesInCategory: each)
-																		reject: [:cls | cls isTrait]) size ]
+		into: [ :sum :each | sum + (SystemOrganization classesInCategory: each) size ]
 ]
 
 { #category : #'testing collecting classes' }
@@ -46,9 +45,8 @@ MooseSqueakClassPackageImporterTest >> testImportClassUsingAddCategory [
 
 	| model importer |
 	model := MooseModel new.
-	importer := MoosePharoImporterTask new
+	importer := self newPharoImporterTask 
 		model: model;
-		factory: SmalltalkCompatibilityMetamodelFactory;
 		importingContext: MooseImportingContext new importClass.
 	importer addFromPackage: (RPackageOrganizer default packageNamed: #'Moose-TestResources-LAN').
 	importer run.
@@ -61,9 +59,8 @@ MooseSqueakClassPackageImporterTest >> testImportClassUsingAddClass [
 
 	| model importer |
 	model := MooseModel new.
-	importer := MoosePharoImporterTask new
+	importer := self newPharoImporterTask 
 		model: model;
-		factory: SmalltalkCompatibilityMetamodelFactory;
 		importingContext: MooseImportingContext new importClass.
 	importer addClass: LANNode.
 	importer run.
@@ -76,15 +73,14 @@ MooseSqueakClassPackageImporterTest >> testImportClassUsingAddPackage [
 
 	| model importer |
 	model := MooseModel new.
-	importer := MoosePharoImporterTask new
+	importer := self newPharoImporterTask
 		model: model;
-		factory: SmalltalkCompatibilityMetamodelFactory;
 		importingContext: MooseImportingContext new importClass.
 	importer addFromPackage: (RPackage organizer packageNamed: #'Moose-TestResources-LAN').
 	importer run.
 	self
 		assert: model allClasses size
-		equals: 2 * (RPackage organizer packageNamed: #'Moose-TestResources-LAN') regularClasses size
+		equals: 2 * (RPackage organizer packageNamed: #'Moose-TestResources-LAN') definedClasses size
 ]
 
 { #category : #'test importing' }
@@ -93,14 +89,13 @@ MooseSqueakClassPackageImporterTest >> testImportClassUsingAddPackageNamed [
 
 	| model importer |
 	model := MooseModel new.
-	importer := MoosePharoImporterTask new.
+	importer := self newPharoImporterTask.
 	importer
 		model: model;
-		factory: SmalltalkCompatibilityMetamodelFactory;
 		importingContext: MooseImportingContext new importClass.
 	importer addFromPackageNamed: 'Moose-TestResources-LAN'.
 	importer run.
 	self
 		assert: model allClasses size
-		equals: 2 * (RPackage organizer packageNamed: #'Moose-TestResources-LAN') regularClasses size
+		equals: 2 * (RPackage organizer packageNamed: #'Moose-TestResources-LAN') definedClasses size
 ]

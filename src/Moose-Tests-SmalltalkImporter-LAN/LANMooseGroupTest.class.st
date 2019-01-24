@@ -173,7 +173,7 @@ LANMooseGroupTest >> testMinimumOfPropertyNamed [
 LANMooseGroupTest >> testPrintOn [
 	| printOn |
 	printOn := String streamContents: [ :stream | self model allTypes printOn: stream ].
-	self assert: printOn equals: 'All famixttypes (' , self model allTypes size asString , ' FAMIXTypes)'
+	self assert: (printOn beginsWith: 'All famixttypes (' , self model allTypes size asString)
 ]
 
 { #category : #tests }
@@ -219,5 +219,5 @@ LANMooseGroupTest >> testSelectTopTwentyForMetric [
 LANMooseGroupTest >> testSum [
 	| classes |
 	classes := self model allClasses.
-	self assert: (classes sumNumbers: #numberOfMethods) equals: 84 "was 54 before traits classes inclusion"
+	self assert: (classes sumNumbers: #numberOfMethods) equals: 112 "was 54 before traits classes inclusion"
 ]
