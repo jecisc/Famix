@@ -134,7 +134,7 @@ BaselineOfFamix >> ring2: spec [
 		baseline: 'Ring2'
 		with: [ spec
 				loads: 'runtimeSupport';
-				repository: 'github://pavel-krivanek/Ring2:1.1.1/src' ]
+				repository: 'github://pavel-krivanek/Ring2:1.2.0/src' ]
 ]
 
 { #category : #dependencies }
