@@ -361,7 +361,7 @@ FmxMBBehavior >> propertyName [
 { #category : #accessing }
 FmxMBBehavior >> realClass [
 
-	^ realClass ifNil: [ self builder environment ringEnvironment ensureClassNamed: (self fullName)  ]
+	^ realClass ifNil: [ self class environment at: self fullName  ]
 ]
 
 { #category : #accessing }
