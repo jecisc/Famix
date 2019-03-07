@@ -43,7 +43,19 @@ MooseQueryResult >> add: newObject [
 ]
 
 { #category : #scoping }
+MooseQueryResult >> allAtAnyScope: aSymbol [
+
+	^ self subclassResponsibility
+]
+
+{ #category : #scoping }
 MooseQueryResult >> allAtScope: aSymbol [
+
+	^ self subclassResponsibility
+]
+
+{ #category : #scoping }
+MooseQueryResult >> allToAnyScope: aSymbol [
 
 	^ self subclassResponsibility
 ]
@@ -55,7 +67,18 @@ MooseQueryResult >> allToScope: aSymbol [
 ]
 
 { #category : #scoping }
+MooseQueryResult >> allWithAnyScope: aSymbol [
+	^ self subclassResponsibility
+]
+
+{ #category : #scoping }
 MooseQueryResult >> allWithScope: aSymbol [
+	^ self subclassResponsibility
+]
+
+{ #category : #scoping }
+MooseQueryResult >> atAnyScope: aSymbol [
+
 	^ self subclassResponsibility
 ]
 
@@ -192,6 +215,12 @@ MooseQueryResult >> storage: aCollection [
 ]
 
 { #category : #scoping }
+MooseQueryResult >> toAnyScope: aSymbol [
+
+	^ self subclassResponsibility
+]
+
+{ #category : #scoping }
 MooseQueryResult >> toScope: aSymbol [
 
 	^ self subclassResponsibility
@@ -205,6 +234,11 @@ MooseQueryResult >> union: aCollection [
 	set := self asSet addAll: aCollection; yourself.
 	
 	 ^ self class on: (self receiver) withAll: set
+]
+
+{ #category : #scoping }
+MooseQueryResult >> withAnyScope: aSymbol [
+	^ self subclassResponsibility
 ]
 
 { #category : #scoping }
