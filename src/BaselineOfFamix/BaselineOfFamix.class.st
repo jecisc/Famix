@@ -41,7 +41,7 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Famix-Compatibility-Generator' with: [ spec requires: #('Famix-BasicInfrastructure') ];
 				package: 'Famix-Compatibility-Entities' with: [ spec requires: #('Famix-Traits' 'Famix-Smalltalk-Utils') ];
 				package: 'Moose-GenericImporter' with: [ spec requires: #('Famix-Compatibility-Entities') ];
-				package: 'Moose-SmalltalkImporter' with: [ spec requires: #('Moose-GenericImporter' 'RoelTyper') ];
+				package: 'Moose-SmalltalkImporter' with: [ spec requires: #('Moose-GenericImporter' 'RoelTyper' 'Famix-BasicInfrastructure') ];
 				package: 'Moose-MonticelloImporter' with: [ spec requires: #('Moose-SmalltalkImporter') ];
 				package: 'Famix-PharoSmalltalk-Generator' with: [ spec requires: #('Basic') ];
 				package: 'Famix-PharoSmalltalk-Entities' with: [ spec requires: #('Famix-MetamodelBuilder-Core' 'Famix-Smalltalk-Utils' 'Famix-Traits') ];
