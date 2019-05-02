@@ -52,7 +52,7 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Moose-TestResources-LCOM';
 				package: 'Moose-Query-Test' with: [ spec requires: #('Moose-Query' 'Famix-Compatibility-Entities') ];
 				package: 'Moose-Tests-Core' with: [ spec requires: #('Famix-Compatibility-Entities' 'Famix-Compatibility-Generator' 'Moose-SmalltalkImporter' 'ReferenceTestResources') ];
-				package: 'Famix-Group-Tests' with: [ spec requires: #('Famix-Group') ];
+				package: 'Famix-Groups-Tests' with: [ spec requires: #('Famix-Groups') ];
 				package: 'Famix-Smalltalk-Utils-Tests' with: [ spec requires: #('Famix-Smalltalk-Utils') ];
 				package: 'Moose-Tests-SmalltalkImporter-LAN' with: [ spec requires: #('Moose-Tests-Core' 'Moose-TestResources-LAN') ];
 				package: 'Moose-Tests-SmalltalkImporter-Core' with: [ spec requires: #('Moose-Tests-Core') ];
@@ -88,7 +88,7 @@ BaselineOfFamix >> baseline: spec [
 				group: 'Importers' with: #('Moose-GenericImporter' 'Moose-SmalltalkImporter' 'Moose-MonticelloImporter');
 				group: 'Tests'
 					with:
-					#('Moose-Query-Test' 'Moose-Tests-Core' 'Famix-Smalltalk-Utils-Tests' 'Moose-Tests-SmalltalkImporter-LAN' 'Moose-Tests-SmalltalkImporter-Core' 'Moose-Tests-SmalltalkImporter-KGB' 'Famix-Compatibility-Tests-C' 'Famix-Compatibility-Tests-Java' 'Famix-Compatibility-Tests-Core' 'Famix-Compatibility-Tests-Extensions' 'Moose-Tests-MonticelloImporter' 'Famix-TestGenerators' 'Famix-MetamodelBuilder-Tests' 'Famix-Test1-Entities' 'Famix-Test1-Tests' 'Famix-Test2-Entities' 'Famix-Test2-Tests' 'Famix-Test3-Entities' 'Famix-Test3-Tests' 'Famix-Test4-Entities' 'Famix-Test4-Tests' 'Famix-TestComposedSubmetamodel1-Entities' 'Famix-TestComposedSubmetamodel2-Entities' 'Famix-TestComposedMetamodel-Entities' 'Famix-TestComposedMetamodel') ].
+					#('Moose-Query-Test' 'Moose-Tests-Core' 'Famix-Smalltalk-Utils-Tests' 'Moose-Tests-SmalltalkImporter-LAN' 'Moose-Tests-SmalltalkImporter-Core' 'Moose-Tests-SmalltalkImporter-KGB' 'Famix-Groups-Tests' 'Famix-Compatibility-Tests-C' 'Famix-Compatibility-Tests-Java' 'Famix-Compatibility-Tests-Core' 'Famix-Compatibility-Tests-Extensions' 'Moose-Tests-MonticelloImporter' 'Famix-TestGenerators' 'Famix-MetamodelBuilder-Tests' 'Famix-Test1-Entities' 'Famix-Test1-Tests' 'Famix-Test2-Entities' 'Famix-Test2-Tests' 'Famix-Test3-Entities' 'Famix-Test3-Tests' 'Famix-Test4-Entities' 'Famix-Test4-Tests' 'Famix-TestComposedSubmetamodel1-Entities' 'Famix-TestComposedSubmetamodel2-Entities' 'Famix-TestComposedMetamodel-Entities' 'Famix-TestComposedMetamodel') ].
 
 	"We need different versions of Ring for Pharo 7 and 8."
 	spec
