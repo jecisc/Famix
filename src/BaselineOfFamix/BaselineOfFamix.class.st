@@ -24,6 +24,7 @@ BaselineOfFamix >> baseline: spec [
 				packageBlueprintTestResources: spec;
 				referenceTestResources: spec;
 				ring2: spec;
+				neoCSV: spec;
 				roelTyper: spec.
 
 			"Packages"
@@ -31,7 +32,7 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Moose-Query' with: [ spec requires: #('Fame' 'DeepTraverser' 'CollectionExtensions') ];
 				package: 'Moose-Core' with: [ spec requires: #('Fame' 'Moose-Query') ];
 				package: 'Moose-Query-Extensions' with: [ spec requires: #('Moose-Query' 'Famix-Traits') ];
-				package: 'Famix-Groups' with: [ spec requires: #('Moose-Core') ];
+				package: 'Famix-Groups' with: [ spec requires: #('Moose-Core' 'NeoCSV') ];
 				package: 'Famix-Traits' with: [ spec requires: #('Famix-Groups' 'Moose-Core') ];
 				
 				package: 'Famix-MetamodelBuilder-Core' with: [ spec requires: #('Famix-Traits' 'Ring2') ];
@@ -59,6 +60,8 @@ BaselineOfFamix >> baseline: spec [
 				
 				package: 'Moose-Query-Test' with: [ spec requires: #('Moose-Query' 'Famix-Compatibility-Entities') ];
 				package: 'Moose-Tests-Core' with: [ spec requires: #('Famix-Compatibility-Entities' 'Famix-Compatibility-Generator' 'Moose-SmalltalkImporter' 'ReferenceTestResources') ];
+				package: 'Famix-Group-Tests' with: [ spec requires: #('Famix-Group') ];
+				
 				
 				package: 'Famix-Smalltalk-Utils-Tests' with: [ spec requires: #('Famix-Smalltalk-Utils') ];
 				package: 'Moose-Tests-SmalltalkImporter-LAN' with: [ spec requires: #('Moose-Tests-Core' 'Moose-TestResources-LAN') ];
@@ -101,7 +104,7 @@ BaselineOfFamix >> baseline: spec [
 			for: #'pharo7.x'
 			do: [ spec
 				package: 'Famix-MetamodelBuilder-Core' with: [ spec includes: #('Famix-MetamodelBuilder-Core-Pharo7') ];
-				package: 'Famix-MetamodelBuilder-Core-Pharo7' ].
+				package: 'Famix-MetamodelBuilder-Core-Pharo7' ]
 ]
 
 { #category : #dependencies }
@@ -122,6 +125,11 @@ BaselineOfFamix >> fame: spec [
 { #category : #dependencies }
 BaselineOfFamix >> kgbTestResources: spec [
 	spec baseline: 'KGBTestResources' with: [ spec repository: 'github://jecisc/KGBTestResources:v1.x.x/src' ]
+]
+
+{ #category : #dependencies }
+BaselineOfFamix >> neoCSV: spec [
+	spec baseline: 'NeoCSV' with: [ spec repository: 'github://svenvc/NeoCSV:v15/repository' ]
 ]
 
 { #category : #dependencies }
