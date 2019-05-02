@@ -15,7 +15,8 @@ BaselineOfFamix >> baseline: spec [
 	<baseline>
 	spec
 		for: #common
-		do: [ "Dependencies"
+		do: [
+			"Dependencies"
 			self
 				deepTraverser: spec;
 				fame: spec;
@@ -23,7 +24,6 @@ BaselineOfFamix >> baseline: spec [
 				collectionExtensions: spec;
 				packageBlueprintTestResources: spec;
 				referenceTestResources: spec;
-				ring2: spec;
 				neoCSV: spec;
 				roelTyper: spec.
 
@@ -34,40 +34,29 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Moose-Query-Extensions' with: [ spec requires: #('Moose-Query' 'Famix-Traits') ];
 				package: 'Famix-Groups' with: [ spec requires: #('Moose-Core' 'NeoCSV') ];
 				package: 'Famix-Traits' with: [ spec requires: #('Famix-Groups' 'Moose-Core') ];
-				
-				package: 'Famix-MetamodelBuilder-Core' with: [ spec requires: #('Famix-Traits' 'Ring2') ];
+				package: 'Famix-MetamodelBuilder-Core' with: [ spec requires: #('Famix-Traits') ];
 				package: 'Famix-MetamodelGeneration' with: [ spec requires: #('Famix-MetamodelBuilder-Core') ];
-				
 				package: 'Famix-BasicInfrastructure' with: [ spec requires: #('Famix-MetamodelBuilder-Core') ];
 				package: 'Famix-Smalltalk-Utils';
-				
 				package: 'Famix-Compatibility-Generator' with: [ spec requires: #('Famix-BasicInfrastructure') ];
 				package: 'Famix-Compatibility-Entities' with: [ spec requires: #('Famix-Traits' 'Famix-Smalltalk-Utils') ];
-				
 				package: 'Moose-GenericImporter' with: [ spec requires: #('Famix-Compatibility-Entities') ];
 				package: 'Moose-SmalltalkImporter' with: [ spec requires: #('Moose-GenericImporter' 'RoelTyper') ];
 				package: 'Moose-MonticelloImporter' with: [ spec requires: #('Moose-SmalltalkImporter') ];
-				
 				package: 'Famix-PharoSmalltalk-Generator' with: [ spec requires: #('Basic') ];
 				package: 'Famix-PharoSmalltalk-Entities' with: [ spec requires: #('Famix-MetamodelBuilder-Core' 'Famix-Smalltalk-Utils' 'Famix-Traits') ];
 				package: 'Famix-PharoSmalltalk-Importer' with: [ spec requires: #('Famix-PharoSmalltalk-Entities') ];
-				
 				package: 'Famix-Java-Generator' with: [ spec requires: #('Basic') ];
 				package: 'Famix-Java-Entities' with: [ spec requires: #('Famix-MetamodelBuilder-Core' 'Famix-Traits') ];
-				
 				package: 'Moose-TestResources-LAN';
 				package: 'Moose-TestResources-LCOM';
-				
 				package: 'Moose-Query-Test' with: [ spec requires: #('Moose-Query' 'Famix-Compatibility-Entities') ];
 				package: 'Moose-Tests-Core' with: [ spec requires: #('Famix-Compatibility-Entities' 'Famix-Compatibility-Generator' 'Moose-SmalltalkImporter' 'ReferenceTestResources') ];
 				package: 'Famix-Group-Tests' with: [ spec requires: #('Famix-Group') ];
-				
-				
 				package: 'Famix-Smalltalk-Utils-Tests' with: [ spec requires: #('Famix-Smalltalk-Utils') ];
 				package: 'Moose-Tests-SmalltalkImporter-LAN' with: [ spec requires: #('Moose-Tests-Core' 'Moose-TestResources-LAN') ];
 				package: 'Moose-Tests-SmalltalkImporter-Core' with: [ spec requires: #('Moose-Tests-Core') ];
 				package: 'Moose-Tests-SmalltalkImporter-KGB' with: [ spec requires: #('Moose-Tests-Core' 'KGBTestResources') ];
-				
 				package: 'Famix-Compatibility-Tests-C' with: [ spec requires: #('Famix-Compatibility-Entities') ];
 				package: 'Famix-Compatibility-Tests-Java' with: [ spec requires: #('Moose-Tests-Core') ];
 				package: 'Famix-Compatibility-Tests-Core' with: [ spec requires: #('Famix-Compatibility-Entities') ];
@@ -87,7 +76,7 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Famix-TestComposedSubmetamodel2-Entities' with: [ spec requires: #('Famix-Traits') ];
 				package: 'Famix-TestComposedMetamodel-Entities' with: [ spec requires: #('Famix-Test2-Entities' 'Famix-TestComposedSubmetamodel1-Entities' 'Famix-TestComposedSubmetamodel2-Entities') ];
 				package: 'Famix-TestComposedMetamodel' with: [ spec requires: #('Famix-TestComposedMetamodel-Entities') ].
-				
+
 			"Groups"
 			spec
 				group: 'Core' with: #('Famix-Traits' 'Moose-Query-Extensions');
@@ -97,14 +86,33 @@ BaselineOfFamix >> baseline: spec [
 				group: 'ModelJava' with: #('Famix-Java-Generator' 'Famix-Java-Entities');
 				group: 'ModelSmalltalk' with: #('Famix-PharoSmalltalk-Generator' 'Famix-PharoSmalltalk-Entities' 'Famix-PharoSmalltalk-Importer');
 				group: 'Importers' with: #('Moose-GenericImporter' 'Moose-SmalltalkImporter' 'Moose-MonticelloImporter');
-				group: 'Tests' with: #('Moose-Query-Test' 'Moose-Tests-Core' 'Famix-Smalltalk-Utils-Tests' 'Moose-Tests-SmalltalkImporter-LAN' 'Moose-Tests-SmalltalkImporter-Core' 'Moose-Tests-SmalltalkImporter-KGB' 'Famix-Compatibility-Tests-C' 'Famix-Compatibility-Tests-Java' 'Famix-Compatibility-Tests-Core' 'Famix-Compatibility-Tests-Extensions' 'Moose-Tests-MonticelloImporter' 'Famix-TestGenerators' 'Famix-MetamodelBuilder-Tests' 'Famix-Test1-Entities' 'Famix-Test1-Tests' 'Famix-Test2-Entities' 'Famix-Test2-Tests' 'Famix-Test3-Entities' 'Famix-Test3-Tests' 'Famix-Test4-Entities' 'Famix-Test4-Tests' 'Famix-TestComposedSubmetamodel1-Entities' 'Famix-TestComposedSubmetamodel2-Entities' 'Famix-TestComposedMetamodel-Entities'  'Famix-TestComposedMetamodel')
-				].
-			
-		spec
-			for: #'pharo7.x'
-			do: [ spec
-				package: 'Famix-MetamodelBuilder-Core' with: [ spec includes: #('Famix-MetamodelBuilder-Core-Pharo7') ];
-				package: 'Famix-MetamodelBuilder-Core-Pharo7' ]
+				group: 'Tests'
+					with:
+					#('Moose-Query-Test' 'Moose-Tests-Core' 'Famix-Smalltalk-Utils-Tests' 'Moose-Tests-SmalltalkImporter-LAN' 'Moose-Tests-SmalltalkImporter-Core' 'Moose-Tests-SmalltalkImporter-KGB' 'Famix-Compatibility-Tests-C' 'Famix-Compatibility-Tests-Java' 'Famix-Compatibility-Tests-Core' 'Famix-Compatibility-Tests-Extensions' 'Moose-Tests-MonticelloImporter' 'Famix-TestGenerators' 'Famix-MetamodelBuilder-Tests' 'Famix-Test1-Entities' 'Famix-Test1-Tests' 'Famix-Test2-Entities' 'Famix-Test2-Tests' 'Famix-Test3-Entities' 'Famix-Test3-Tests' 'Famix-Test4-Entities' 'Famix-Test4-Tests' 'Famix-TestComposedSubmetamodel1-Entities' 'Famix-TestComposedSubmetamodel2-Entities' 'Famix-TestComposedMetamodel-Entities' 'Famix-TestComposedMetamodel') ].
+
+	"We need different versions of Ring for Pharo 7 and 8."
+	spec
+		for: #'pharo7.x'
+		do: [ spec
+				baseline: 'Ring2'
+				with: [ spec
+						loads: 'runtimeSupport';
+						repository: 'github://pavel-krivanek/Ring2:v1.2.0/src' ].
+			spec
+				package: 'Famix-MetamodelBuilder-Core'
+					with: [ spec
+						includes: #('Famix-MetamodelBuilder-Core-Pharo7');
+						requires: #('Ring2') ];
+				package: 'Famix-MetamodelBuilder-Core-Pharo7' ].
+
+	spec
+		for: #'pharo8.x'
+		do: [ spec
+				baseline: 'Ring2'
+				with: [ spec
+						loads: 'runtimeSupport';
+						repository: 'github://pavel-krivanek/Ring2:RGPackageRenamed/src' ].
+			spec package: 'Famix-MetamodelBuilder-Core' with: [ spec requires: #('Ring2') ] ]
 ]
 
 { #category : #dependencies }
@@ -140,15 +148,6 @@ BaselineOfFamix >> packageBlueprintTestResources: spec [
 { #category : #dependencies }
 BaselineOfFamix >> referenceTestResources: spec [
 	spec baseline: 'ReferenceTestResources' with: [ spec repository: 'github://jecisc/ReferenceTestResources:v1.x.x/src' ]
-]
-
-{ #category : #dependencies }
-BaselineOfFamix >> ring2: spec [
-	spec
-		baseline: 'Ring2'
-		with: [ spec
-				loads: 'runtimeSupport';
-				repository: 'github://pavel-krivanek/Ring2:v1.2.0/src' ]
 ]
 
 { #category : #dependencies }
