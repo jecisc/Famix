@@ -150,6 +150,11 @@ BaselineOfFamix >> packageBlueprintTestResources: spec [
 	spec baseline: 'PackageBlueprintTestResources' with: [ spec repository: 'github://jecisc/PackageBlueprintTestResources:v1.x.x/src' ]
 ]
 
+{ #category : #accessing }
+BaselineOfFamix >> projectClass [
+	^ MetacelloCypressBaselineProject
+]
+
 { #category : #dependencies }
 BaselineOfFamix >> referenceTestResources: spec [
 	spec baseline: 'ReferenceTestResources' with: [ spec repository: 'github://jecisc/ReferenceTestResources:v1.x.x/src' ]
