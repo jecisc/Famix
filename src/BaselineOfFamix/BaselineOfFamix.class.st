@@ -7,6 +7,9 @@ Baseline for the Famix project
 Class {
 	#name : #BaselineOfFamix,
 	#superclass : #BaselineOf,
+	#instVars : [
+		'repository'
+	],
 	#category : #BaselineOfFamix
 }
 
@@ -34,6 +37,7 @@ BaselineOfFamix >> baseline: spec [
 				package: 'Moose-Query-Extensions' with: [ spec requires: #('Moose-Query' 'Famix-Traits') ];
 				package: 'Famix-Groups' with: [ spec requires: #('Moose-Core' 'NeoCSV') ];
 				package: 'Famix-Traits' with: [ spec requires: #('Famix-Groups' 'Moose-Core') ];
+				package: 'Famix-Traits-Extensions' with: [ spec requires: #('Famix-Traits') ];
 				package: 'Famix-MetamodelBuilder-Core' with: [ spec requires: #('Famix-Traits') ];
 				package: 'Famix-MetamodelGeneration' with: [ spec requires: #('Famix-MetamodelBuilder-Core') ];
 				package: 'Famix-BasicInfrastructure' with: [ spec requires: #('Famix-MetamodelBuilder-Core') ];
@@ -77,7 +81,7 @@ BaselineOfFamix >> baseline: spec [
 
 			"Groups"
 			spec
-				group: 'Core' with: #('Famix-Traits' 'Moose-Query-Extensions');
+				group: 'Core' with: #('Famix-Traits' 'Moose-Query-Extensions' 'Famix-Traits-Extensions');
 				group: 'Basic' with: #('Famix-BasicInfrastructure' 'Famix-MetamodelGeneration');
 				group: 'TestsResources' with: #('ReferenceTestResources' 'Moose-TestResources-LAN' 'Moose-TestResources-LCOM' 'KGBTestResources' 'PackageBlueprintTestResources');
 				group: 'ModelCompatibility' with: #('Famix-Compatibility-Generator' 'Famix-Compatibility-Entities');
