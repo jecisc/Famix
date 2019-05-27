@@ -135,7 +135,7 @@ FAMIXMethod >> copyFrom: anEntity within: aVisitor [
 
 	super copyFrom: anEntity within: aVisitor.
 	self kind: anEntity kind copy.
-	self category: anEntity category copy.
+	self protocol: anEntity protocol copy.
 
 
 ]
@@ -188,7 +188,7 @@ FAMIXMethod >> implementMethod [
 { #category : #initialization }
 FAMIXMethod >> initialize [
 	super initialize.
-	hasClassScope := false
+	isClassSide := false
 ]
 
 { #category : #'Famix-Java' }

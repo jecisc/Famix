@@ -1,12 +1,12 @@
 Class {
 	#name : #FAMIXPackage,
 	#superclass : #FAMIXScopingEntity,
-	#traits : 'FamixTPackage + FamixTPackageWithClassesGlue',
-	#classTraits : 'FamixTPackage classTrait + FamixTPackageWithClassesGlue classTrait',
+	#traits : 'FamixTCohesionCouplingMetrics + FamixTPackage + FamixTPackageWithClassesGlue',
+	#classTraits : 'FamixTCohesionCouplingMetrics classTrait + FamixTPackage classTrait + FamixTPackageWithClassesGlue classTrait',
 	#category : #'Famix-Compatibility-Entities-Entities'
 }
 
-{ #category : #meta }
+{ #category : #'as yet unclassified' }
 FAMIXPackage class >> annotation [
 
 	<MSEClass: #Package super: #FAMIXScopingEntity>
@@ -15,17 +15,17 @@ FAMIXPackage class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
+{ #category : #'as yet unclassified' }
 FAMIXPackage class >> generatedSlotNames [
 	<generated>
 	'FAMIXPackage class>>#generatedSlotNames'.
 	^ #()
 ]
 
-{ #category : #generator }
+{ #category : #'as yet unclassified' }
 FAMIXPackage class >> generatedTraitNames [
 	<generated>
-	^ #(FamixTPackage FamixTPackageWithClassesGlue)
+	^ #(FamixTCohesionCouplingMetrics FamixTPackage FamixTPackageWithClassesGlue)
 ]
 
 { #category : #meta }
