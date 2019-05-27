@@ -7,6 +7,8 @@ A class is typically scoped in a namespace. To model nested or anonymous classes
 "
 Trait {
 	#name : #FamixTClass,
+	#traits : 'FamixTWithMethods + FamixTWithSubInheritances + FamixTWithSuperInheritances + FamixTWithAttributes + FamixTLCOMMetrics',
+	#classTraits : 'FamixTWithMethods classTrait + FamixTWithSubInheritances classTrait + FamixTWithSuperInheritances classTrait + FamixTWithAttributes classTrait + FamixTLCOMMetrics classTrait',
 	#category : #'Famix-Traits-Class'
 }
 
@@ -45,21 +47,6 @@ FamixTClass >> isClass [
 
 	<generated>
 	^ true
-]
-
-{ #category : #testing }
-FamixTClass >> isInterface [
-
-	<MSEProperty: #isInterface type: #Boolean>
-	<MSEComment: 'This is a boolean flag used to distinguish between classes with implementation and interfaces'>
-
-	^ self privateState attributeAt: #isInterface ifAbsent: [ false ]
-]
-
-{ #category : #testing }
-FamixTClass >> isInterface: aBoolean [
-
-	^ self privateState attributeAt: #isInterface put: true
 ]
 
 { #category : #testing }
