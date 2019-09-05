@@ -10,26 +10,20 @@ Trait {
 FamixTWithPackages classSide >> annotation [
 
 	<MSEClass: #TWithPackages super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithPackages classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithPackages class>>#generatedSlotNames'.
-	^ #(packages)
-]
+{ #category : #accessing }
+FamixTWithPackages >> addPackage: anObject [
+	packages add: anObject
 
-{ #category : #generator }
-FamixTWithPackages classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithPackages >> packages [
+	"Relation named: #packages type: #FamixTPackage opposite: #packageOwner"
 
 	<generated>
 	^ packages

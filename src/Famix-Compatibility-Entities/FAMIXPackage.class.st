@@ -6,33 +6,13 @@ Class {
 	#category : #'Famix-Compatibility-Entities-Entities'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #meta }
 FAMIXPackage class >> annotation [
 
 	<MSEClass: #Package super: #FAMIXScopingEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #'as yet unclassified' }
-FAMIXPackage class >> generatedSlotNames [
-	<generated>
-	'FAMIXPackage class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #'as yet unclassified' }
-FAMIXPackage class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTCohesionCouplingMetrics FamixTPackage FamixTPackageWithClassesGlue)
-]
-
-{ #category : #meta }
-FAMIXPackage class >> requirements [
-
-	<generated>
-	^ {  }
 ]
 
 { #category : #'Famix-Implementation' }
@@ -55,12 +35,6 @@ FAMIXPackage >> abstractness [
 	^ (nsClasses select: [:c | c isAbstract]) size / (nsClasses size)
 ]
 
-{ #category : #'Famix-Extensions' }
-FAMIXPackage >> accept: aVisitor [
-
-	aVisitor visitPackage: self
-]
-
 { #category : #accessing }
 FAMIXPackage >> addChildNamedEntity: aNamedEntity [
 	childEntities add: aNamedEntity
@@ -73,7 +47,7 @@ FAMIXPackage >> afferentCoupling [
 	<MSEProperty: #afferentCoupling type: #Number>
 	<derived>
 	<MSEComment: 'Afferent Coupling of a package'>
-	^ ((self queryIncomingDependencies atScope: FamixTType) outOfMyPackage
+	^ (((self queryIncomingDependencies atScope: FamixTType) outOfParentUsing: FamixTPackage)
 		select: [ :c | c isInstanceSide ]) size
 ]
 
@@ -95,7 +69,7 @@ FAMIXPackage >> bunchCohesion [
 	myClasses := myClasses select: [ :c | c isInstanceSide ].
 	myClasses size == 0
 		ifTrue: [ ^ nil ].
-	intraConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) withinMyPackage ])
+	intraConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) withinParentUsing: FamixTPackage ])
 		inject: 0
 		into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ].
 	^ intraConnectivities / myClasses size squared asFloat
@@ -114,14 +88,14 @@ FAMIXPackage >> bunchCouplingWith: aPackage [
 		ifTrue: [ ^ nil ].
 
 	"All outgoing dependencies"
-	interConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) withinPackage: aPackage ])
+	interConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) within: aPackage ])
 		inject: 0
 		into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ].
 
 	"Plus all incoming dependencies"
 	interConnectivities := interConnectivities
 		+
-			((myClasses collect: [ :c | (c queryIncomingDependencies atScope: FamixTType) withinPackage: aPackage ])
+			((myClasses collect: [ :c | (c queryIncomingDependencies atScope: FamixTType) within: aPackage ])
 				inject: 0
 				into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ]).
 	^ interConnectivities / (2 * myClasses size * otherClasses size) asFloat
@@ -139,14 +113,14 @@ FAMIXPackage >> bunchCouplingWithAll [
 		ifTrue: [ ^ nil ].
 
 	"All outgoing dependencies"
-	interConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) outOfMyPackage ])
+	interConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) outOfParentUsing: FamixTPackage ])
 		inject: 0
 		into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ].
 
 	"Plus all incoming dependencies"
 	interConnectivities := interConnectivities
 		+
-			((myClasses collect: [ :c | (c queryIncomingDependencies atScope: FAMIXType) outOfMyPackage ]) inject: 0 into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ]).
+			((myClasses collect: [ :c | (c queryIncomingDependencies atScope: FAMIXType) outOfParentUsing: FamixTPackage ]) inject: 0 into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ]).
 	^ interConnectivities / (2 * myClasses size * (allClasses size - myClasses size)) asFloat
 ]
 
@@ -164,7 +138,7 @@ FAMIXPackage >> childNamedEntities: aNamedEntity [
 
 { #category : #'Famix-Extensions' }
 FAMIXPackage >> childrenOfMyKind [
-	^ self childNamedEntities allWithSubTypesOf: self class
+	^ self childEntities allWithSubTypesOf: self class
 ]
 
 { #category : #'Famix-Implementation' }
@@ -172,19 +146,6 @@ FAMIXPackage >> classes [
 
 	^ self privateState 	cacheAt: #classes 
 							ifAbsentPut: [ self childEntities select: [ :child | child isClass ]]
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXPackage >> clientClasses [
-	self deprecated: 'use clientTypes'.
-	^ self clientTypes
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXPackage >> clientPackages [
-	"^ self inheritedByPackages union: self invokingPackages"
-
-	^ (self queryAllIncoming atScope: FamixTPackage) withoutSelfLoops
 ]
 
 { #category : #'Famix-Extensions-accessing' }
@@ -197,44 +158,12 @@ FAMIXPackage >> concernedClassesCollection [
 
 { #category : #'Famix-Extensions' }
 FAMIXPackage >> containedEntities [
-	^ super containedEntities union: self childNamedEntities
+	^ super containedEntities union: self childEntities
 ]
 
 { #category : #'Famix-Extensions-accessing' }
 FAMIXPackage >> containedEntities: collection [
 	self definedClasses: collection.
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXPackage >> copyFrom: anEntity within: aVisitor [
-
-	super copyFrom: anEntity within: aVisitor.
-	
-	anEntity childNamedEntities do: [:c|
-		self addChildNamedEntity: (aVisitor visit: c ) ].
-
-]
-
-{ #category : #'Famix-Smalltalk' }
-FAMIXPackage >> createPackagesFromCategories [
-	<menuItem: 'Create packages from package categories' category: 'Utilities'>
-	"Inspired by the Moose Smalltalk Category importer"
-	| cat famixCat |
-	
-	self localClasses do:[ :class |
-		cat := (Smalltalk at: class instanceSide name) category.
-		famixCat := self mooseModel allPackages detect: [:each | each mooseName = cat] ifNone: [nil].
-		famixCat ifNil: [
-			famixCat := self mooseModel add: (FAMIXPackage new name: cat; stub: true)
-		].
-		class isStub
-			ifFalse: [ famixCat stub: false ].
-		class localMethods do:[:aMethod |
-			aMethod parentPackage: famixCat ].
-		class parentPackage: famixCat.
-	].
-	self privateState flushGroups.
-	self mooseModel cacheMooseGroups
 ]
 
 { #category : #'Famix-Smalltalk' }
@@ -245,30 +174,13 @@ FAMIXPackage >> definedMethods [
 ]
 
 { #category : #'Famix-Extensions-metrics' }
-FAMIXPackage >> distance [
-	"D = A + I - 1. A package should be balanced between abstractness and instability, i.e., somewhere between abstract and stable or concrete and unstable. This rule defines the main sequence by the equation A + I - 1 = 0. D is the distance to the main sequence."
-	<MSEProperty: #distance type: #Number>
-	<derived>
-	<MSEComment: 'Distance of a package'>
-
-	
-	| abstractness instability |
-	abstractness := self abstractness.
-	instability := self instability.
-	
-	(abstractness isNil or: [instability isNil]) ifTrue: [^ nil].
-	^ abstractness + instability - 1
-	
-]
-
-{ #category : #'Famix-Extensions-metrics' }
 FAMIXPackage >> efferentCoupling [
 	"Efferent coupling for a package is the number of classes it depends upon"
 
 	<MSEProperty: #efferentCoupling type: #Number>
 	<derived>
 	<MSEComment: 'Efferent Coupling of a package'>
-	^ ((self queryAllOutgoing outOfMyPackage atScope: FamixTType) select: [ :c | c isInstanceSide ]) size
+	^ (((self queryAllOutgoing outOfParentUsing: FamixTPackage) atScope: FamixTType) select: [ :c | c isInstanceSide ]) size
 ]
 
 { #category : #'Famix-Smalltalk' }
@@ -323,22 +235,6 @@ FAMIXPackage >> historicalUniqueName [
 		ifFalse: [ self parentPackage historicalUniqueName , '.' , self name ]) asSymbol
 ]
 
-{ #category : #'Famix-Extensions-metrics' }
-FAMIXPackage >> instability [
-	"I =	Ce(P)/(Ce(P)+Ca(P)), in the range [0, 1]. 0 means package is maximally stable (i.e., no dependency to other packages and can not change without big consequences), 1 means it is unstable."
-
-	<MSEProperty: #instability type: #Number>
-	<derived>
-	<MSEComment: 'Instability of a package'>
-
-	| efferentCoupling afferentCoupling |
-	
-	efferentCoupling := self efferentCoupling.
-	afferentCoupling := self afferentCoupling.
-	(efferentCoupling + afferentCoupling) == 0 ifTrue: [^ nil].
-	^ efferentCoupling / (efferentCoupling + afferentCoupling)
-]
-
 { #category : #'Famix-Smalltalk' }
 FAMIXPackage >> localClasses [
 	"select all local classes. Just an alias"
@@ -376,7 +272,7 @@ FAMIXPackage >> martinCohesion [
 	myClasses := (myClasses union: (myClasses flatCollect: [ :c | c allRecursiveTypes ])) select: [ :c | c isInstanceSide ].
 	myClasses size == 0
 		ifTrue: [ ^ nil ].
-	intraConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) withoutSelfLoops withinMyPackage ])
+	intraConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) withoutSelfLoops withinParentUsing: FamixTPackage ])
 		inject: 0
 		into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ].
 	^ ((intraConnectivities + 1) / myClasses size) asFloat
@@ -385,13 +281,6 @@ FAMIXPackage >> martinCohesion [
 { #category : #'Famix-Implementation' }
 FAMIXPackage >> methods [
 	^ self localMethods union: self extensionMethods
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXPackage >> namespaceScope [
-
-	self shouldNotImplement 
-
 ]
 
 { #category : #'Famix-Extensions-metrics' }
@@ -405,15 +294,10 @@ FAMIXPackage >> numberOfClasses [
 
 { #category : #'Famix-Extensions' }
 FAMIXPackage >> numberOfClientPackages [
-"	<property: #CP longName: 'Number of client packages' description:
-			'The number of packages which depend on this package'>"
-
 	<MSEProperty: #numberOfClientPackages type: #Number>
 	<MSEComment: 'The number of packages which depend on this package'>
 	<derived>
-
-	^ self lookUpPropertyNamed: #numberOfClientPackages
-				 computedAs: [ self clientPackages size ]
+	^ self lookUpPropertyNamed: #numberOfClientPackages computedAs: [ self allClients size ]
 ]
 
 { #category : #'Famix-Extensions' }
@@ -468,28 +352,6 @@ FAMIXPackage >> printOn: aStream [
 	aStream nextPutAll: ' (Package)'
 ]
 
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXPackage >> providerClasses [
-	self deprecated: 'use providerTypes'.
-	^ self providerTypes
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXPackage >> providerPackages [
-	"^ self inheritedPackages union: self invokedPackages"
-
-	^ (self queryAllOutgoing atScope: FamixTPackage) withoutSelfLoops
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXPackage >> providerTypes [
-	<MSEProperty: #providerTypes type: #FAMIXType>
-	<derived>
-	<multivalued>
-	<MSEComment: 'All types that the receiver depends on'>
-	^ (self queryAllOutgoing atScope: FamixTType) withoutSelfLoops
-]
-
 { #category : #'Famix-Extensions-metrics' }
 FAMIXPackage >> relativeImportanceForSystem [
 	<MSEProperty: #relativeImportanceForSystem type: #Number>
@@ -504,9 +366,4 @@ FAMIXPackage >> relativeImportanceForSystem [
 							]
 						ifFalse: [0]
 						]
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXPackage >> selectWithinYourScope: aMooseQueryResult [
-	^ aMooseQueryResult withinPackage: self
 ]

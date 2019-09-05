@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixStAnnotationInstance,
 	#superclass : #FamixStSourcedEntity,
-	#traits : 'FamixTAnnotationInstance + FamixTTypedAnnotationInstance + FamixTWithAnnotationInstanceAttributes + TDependencyQueries + TEntityMetaLevelDependency',
-	#classTraits : 'FamixTAnnotationInstance classTrait + FamixTTypedAnnotationInstance classTrait + FamixTWithAnnotationInstanceAttributes classTrait + TDependencyQueries classTrait + TEntityMetaLevelDependency classTrait',
+	#traits : 'FamixTAnnotationInstance + FamixTTypedAnnotationInstance + FamixTWithAnnotationInstanceAttributes',
+	#classTraits : 'FamixTAnnotationInstance classTrait + FamixTTypedAnnotationInstance classTrait + FamixTWithAnnotationInstanceAttributes classTrait',
 	#category : #'Famix-PharoSmalltalk-Entities-Entities'
 }
 
@@ -15,31 +15,11 @@ FamixStAnnotationInstance class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixStAnnotationInstance class >> generatedSlotNames [
-	<generated>
-	'FamixStAnnotationInstance class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStAnnotationInstance class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAnnotationInstance FamixTTypedAnnotationInstance FamixTWithAnnotationInstanceAttributes TDependencyQueries TEntityMetaLevelDependency)
-]
-
 { #category : #meta }
 FamixStAnnotationInstance class >> requirements [
 
 	<generated>
 	^ { FamixStNamedEntity }
-]
-
-{ #category : #'as yet unclassified' }
-FamixStAnnotationInstance class >> resetMooseQueryCaches [
-	super resetMooseQueryCaches.
-	self resetTEntityMetaLevelDependencyCaches.
-
 ]
 
 { #category : #accessing }

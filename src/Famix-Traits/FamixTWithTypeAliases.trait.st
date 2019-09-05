@@ -10,22 +10,15 @@ Trait {
 FamixTWithTypeAliases classSide >> annotation [
 
 	<MSEClass: #TWithTypeAliases super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithTypeAliases classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithTypeAliases class>>#generatedSlotNames'.
-	^ #(typeAliases)
-]
+{ #category : #accessing }
+FamixTWithTypeAliases >> addTypeAlias: anObject [
+	typeAliases add: anObject
 
-{ #category : #generator }
-FamixTWithTypeAliases classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -38,6 +31,7 @@ FamixTWithTypeAliases >> allTypeAliases [
 
 { #category : #accessing }
 FamixTWithTypeAliases >> typeAliases [
+	"Relation named: #typeAliases type: #FamixTTypeAlias opposite: #aliasedType"
 
 	<generated>
 	<MSEComment: 'Aliases'>

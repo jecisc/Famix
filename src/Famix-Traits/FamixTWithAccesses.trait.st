@@ -10,26 +10,14 @@ Trait {
 FamixTWithAccesses classSide >> annotation [
 
 	<MSEClass: #TWithAccesses super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithAccesses classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithAccesses class>>#generatedSlotNames'.
-	^ #(accesses)
-]
-
-{ #category : #generator }
-FamixTWithAccesses classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithAccesses >> accesses [
+	"Relation named: #accesses type: #FamixTAccess opposite: #accessor"
 
 	<generated>
 	<MSEComment: 'Accesses to variables made by this behaviour.'>

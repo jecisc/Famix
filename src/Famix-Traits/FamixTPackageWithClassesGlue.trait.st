@@ -7,22 +7,9 @@ Trait {
 FamixTPackageWithClassesGlue classSide >> annotation [
 
 	<MSEClass: #TPackageWithClassesGlue super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTPackageWithClassesGlue classSide >> generatedSlotNames [
-	<generated>
-	'FamixTPackageWithClassesGlue class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTPackageWithClassesGlue classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #'Famix-Implementation' }

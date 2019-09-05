@@ -10,42 +10,23 @@ Trait {
 FamixTPackageable classSide >> annotation [
 
 	<MSEClass: #TPackageable super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTPackageable classSide >> generatedSlotNames [
-	<generated>
-	'FamixTPackageable class>>#generatedSlotNames'.
-	^ #(parentPackage)
-]
-
-{ #category : #generator }
-FamixTPackageable classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTPackageable >> isExtension [
-	^self belongsTo packageScope ~~ self packageScope.
-]
-
-{ #category : #accessing }
-FamixTPackageable >> packageScope [
-
-	self explicitRequirement
+	^ (self belongsTo atScope: FamixTPackage) ~= (self atScope: FamixTPackage)
 ]
 
 { #category : #accessing }
 FamixTPackageable >> parentPackage [
+	"Relation named: #parentPackage type: #FamixTPackage opposite: #childEntities"
 
 	<generated>
 	<MSEComment: 'Package containing the entity in the code structure (if applicable)'>
 	<container>
-
 	^ parentPackage
 ]
 
@@ -59,9 +40,7 @@ FamixTPackageable >> parentPackage: anObject [
 
 { #category : #navigation }
 FamixTPackageable >> parentPackageGroup [
-
 	<generated>
 	<navigation: 'ParentPackage'>
-	^ MooseGroup
-			with: (self parentPackage)
+	^ MooseGroup with: self parentPackage
 ]

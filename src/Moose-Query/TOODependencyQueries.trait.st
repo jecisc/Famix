@@ -14,22 +14,9 @@ Trait {
 TOODependencyQueries classSide >> annotation [
 
 	<MSEClass: #TOODependencyQueries super: #Trait>
-	<generated>
 	<package: #'Moose-Query'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-TOODependencyQueries classSide >> generatedSlotNames [
-	<generated>
-	'TOODependencyQueries class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-TOODependencyQueries classSide >> generatedTraitNames [
-	<generated>
-	^ #(TDependencyQueries)
 ]
 
 { #category : #testing }

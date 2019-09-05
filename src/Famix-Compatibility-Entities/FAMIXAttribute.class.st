@@ -18,30 +18,11 @@ FAMIXAttribute class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXAttribute class >> generatedSlotNames [
-	<generated>
-	'FAMIXAttribute class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXAttribute class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAttribute FamixTWithClassScope)
-]
-
 { #category : #meta }
 FAMIXAttribute class >> requirements [
 
 	<generated>
 	^ { FAMIXType }
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXAttribute >> accept: aVisitor [
-
-	aVisitor visitAttribute: self
 ]
 
 { #category : #'Famix-Smalltalk' }
@@ -70,13 +51,6 @@ FAMIXAttribute >> belongsTo: anObject [
 	<generated>
 	self parentType: anObject
 
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXAttribute >> copyFrom: anEntity within: aVisitor [
-
-	super copyFrom: anEntity within: aVisitor.
-	self hasClassScope: anEntity hasClassScope
 ]
 
 { #category : #accessing }
@@ -134,16 +108,6 @@ FAMIXAttribute >> mooseNameOn: aStream [
 	self name ifNotNil: [ aStream nextPutAll: self name ].
 ]
 
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXAttribute >> namespaceScope [
-	^ self parentType namespaceScope
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXAttribute >> packageScope [
-	^ self parentType packageScope
-]
-
 { #category : #'Famix-Implementation' }
 FAMIXAttribute >> printOn: aStream [ 
 	| parent |
@@ -153,9 +117,4 @@ FAMIXAttribute >> printOn: aStream [
 		aStream nextPut: $. ].
 	self name ifNotNil: [ aStream nextPutAll: self name ].
 	aStream nextPutAll: ' (Attribute)'
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXAttribute >> typeScope [
-	^ self parentType
 ]

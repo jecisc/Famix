@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixJavaSourcedEntity,
 	#superclass : #FamixJavaEntity,
-	#traits : 'FamixTWithComments + FamixTWithFiles + FamixTWithSourceAnchor + FamixTWithSourceLanguage',
-	#classTraits : 'FamixTWithComments classTrait + FamixTWithFiles classTrait + FamixTWithSourceAnchor classTrait + FamixTWithSourceLanguage classTrait',
+	#traits : 'FamixTSourceEntity + FamixTWithComments + FamixTWithFiles',
+	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithComments classTrait + FamixTWithFiles classTrait',
 	#category : #'Famix-Java-Entities-Entities'
 }
 
@@ -13,37 +13,6 @@ FamixJavaSourcedEntity class >> annotation [
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixJavaSourcedEntity class >> generatedSlotNames [
-	<generated>
-	'FamixJavaSourcedEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaSourcedEntity class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTWithComments FamixTWithFiles FamixTWithSourceAnchor FamixTWithSourceLanguage)
-]
-
-{ #category : #meta }
-FamixJavaSourcedEntity class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaSourcedEntity >> accept: aVisitor [
-
-	aVisitor visitEntity: self
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaSourcedEntity >> addComment: aComment [
-	self privateAddComment: aComment asFamixJavaComment
 ]
 
 { #category : #accessing }
@@ -63,15 +32,6 @@ FamixJavaSourcedEntity >> containerFiles: aColl [
 	"This method is a hack for now because we need an opposite to the files."
 
 	
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaSourcedEntity >> copyFrom: anEntity within: aVisitor [
-
-	sourceAnchor := aVisitor visit: anEntity sourceAnchor.
-	anEntity comments do: [:com | 
-		self comments add: (aVisitor visit: com) ].
-
 ]
 
 { #category : #'as yet unclassified' }
@@ -120,11 +80,6 @@ FamixJavaSourcedEntity >> fileAnchorPath: aString startPos: anInteger endPos: an
 				startPos: anInteger
 				endPos: anotherInteger
 				model: self mooseModel)
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaSourcedEntity >> isImplicitVariable [
-	^false
 ]
 
 { #category : #'as yet unclassified' }

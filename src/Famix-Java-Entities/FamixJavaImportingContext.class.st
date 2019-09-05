@@ -4,19 +4,6 @@ Class {
 	#category : #'Famix-Java-Entities'
 }
 
-{ #category : #generator }
-FamixJavaImportingContext class >> generatedSlotNames [
-	<generated>
-	'FamixJavaImportingContext class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaImportingContext class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #testing }
 FamixJavaImportingContext >> importAbstractFile [
 
@@ -316,13 +303,6 @@ FamixJavaImportingContext >> importSourcedEntity [
 
 	<generated>
 	^ self import: FamixJavaSourcedEntity
-]
-
-{ #category : #testing }
-FamixJavaImportingContext >> importStructuralEntity [
-
-	<generated>
-	^ self import: FamixJavaStructuralEntity
 ]
 
 { #category : #testing }
@@ -652,13 +632,6 @@ FamixJavaImportingContext >> shouldImportSourcedEntity [
 
 	<generated>
 	^ self shouldImport: FamixJavaSourcedEntity
-]
-
-{ #category : #testing }
-FamixJavaImportingContext >> shouldImportStructuralEntity [
-
-	<generated>
-	^ self shouldImport: FamixJavaStructuralEntity
 ]
 
 { #category : #testing }

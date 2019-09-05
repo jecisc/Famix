@@ -16,32 +16,35 @@ FamixTest4Room class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTest4Room class >> generatedSlotNames [
-	<generated>
-	'FamixTest4Room class>>#generatedSlotNames'.
-	^ #(school)
-]
-
-{ #category : #generator }
-FamixTest4Room class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FamixTest4Room class >> requirements [
 
 	<generated>
-	^ { FamixTest4Room }
+	^ { FamixTest4School }
+]
+
+{ #category : #accessing }
+FamixTest4Room >> belongsTo [
+
+	<generated>
+	^ self school
+
+]
+
+{ #category : #accessing }
+FamixTest4Room >> belongsTo: anObject [
+
+	<generated>
+	self school: anObject
+
 ]
 
 { #category : #accessing }
 FamixTest4Room >> school [
+	"Relation named: #school type: #FamixTest4School opposite: #rooms"
 
 	<generated>
 	<container>
-
 	^ school
 ]
 
@@ -55,9 +58,7 @@ FamixTest4Room >> school: anObject [
 
 { #category : #navigation }
 FamixTest4Room >> schoolGroup [
-
 	<generated>
 	<navigation: 'School'>
-	^ MooseGroup
-			with: (self school)
+	^ MooseGroup with: self school
 ]

@@ -58,7 +58,6 @@ Class {
 		'thrownException',
 		'type',
 		'typeAlias',
-		'uNKNOWNSourceLanguage',
 		'unknownVariable',
 		'trait',
 		'traitUsage'
@@ -157,13 +156,11 @@ FamixCompatibilityGenerator >> defineClasses [
 	thrownException := builder newClassNamed: #ThrownException.
 	type := builder newClassNamed: #Type.
 	typeAlias := builder newClassNamed: #TypeAlias.
-	uNKNOWNSourceLanguage := builder newClassNamed: #UnknownSourceLanguage.
 	unknownVariable := builder newClassNamed: #UnknownVariable.
 	trait := builder newClassNamed: #Trait.
 	traitUsage := builder newClassNamed: #TraitUsage.
 
-	primitiveType withTesting.
-	containerEntity withTesting.
+	primitiveType withTesting
 
 
 ]
@@ -182,14 +179,10 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	annotationInstance --|> #TAnnotationInstance.
 	annotationInstance --|> #TWithAnnotationInstanceAttributes.
 	annotationInstance --|> #TTypedAnnotationInstance.
-	annotationInstance --|> #TEntityMetaLevelDependency.
-	annotationInstance --|> #TDependencyQueries.
 
 	annotationInstanceAttribute --|> sourcedEntity.
 	annotationInstanceAttribute --|> #TAnnotationInstanceAttribute.
 	annotationInstanceAttribute --|> #TTypedAnnotationInstanceAttribute.
-	annotationInstanceAttribute --|> #TEntityMetaLevelDependency.
-	annotationInstanceAttribute --|> #TDependencyQueries.
 
 	annotationType --|> type.
 	annotationType --|> #TAnnotationType.
@@ -216,7 +209,7 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	behaviouralEntity --|> #TWithStatements.
 
 	cFile --|> file.
-	cFile --|> #TWithFileInclude.
+	cFile --|> #TWithFileIncludes.
 
 	cPPSourceLanguage --|> cSourceLanguage.
 
@@ -294,7 +287,6 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	method --|> #TWithThrownExceptions.
 	method --|> #TWithDeclaredExceptions.
 	method --|> #TWithCaughtExceptions.
-	method --|> #TWithClassScope.
 
 	module --|> scopingEntity.
 	module --|> #TModule.
@@ -347,17 +339,14 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	scopingEntity --|> #TScopingEntity.
 
 	structuralEntity --|> leafEntity.
-	structuralEntity --|> #TAccessible.
+	structuralEntity --|> #TStructuralEntity.
 	structuralEntity --|> #TWithDereferencedInvocations.
-	structuralEntity --|> #TTypedStructure.
 
 	thrownException --|> exception.
 	thrownException --|> #TThrownException.
 
 	type --|> containerEntity.
 	type --|> #TType.
-	type --|> #TReferenceable.
-	type --|> #TWithTypedStructures.
 	type --|> #TWithTypeAliases.
 	type --|> #TWithMethods.
 	type --|> #TWithSuperInheritances.
@@ -369,8 +358,6 @@ FamixCompatibilityGenerator >> defineHierarchy [
 
 	typeAlias --|> type.
 	typeAlias --|> #TTypeAlias.
-
-	uNKNOWNSourceLanguage --|> sourceLanguage.
 
 	unknownVariable --|> structuralEntity.
 	

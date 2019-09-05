@@ -16,22 +16,9 @@ Trait {
 FamixTSourceLanguage classSide >> annotation [
 
 	<MSEClass: #TSourceLanguage super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTSourceLanguage classSide >> generatedSlotNames [
-	<generated>
-	'FamixTSourceLanguage class>>#generatedSlotNames'.
-	^ #(sourcedEntities)
-]
-
-{ #category : #generator }
-FamixTSourceLanguage classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -48,6 +35,7 @@ FamixTSourceLanguage >> isAttached [
 
 { #category : #accessing }
 FamixTSourceLanguage >> sourcedEntities [
+	"Relation named: #sourcedEntities type: #FamixTWithSourceLanguage opposite: #declaredSourceLanguage"
 
 	<generated>
 	<MSEComment: 'References to the entities saying explicitly that are written in this language.'>

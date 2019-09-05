@@ -17,19 +17,6 @@ FamixTest4Student class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTest4Student class >> generatedSlotNames [
-	<generated>
-	'FamixTest4Student class>>#generatedSlotNames'.
-	^ #(school teachers)
-]
-
-{ #category : #generator }
-FamixTest4Student class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FamixTest4Student class >> requirements [
 
@@ -37,12 +24,34 @@ FamixTest4Student class >> requirements [
 	^ { FamixTest4School }
 ]
 
+{ #category : #adding }
+FamixTest4Student >> addTeachers: anObject [
+	<generated>
+	^ self teachers add: anObject
+]
+
+{ #category : #accessing }
+FamixTest4Student >> belongsTo [
+
+	<generated>
+	^ self school
+
+]
+
+{ #category : #accessing }
+FamixTest4Student >> belongsTo: anObject [
+
+	<generated>
+	self school: anObject
+
+]
+
 { #category : #accessing }
 FamixTest4Student >> school [
+	"Relation named: #school type: #FamixTest4School opposite: #students"
 
 	<generated>
 	<container>
-
 	^ school
 ]
 
@@ -56,15 +65,14 @@ FamixTest4Student >> school: anObject [
 
 { #category : #navigation }
 FamixTest4Student >> schoolGroup [
-
 	<generated>
 	<navigation: 'School'>
-	^ MooseGroup
-			with: (self school)
+	^ MooseGroup with: self school
 ]
 
 { #category : #accessing }
 FamixTest4Student >> teachers [
+	"Relation named: #teachers type: #FamixTest4Teacher opposite: #students"
 
 	<generated>
 	^ teachers
@@ -80,9 +88,7 @@ FamixTest4Student >> teachers: anObject [
 
 { #category : #navigation }
 FamixTest4Student >> teachersGroup [
-
 	<generated>
 	<navigation: 'Teachers'>
-	^ MooseGroup
-			withAll: (self teachers asSet)
+	^ MooseGroup withAll: self teachers asSet
 ]

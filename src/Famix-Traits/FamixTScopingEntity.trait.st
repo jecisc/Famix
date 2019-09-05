@@ -16,22 +16,9 @@ Trait {
 FamixTScopingEntity classSide >> annotation [
 
 	<MSEClass: #TScopingEntity super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTScopingEntity classSide >> generatedSlotNames [
-	<generated>
-	'FamixTScopingEntity class>>#generatedSlotNames'.
-	^ #(childScopes parentScope)
-]
-
-{ #category : #generator }
-FamixTScopingEntity classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -66,13 +53,8 @@ FamixTScopingEntity >> allParentScopesDo: aBlock [
 ]
 
 { #category : #accessing }
-FamixTScopingEntity >> allRecursiveScopes [
-	self deprecated: 'Use allChildScopes'.
-	^ self allChildScopes 
-]
-
-{ #category : #accessing }
 FamixTScopingEntity >> childScopes [
+	"Relation named: #childScopes type: #FamixTScopingEntity opposite: #parentScope"
 
 	<generated>
 	<MSEComment: 'Child scopes embedded in this scope, if any.'>
@@ -94,11 +76,11 @@ FamixTScopingEntity >> isRoot [
 
 { #category : #accessing }
 FamixTScopingEntity >> parentScope [
+	"Relation named: #parentScope type: #FamixTScopingEntity opposite: #childScopes"
 
 	<generated>
 	<MSEComment: 'Parent scope embedding this scope, if any.'>
 	<container>
-
 	^ parentScope
 ]
 
@@ -112,11 +94,9 @@ FamixTScopingEntity >> parentScope: anObject [
 
 { #category : #navigation }
 FamixTScopingEntity >> parentScopeGroup [
-
 	<generated>
 	<navigation: 'ParentScope'>
-	^ MooseGroup
-			with: (self parentScope)
+	^ MooseGroup with: self parentScope
 ]
 
 { #category : #accessing }

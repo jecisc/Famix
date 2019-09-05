@@ -28,26 +28,20 @@ Trait {
 FamixTAnnotationTypeAttribute classSide >> annotation [
 
 	<MSEClass: #TAnnotationTypeAttribute super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTAnnotationTypeAttribute classSide >> generatedSlotNames [
-	<generated>
-	'FamixTAnnotationTypeAttribute class>>#generatedSlotNames'.
-	^ #(annotationAttributeInstances)
-]
+{ #category : #accessing }
+FamixTAnnotationTypeAttribute >> addAnnotationAttributeInstance: anObject [
+	annotationAttributeInstances add: anObject
 
-{ #category : #generator }
-FamixTAnnotationTypeAttribute classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTAnnotationTypeAttribute >> annotationAttributeInstances [
+	"Relation named: #annotationAttributeInstances type: #FamixTTypedAnnotationInstanceAttribute opposite: #annotationTypeAttribute"
 
 	<generated>
 	<MSEComment: 'A collection of AnnotationInstanceAttribute which hold the usages of this attribute in actual AnnotationInstances'>

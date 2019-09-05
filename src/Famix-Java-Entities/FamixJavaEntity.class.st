@@ -30,47 +30,11 @@ FamixJavaEntity class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixJavaEntity class >> generatedSlotNames [
-	<generated>
-	'FamixJavaEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaEntity class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FamixJavaEntity class >> metamodel [
 
 	<generated>
 	^ (self class environment at: #FamixJavaGenerator) metamodel
-]
-
-{ #category : #meta }
-FamixJavaEntity class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #'Moose-Query' }
-FamixJavaEntity class >> resetMSEProperties [
-	"
-	self resetMSEProperties
-		"
-
-	self allSubclasses
-		do: [ :aSubClass | 
-			aSubClass resetMooseQueryCaches.]
-]
-
-{ #category : #'Moose-Query' }
-FamixJavaEntity class >> resetMooseQueryCaches [
-	"Here do nothing. Customize in subclasses."
 ]
 
 { #category : #'as yet unclassified' }
@@ -109,14 +73,7 @@ FamixJavaEntity >> isClass [
 ]
 
 { #category : #testing }
-FamixJavaEntity >> isContainerEntity [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixJavaEntity >> isFunction [
+FamixJavaEntity >> isImplicitVariable [
 
 	<generated>
 	^ false
@@ -166,6 +123,13 @@ FamixJavaEntity >> isPrimitiveType [
 
 { #category : #testing }
 FamixJavaEntity >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixJavaEntity >> isStructuralEntity [
 
 	<generated>
 	^ false

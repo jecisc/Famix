@@ -18,8 +18,8 @@ Trait {
 FamixTNamespace classSide >> annotation [
 
 	<MSEClass: #TNamespace super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -31,17 +31,10 @@ FamixTNamespace classSide >> famixTNamespaceRelatedGroup [
 	^ FAMIXNamespaceGroup
 ]
 
-{ #category : #generator }
-FamixTNamespace classSide >> generatedSlotNames [
-	<generated>
-	'FamixTNamespace class>>#generatedSlotNames'.
-	^ #(namespaceEntities namespaceOwner)
-]
+{ #category : #accessing }
+FamixTNamespace >> addNamespaceEntity: anObject [
+	namespaceEntities add: anObject
 
-{ #category : #generator }
-FamixTNamespace classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #testing }
@@ -53,6 +46,7 @@ FamixTNamespace >> isNamespace [
 
 { #category : #accessing }
 FamixTNamespace >> namespaceEntities [
+	"Relation named: #namespaceEntities type: #FamixTNamespaceEntity opposite: #parentNamespace"
 
 	<generated>
 	^ namespaceEntities
@@ -68,6 +62,7 @@ FamixTNamespace >> namespaceEntities: anObject [
 
 { #category : #accessing }
 FamixTNamespace >> namespaceOwner [
+	"Relation named: #namespaceOwner type: #FamixTWithNamespaces opposite: #namespaces"
 
 	<generated>
 	^ namespaceOwner

@@ -10,6 +10,8 @@ Trait {
 	#instVars : [
 		'#typeContainer => FMOne type: #FamixTWithTypes opposite: #types'
 	],
+	#traits : 'FamixTReferenceable + FamixTWithTypedStructures',
+	#classTraits : 'FamixTReferenceable classTrait + FamixTWithTypedStructures classTrait',
 	#category : #'Famix-Traits-Type'
 }
 
@@ -17,8 +19,8 @@ Trait {
 FamixTType classSide >> annotation [
 
 	<MSEClass: #TType super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -30,37 +32,12 @@ FamixTType classSide >> famixTTypeRelatedGroup [
 	^ FAMIXTypeGroup
 ]
 
-{ #category : #generator }
-FamixTType classSide >> generatedSlotNames [
-	<generated>
-	'FamixTType class>>#generatedSlotNames'.
-	^ #(typeContainer)
-]
-
-{ #category : #generator }
-FamixTType classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FamixTType >> clientTypes [
-	<MSEProperty: #clientTypes type: #FamixTType>
-	<multivalued>
-	<derived>
-	<MSEComment: 'All types that depend on (inherit, staticly access, or use some methods of) the receiver'>
-	^ (self queryAllIncoming atScope: FamixTType) withoutSelfLoops
-]
-
 { #category : #metrics }
 FamixTType >> fanIn [
 	<MSEProperty: #fanIn type: #Number>
 	<derived>
 	<MSEComment: 'Number of client classes'>
-
-	^self
-		lookUpPropertyNamed: #fanIn
-		computedAs: [self clientTypes size]
+	^ self lookUpPropertyNamed: #fanIn computedAs: [ (self allClientsAtScope: FamixTType) size ]
 ]
 
 { #category : #metrics }
@@ -74,6 +51,15 @@ FamixTType >> isType [
 
 	<generated>
 	^ true
+]
+
+{ #category : #accessing }
+FamixTType >> mooseNameOn: aStream [
+	self typeContainer
+		ifNotNil: [ :parent | 
+			parent mooseNameOn: aStream.
+			aStream nextPutAll: '::' ].
+	self name ifNotNil: [ :name | aStream nextPutAll: name ]
 ]
 
 { #category : #metrics }
@@ -118,11 +104,11 @@ FamixTType >> realType [
 
 { #category : #accessing }
 FamixTType >> typeContainer [
+	"Relation named: #typeContainer type: #FamixTWithTypes opposite: #types"
 
 	<generated>
 	<MSEComment: 'Container entity to which this type belongs to. Container is a namespace, not a package (Smalltalk).'>
 	<container>
-
 	^ typeContainer
 ]
 
@@ -136,9 +122,7 @@ FamixTType >> typeContainer: anObject [
 
 { #category : #navigation }
 FamixTType >> typeContainerGroup [
-
 	<generated>
 	<navigation: 'TypeContainer'>
-	^ MooseGroup
-			with: (self typeContainer)
+	^ MooseGroup with: self typeContainer
 ]

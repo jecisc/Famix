@@ -13,19 +13,6 @@ FamixTestComposedCustomEntity1 class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTestComposedCustomEntity1 class >> generatedSlotNames [
-	<generated>
-	'FamixTestComposedCustomEntity1 class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTestComposedCustomEntity1 class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FamixTestComposedCustomEntity1 class >> metamodel [
 
@@ -33,15 +20,9 @@ FamixTestComposedCustomEntity1 class >> metamodel [
 	^ (self class environment at: #FamixTestComposedGenerator) metamodel
 ]
 
-{ #category : #meta }
-FamixTestComposedCustomEntity1 class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
 { #category : #accessing }
 FamixTestComposedCustomEntity1 >> c21 [
+	"Relation named: #c21 type: #FamixTestComposedCustomEntity1 opposite: #c1"
 
 	<generated>
 	<MSEProperty: #c21 type: #Object>
@@ -53,12 +34,18 @@ FamixTestComposedCustomEntity1 >> c21: anObject [
 
 	<generated>
 	(self privateState attributeAt: #c21 ifAbsentPut: [nil]) == anObject ifTrue: [ ^ anObject ].
-	self privateState attributeAt: #c21 put: anObject.
-	anObject c1: self
+	anObject ifNil: [ | otherSide |
+		otherSide :=  self c21.
+		self privateState attributeAt: #c21 put: anObject.
+		otherSide c1: nil ]
+	ifNotNil: [ 
+		self privateState attributeAt: #c21 put: anObject.
+		anObject c1: self ]
 ]
 
 { #category : #accessing }
 FamixTestComposedCustomEntity1 >> customEntity1 [
+	"Relation named: #customEntity1 type: #FamixTestComposedCustomEntity1 opposite: #customEntity1"
 
 	<generated>
 	<MSEProperty: #customEntity1 type: #Object>
@@ -70,6 +57,18 @@ FamixTestComposedCustomEntity1 >> customEntity1: anObject [
 
 	<generated>
 	(self privateState attributeAt: #customEntity1 ifAbsentPut: [nil]) == anObject ifTrue: [ ^ anObject ].
-	self privateState attributeAt: #customEntity1 put: anObject.
-	anObject customEntity1: self
+	anObject ifNil: [ | otherSide |
+		otherSide :=  self customEntity1.
+		self privateState attributeAt: #customEntity1 put: anObject.
+		otherSide customEntity1: nil ]
+	ifNotNil: [ 
+		self privateState attributeAt: #customEntity1 put: anObject.
+		anObject customEntity1: self ]
+]
+
+{ #category : #navigation }
+FamixTestComposedCustomEntity1 >> customEntity1Group [
+	<generated>
+	<navigation: 'CustomEntity1'>
+	^ MooseGroup with: self customEntity1
 ]

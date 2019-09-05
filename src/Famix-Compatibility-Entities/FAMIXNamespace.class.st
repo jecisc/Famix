@@ -15,36 +15,10 @@ FAMIXNamespace class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXNamespace class >> generatedSlotNames [
-	<generated>
-	'FAMIXNamespace class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXNamespace class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTNamespace)
-]
-
-{ #category : #meta }
-FAMIXNamespace class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
 { #category : #'Famix-Extensions-metrics' }
 FAMIXNamespace >> abstractness: aNumber [
 
 	self privateState propertyAt: #abstractness put: aNumber
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXNamespace >> accept: aVisitor [
-
-	aVisitor visitNamespace: self
 ]
 
 { #category : #'Famix-Extensions-metrics' }
@@ -70,7 +44,7 @@ FAMIXNamespace >> bunchCohesion [
 	(myClasses := self classes) union: (myClasses flatCollect: [ :c | c allRecursiveTypes ]).
 	myClasses size == 0
 		ifTrue: [ ^ nil ].
-	intraConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) withinMyNamespace ]) inject: 0 into: [ :subTotal :each | subTotal + each size ].
+	intraConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) withinParentUsing: FamixTNamespace ]) inject: 0 into: [ :subTotal :each | subTotal + each size ].
 	^ intraConnectivities / myClasses size squared asFloat
 ]
 
@@ -89,15 +63,14 @@ FAMIXNamespace >> bunchCouplingWith: aNamespace [
 	myClasses := myClasses union: (myClasses flatCollect: [ :c | c allRecursiveTypes ]).
 	otherClasses := aNamespace classes.
 	otherClasses := otherClasses union: (otherClasses flatCollect: [ :c | c allRecursiveTypes ]).
-	(myClasses size == 0 or: [ otherClasses size == 0 ])
-		ifTrue: [ ^ nil ].
+	(myClasses size == 0 or: [ otherClasses size == 0 ]) ifTrue: [ ^ nil ].
 
 	"All outgoing dependencies"
-	interConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) withinNamespace: aNamespace ]) inject: 0 into: [ :subTotal :each | subTotal + each size ].
+	interConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) within: aNamespace ]) inject: 0 into: [ :subTotal :each | subTotal + each size ].
 
 	"Plus all incoming dependencies"
 	interConnectivities := interConnectivities
-		+ ((myClasses collect: [ :c | (c queryIncomingDependencies atScope: FamixTType) withinNamespace: aNamespace ]) inject: 0 into: [ :subTotal :each | subTotal + each size ]).
+		+ ((myClasses collect: [ :c | (c queryIncomingDependencies atScope: FamixTType) within: aNamespace ]) inject: 0 into: [ :subTotal :each | subTotal + each size ]).
 	^ interConnectivities / (2 * myClasses size * otherClasses size) asFloat
 ]
 
@@ -114,32 +87,19 @@ FAMIXNamespace >> bunchCouplingWithAll [
 		ifTrue: [ ^ nil ].
 
 	"All outgoing dependencies"
-	interConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) outOfMyNamespace ])
+	interConnectivities := (myClasses collect: [ :c | (c queryOutgoingDependencies atScope: FamixTType) outOfParentUsing: FamixTNamespace ])
 		inject: 0
 		into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ].
 
 	"Plus all incoming dependencies"
 	interConnectivities := interConnectivities
-		+ ((myClasses collect: [ :c | (c queryIncomingDependencies atScope: FAMIXType) outOfMyNamespace ]) inject: 0 into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ]).
+		+ ((myClasses collect: [ :c | (c queryIncomingDependencies atScope: FAMIXType) outOfParentUsing: FamixTNamespace ]) inject: 0 into: [ :subTotal :each | subTotal + (each select: [ :c | c isInstanceSide ]) size ]).
 	^ interConnectivities / (2 * myClasses size * (allClasses size - myClasses size)) asFloat
 ]
 
 { #category : #'Famix-Extensions' }
 FAMIXNamespace >> childrenOfMyKind [
 	^ self childScopes
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXNamespace >> clientClasses [
-	self deprecated: 'use clientTypes'.
-	^ self clientTypes
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXNamespace >> clientNamespaces [
-	"MooseCook was: ^ self inheritedByNamespaces union: self invokingNamespaces"
-
-	^ (self queryAllIncoming atScope: FamixTNamespace) withoutSelfLoops
 ]
 
 { #category : #'Famix-Extensions-accessing' }
@@ -208,12 +168,6 @@ FAMIXNamespace >> mooseNameOn: aStream [
 			nextPut: $:;
 			nextPut: $: ].
 	self name ifNotNil: [aStream nextPutAll: self name]
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXNamespace >> namespaceScope [
-
-	^ self 
 ]
 
 { #category : #'Famix-Extensions' }
@@ -306,12 +260,6 @@ FAMIXNamespace >> numberOfNonInterfacesClasses: aNumber [
 	self privateState propertyAt: #numberOfNonInterfacesClasses put: aNumber
 ]
 
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXNamespace >> packageScope [
-
-	self shouldNotImplement
-]
-
 { #category : #'Famix-Implementation' }
 FAMIXNamespace >> printOn: aStream [ 
 	self belongsTo ifNotNil: [:parent |
@@ -321,33 +269,6 @@ FAMIXNamespace >> printOn: aStream [
 			nextPut: $: ].
 	self name ifNotNil: [ aStream nextPutAll: self name ].
 	aStream nextPutAll: ' (Namespace)'
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXNamespace >> providerClasses [
-	self deprecated: 'use providerTypes'.
-	^ self providerTypes
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXNamespace >> providerNamespaces [
-	"MooseCook was: ^ self inheritedNamespaces union: self invokedNamespaces"
-
-	^ (self queryAllOutgoing atScope: FamixTNamespace) withoutSelfLoops
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXNamespace >> providerTypes [
-	<MSEProperty: #providerTypes type: #FAMIXType>
-	<derived>
-	<multivalued>
-	<MSEComment: 'All types that the receiver depends on'>
-	^ (self queryAllOutgoing atScope: FamixTType) withoutSelfLoops
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXNamespace >> selectWithinYourScope: aMooseQueryResult [
-	^ aMooseQueryResult withinNamespace: self
 ]
 
 { #category : #'Famix-Extensions' }

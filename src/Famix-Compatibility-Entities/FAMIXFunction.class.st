@@ -15,19 +15,6 @@ FAMIXFunction class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXFunction class >> generatedSlotNames [
-	<generated>
-	'FAMIXFunction class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXFunction class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTDefinedInModule FamixTFunction)
-]
-
 { #category : #meta }
 FAMIXFunction class >> requirements [
 
@@ -90,26 +77,7 @@ FAMIXFunction >> mooseNameOn: stream [
 		ifNil: [ self name ifNotNil: [ stream nextPutAll: self name] ]
 ]
 
-{ #category : #'moose-chef-scoping-filtering' }
-FAMIXFunction >> namespaceScope [
-	^ self container 
-		ifNotNil: [ self container namespaceScope ]
-]
-
-{ #category : #testing }
-FAMIXFunction >> packageScope [
-	"No package scope for functions"
-
-	^ nil
-]
-
 { #category : #accessing }
 FAMIXFunction >> parentScope [
 	^ self functionOwner
-]
-
-{ #category : #accessing }
-FAMIXFunction >> parentScope: aScopingEntity [ 
-	self deprecated: 'Please use container: instead of parentScope:'.
-	self container: aScopingEntity
 ]

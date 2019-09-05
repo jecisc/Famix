@@ -10,26 +10,14 @@ Trait {
 FamixTDefinedInModule classSide >> annotation [
 
 	<MSEClass: #TDefinedInModule super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTDefinedInModule classSide >> generatedSlotNames [
-	<generated>
-	'FamixTDefinedInModule class>>#generatedSlotNames'.
-	^ #(parentModule)
-]
-
-{ #category : #generator }
-FamixTDefinedInModule classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTDefinedInModule >> parentModule [
+	"Relation named: #parentModule type: #FamixTModule opposite: #moduleEntities"
 
 	<generated>
 	<MSEComment: 'Module that contains the definition of this entity'>

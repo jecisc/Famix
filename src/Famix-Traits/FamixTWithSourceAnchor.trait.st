@@ -10,22 +10,9 @@ Trait {
 FamixTWithSourceAnchor classSide >> annotation [
 
 	<MSEClass: #TWithSourceAnchor super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithSourceAnchor classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithSourceAnchor class>>#generatedSlotNames'.
-	^ #(sourceAnchor)
-]
-
-{ #category : #generator }
-FamixTWithSourceAnchor classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #'Famix-Implementation' }
@@ -80,6 +67,7 @@ FamixTWithSourceAnchor >> numberOfLinesOfCodeWithMoreThanOneCharacter [
 
 { #category : #accessing }
 FamixTWithSourceAnchor >> sourceAnchor [
+	"Relation named: #sourceAnchor type: #FamixTSourceAnchor opposite: #element"
 
 	<generated>
 	<MSEComment: 'SourceAnchor entity linking to the original source code for this entity'>

@@ -10,22 +10,9 @@ Trait {
 FamixTWithTypes classSide >> annotation [
 
 	<MSEClass: #TWithTypes super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithTypes classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithTypes class>>#generatedSlotNames'.
-	^ #(types)
-]
-
-{ #category : #generator }
-FamixTWithTypes classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -52,24 +39,12 @@ FamixTWithTypes >> allRecursiveTypesDo: aBlock [
 		each allRecursiveTypesDo: aBlock ]
 ]
 
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FamixTWithTypes >> clientTypes [
-	<MSEProperty: #clientTypes type: #FamixTType>
-	<multivalued>
-	<derived>
-	<MSEComment: 'All types that depend on (inherit, staticly access, or use some methods of) the receiver'>
-	^ (self queryAllIncoming atScope: FamixTType) withoutSelfLoops
-]
-
 { #category : #metrics }
 FamixTWithTypes >> fanOut [
 	<MSEProperty: #fanOut type: #Number>
 	<derived>
 	<MSEComment: 'Number of provider classes'>
-
-	^self
-		lookUpPropertyNamed: #fanOut
-		computedAs: [self providerTypes size]
+	^ self lookUpPropertyNamed: #fanOut computedAs: [ (self allProvidersAtScope: FamixTType) size ]
 ]
 
 { #category : #metrics }
@@ -79,16 +54,8 @@ FamixTWithTypes >> fanOut: aNumber [
 ]
 
 { #category : #accessing }
-FamixTWithTypes >> providerTypes [
-	<MSEProperty: #providerTypes type: #FamixTType>
-	<derived>
-	<multivalued>
-	<MSEComment: 'All types that the receiver depends on (inherites, staticly accesses, or uses some of their methods)'>
-	^ (self queryAllOutgoing atScope: FamixTType) withoutSelfLoops
-]
-
-{ #category : #accessing }
 FamixTWithTypes >> types [
+	"Relation named: #types type: #FamixTType opposite: #typeContainer"
 
 	<generated>
 	<MSEComment: 'Types contained (declared) in this entity, if any.

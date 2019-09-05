@@ -19,28 +19,27 @@ FamixTest4School class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTest4School class >> generatedSlotNames [
+{ #category : #adding }
+FamixTest4School >> addRooms: anObject [
 	<generated>
-	'FamixTest4School class>>#generatedSlotNames'.
-	^ #(principal rooms students teachers)
+	^ self rooms add: anObject
 ]
 
-{ #category : #generator }
-FamixTest4School class >> generatedTraitNames [
+{ #category : #adding }
+FamixTest4School >> addStudents: anObject [
 	<generated>
-	^ #()
+	^ self students add: anObject
 ]
 
-{ #category : #meta }
-FamixTest4School class >> requirements [
-
+{ #category : #adding }
+FamixTest4School >> addTeachers: anObject [
 	<generated>
-	^ {  }
+	^ self teachers add: anObject
 ]
 
 { #category : #accessing }
 FamixTest4School >> principal [
+	"Relation named: #principal type: #FamixTest4Principal opposite: #school"
 
 	<generated>
 	^ principal
@@ -56,15 +55,14 @@ FamixTest4School >> principal: anObject [
 
 { #category : #navigation }
 FamixTest4School >> principalGroup [
-
 	<generated>
 	<navigation: 'Principal'>
-	^ MooseGroup
-			with: (self principal)
+	^ MooseGroup with: self principal
 ]
 
 { #category : #accessing }
 FamixTest4School >> rooms [
+	"Relation named: #rooms type: #FamixTest4Room opposite: #school"
 
 	<generated>
 	^ rooms
@@ -80,15 +78,14 @@ FamixTest4School >> rooms: anObject [
 
 { #category : #navigation }
 FamixTest4School >> roomsGroup [
-
 	<generated>
 	<navigation: 'Rooms'>
-	^ MooseGroup
-			withAll: (self rooms asSet)
+	^ MooseGroup withAll: self rooms asSet
 ]
 
 { #category : #accessing }
 FamixTest4School >> students [
+	"Relation named: #students type: #FamixTest4Student opposite: #school"
 
 	<generated>
 	^ students
@@ -104,15 +101,14 @@ FamixTest4School >> students: anObject [
 
 { #category : #navigation }
 FamixTest4School >> studentsGroup [
-
 	<generated>
 	<navigation: 'Students'>
-	^ MooseGroup
-			withAll: (self students asSet)
+	^ MooseGroup withAll: self students asSet
 ]
 
 { #category : #accessing }
 FamixTest4School >> teachers [
+	"Relation named: #teachers type: #FamixTest4Teacher opposite: #school"
 
 	<generated>
 	^ teachers
@@ -128,9 +124,7 @@ FamixTest4School >> teachers: anObject [
 
 { #category : #navigation }
 FamixTest4School >> teachersGroup [
-
 	<generated>
 	<navigation: 'Teachers'>
-	^ MooseGroup
-			withAll: (self teachers asSet)
+	^ MooseGroup withAll: self teachers asSet
 ]

@@ -1,6 +1,8 @@
 Class {
 	#name : #FAMIXUnknownSourceLanguage,
 	#superclass : #FAMIXSourceLanguage,
+	#traits : 'FamixTSourceLanguage',
+	#classTraits : 'FamixTSourceLanguage classTrait',
 	#category : #'Famix-Compatibility-Entities-Entities'
 }
 
@@ -11,26 +13,6 @@ FAMIXUnknownSourceLanguage class >> annotation [
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FAMIXUnknownSourceLanguage class >> generatedSlotNames [
-	<generated>
-	'FAMIXUnknownSourceLanguage class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXUnknownSourceLanguage class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
-{ #category : #meta }
-FAMIXUnknownSourceLanguage class >> requirements [
-
-	<generated>
-	^ {  }
 ]
 
 { #category : #testing }

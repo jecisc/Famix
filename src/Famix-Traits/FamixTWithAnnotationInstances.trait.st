@@ -10,22 +10,14 @@ Trait {
 FamixTWithAnnotationInstances classSide >> annotation [
 
 	<MSEClass: #TWithAnnotationInstances super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithAnnotationInstances classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithAnnotationInstances class>>#generatedSlotNames'.
-	^ #(annotationInstances)
-]
-
-{ #category : #generator }
-FamixTWithAnnotationInstances classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+{ #category : #accessing }
+FamixTWithAnnotationInstances >> addAnnotationInstance: anAnnotationInstance [
+	annotationInstances add: anAnnotationInstance
 ]
 
 { #category : #'Famix-Java' }
@@ -53,6 +45,7 @@ FamixTWithAnnotationInstances >> annotationInstanceNamed: anAnnotationName ifAbs
 
 { #category : #accessing }
 FamixTWithAnnotationInstances >> annotationInstances [
+	"Relation named: #annotationInstances type: #FamixTAnnotationInstance opposite: #annotatedEntity"
 
 	<generated>
 	<MSEComment: 'This property corresponds to the set of annotations associated to the entity'>

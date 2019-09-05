@@ -10,22 +10,9 @@ Trait {
 FamixTGlobalVariableScope classSide >> annotation [
 
 	<MSEClass: #TGlobalVariableScope super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTGlobalVariableScope classSide >> generatedSlotNames [
-	<generated>
-	'FamixTGlobalVariableScope class>>#generatedSlotNames'.
-	^ #(globalVariables)
-]
-
-{ #category : #generator }
-FamixTGlobalVariableScope classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -35,6 +22,7 @@ FamixTGlobalVariableScope >> addGlobalVariable: aGlobalVariable [
 
 { #category : #accessing }
 FamixTGlobalVariableScope >> globalVariables [
+	"Relation named: #globalVariables type: #FamixTGlobalVariable opposite: #parentScope"
 
 	<generated>
 	<MSEComment: 'Global variables defined in the scope, if any.'>

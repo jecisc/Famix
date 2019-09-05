@@ -13,14 +13,6 @@ Class {
 }
 
 { #category : #accessing }
-FamixTestComposedGenerator class >> modifyMetamodel: aMetamodel [
-
-	super modifyMetamodel: aMetamodel.
-	
-	self fixRemoteMetamodelRelationsIn: aMetamodel.
-]
-
-{ #category : #accessing }
 FamixTestComposedGenerator class >> packageName [ 
 
 	^ 'Famix-TestComposedMetamodel-Entities'
@@ -67,7 +59,7 @@ FamixTestComposedGenerator >> define [
 
 	entity - test1Method.
 
-	customEntity1 - test1Custom1.
+	customEntity1 <>- test1Custom1.
 	customEntity2 -* test1Custom2.	
 	customEntity3 *- test1Custom3.	
 	customEntity4 *-* test1Custom4.		
@@ -89,11 +81,7 @@ FamixTestComposedGenerator >> define [
 	test1Custom5 := self remoteEntity: #CustomEntity5 withPrefix: #FamixTestComposed1.
 	test2Custom5 := self remoteEntity: #CustomEntity5 withPrefix: #FamixTestComposed2.
 	(test1Custom5 property: #associations) -* ((association property: #c15) target).
-	((association property: #c25) source) *- (test2Custom5 property: #associations).	
-	
-
-		
-
+	((association property: #c25) source) *- (test2Custom5 property: #associations)
 ]
 
 { #category : #definition }

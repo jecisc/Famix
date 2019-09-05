@@ -10,26 +10,21 @@ Trait {
 FamixTTraitUser classSide >> annotation [
 
 	<MSEClass: #TTraitUser super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTTraitUser classSide >> generatedSlotNames [
-	<generated>
-	'FamixTTraitUser class>>#generatedSlotNames'.
-	^ #(outgoingTraitUsages)
-]
+{ #category : #accessing }
+FamixTTraitUser >> addOutgoingTraitUsage: anObject [
 
-{ #category : #generator }
-FamixTTraitUser classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+	outgoingTraitUsages add: anObject
+
 ]
 
 { #category : #accessing }
 FamixTTraitUser >> outgoingTraitUsages [
+	"Relation named: #outgoingTraitUsages type: #FamixTTraitUsage opposite: #user"
 
 	<generated>
 	^ outgoingTraitUsages

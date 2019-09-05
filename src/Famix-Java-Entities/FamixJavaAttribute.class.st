@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixJavaAttribute,
-	#superclass : #FamixJavaStructuralEntity,
-	#traits : 'FamixTAttribute + FamixTWithClassScope',
-	#classTraits : 'FamixTAttribute classTrait + FamixTWithClassScope classTrait',
+	#superclass : #FamixJavaNamedEntity,
+	#traits : 'FamixJavaTStructuralEntity + FamixTAttribute + FamixTWithClassScope',
+	#classTraits : 'FamixJavaTStructuralEntity classTrait + FamixTAttribute classTrait + FamixTWithClassScope classTrait',
 	#instVars : [
 		'#hasClassScope'
 	],
@@ -12,36 +12,10 @@ Class {
 { #category : #meta }
 FamixJavaAttribute class >> annotation [
 
-	<MSEClass: #Attribute super: #FamixJavaStructuralEntity>
+	<MSEClass: #Attribute super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixJavaAttribute class >> generatedSlotNames [
-	<generated>
-	'FamixJavaAttribute class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaAttribute class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAttribute FamixTWithClassScope)
-]
-
-{ #category : #meta }
-FamixJavaAttribute class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaAttribute >> accept: aVisitor [
-
-	aVisitor visitAttribute: self
 ]
 
 { #category : #accessing }
@@ -58,13 +32,6 @@ FamixJavaAttribute >> belongsTo: anObject [
 	<generated>
 	self parentType: anObject
 
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaAttribute >> copyFrom: anEntity within: aVisitor [
-
-	super copyFrom: anEntity within: aVisitor.
-	self hasClassScope: anEntity hasClassScope
 ]
 
 { #category : #'as yet unclassified' }
@@ -116,16 +83,6 @@ FamixJavaAttribute >> mooseNameOn: aStream [
 ]
 
 { #category : #'as yet unclassified' }
-FamixJavaAttribute >> namespaceScope [
-	^ self parentType namespaceScope
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaAttribute >> packageScope [
-	^ self parentType packageScope
-]
-
-{ #category : #'as yet unclassified' }
 FamixJavaAttribute >> printOn: aStream [ 
 	| parent |
 	parent := self belongsTo.
@@ -134,9 +91,4 @@ FamixJavaAttribute >> printOn: aStream [
 		aStream nextPut: $. ].
 	self name ifNotNil: [ aStream nextPutAll: self name ].
 	aStream nextPutAll: ' (Attribute)'
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaAttribute >> typeScope [
-	^ self parentType
 ]

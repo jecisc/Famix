@@ -10,26 +10,19 @@ Trait {
 FamixTWithAnnotationInstanceAttributes classSide >> annotation [
 
 	<MSEClass: #TWithAnnotationInstanceAttributes super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithAnnotationInstanceAttributes classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithAnnotationInstanceAttributes class>>#generatedSlotNames'.
-	^ #(attributes)
-]
-
-{ #category : #generator }
-FamixTWithAnnotationInstanceAttributes classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+{ #category : #accessing }
+FamixTWithAnnotationInstanceAttributes >> addAttribute: anAttribute [
+	attributes add: anAttribute
 ]
 
 { #category : #accessing }
 FamixTWithAnnotationInstanceAttributes >> attributes [
+	"Relation named: #attributes type: #FamixTAnnotationInstanceAttribute opposite: #parentAnnotationInstance"
 
 	<generated>
 	<MSEComment: 'This corresponds to the actual values of the attributes in an AnnotationInstance'>

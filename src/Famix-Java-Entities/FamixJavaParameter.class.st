@@ -1,44 +1,18 @@
 Class {
 	#name : #FamixJavaParameter,
-	#superclass : #FamixJavaStructuralEntity,
-	#traits : 'FamixTParameter',
-	#classTraits : 'FamixTParameter classTrait',
+	#superclass : #FamixJavaNamedEntity,
+	#traits : 'FamixJavaTStructuralEntity + FamixTParameter',
+	#classTraits : 'FamixJavaTStructuralEntity classTrait + FamixTParameter classTrait',
 	#category : #'Famix-Java-Entities-Entities'
 }
 
 { #category : #meta }
 FamixJavaParameter class >> annotation [
 
-	<MSEClass: #Parameter super: #FamixJavaStructuralEntity>
+	<MSEClass: #Parameter super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixJavaParameter class >> generatedSlotNames [
-	<generated>
-	'FamixJavaParameter class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaParameter class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTParameter)
-]
-
-{ #category : #meta }
-FamixJavaParameter class >> requirements [
-
-	<generated>
-	^ { FamixJavaMethod }
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaParameter >> accept: aVisitor [
-
-	aVisitor visitParameter: self
 ]
 
 { #category : #accessing }
@@ -68,16 +42,6 @@ FamixJavaParameter >> mooseNameOn: stream [
 ]
 
 { #category : #'as yet unclassified' }
-FamixJavaParameter >> namespaceScope [
-	^ self parentBehaviouralEntity namespaceScope
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaParameter >> packageScope [
-	^ self parentBehaviouralEntity packageScope
-]
-
-{ #category : #'as yet unclassified' }
 FamixJavaParameter >> parentType [
 	^self parentBehaviouralEntity parentType
 ]
@@ -93,9 +57,4 @@ FamixJavaParameter >> printOn: stream [
 		parent printOn: stream ].
 	stream nextPut: $)
 
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaParameter >> typeScope [
-	^ self parentBehaviouralEntity typeScope
 ]

@@ -6,28 +6,23 @@ Class {
 
 { #category : #tests }
 MooseEntityTest >> testAllMooseDisplayOn [
-	| t str ins |
+	| t ins |
 	(MooseEntity withAllSubclasses reject: #hasAbstractMethods)
 		do: [ :cls | 
-			str := WriteStream on: String new.
 			ins := cls new.
 			self shouldnt: [ t := ins gtDisplayString ] raise: Error.
 			self assert: t isByteString.
-			ins gtDisplayOn: str.
-			self assert: str contents equals: t ]
+			self assert: (String streamContents: [ :s | ins gtDisplayOn: s ]) equals: t ]
 ]
 
 { #category : #tests }
 MooseEntityTest >> testAllMooseNameOn [
-	| t str ins |
+	| t ins |
 	MooseEntity allSubclasses
 		do: [ :cls | 
-			str := WriteStream on: String new.
 			ins := cls new.
 			self shouldnt: [ t := ins mooseName ] raise: Error.
-			self assert: t isByteString.
-			ins mooseNameOn: str.
-			self assert: str contents equals: t ]
+			self assert: (String streamContents: [ :s | ins mooseNameOn: s ]) equals: t ]
 ]
 
 { #category : #tests }
@@ -95,14 +90,6 @@ MooseEntityTest >> testBookmark [
 ]
 
 { #category : #tests }
-MooseEntityTest >> testCopyFromWithin [
-
-	| entity |
-	entity := MooseEntity new.
-	self assert: (entity copyFrom: nil within: nil) == entity
-]
-
-{ #category : #tests }
 MooseEntityTest >> testEntityBackLink [
 	"self debug: #testEntityBackLink"
 	
@@ -118,20 +105,12 @@ MooseEntityTest >> testGroupFor [
 	entity1 := FAMIXClass new.
 	entity2 := FAMIXClass new.
 	model := MooseModel new.
-	model
-		addAll:
-			{entity1.
-			entity2}.
+	model addAll: {entity1 . entity2}.
 	classGroup := model groupFor: #allClasses.
-	self assert: classGroup class == FAMIXClassGroup.
-	self
-		assert:
-			(classGroup entities
-				includesAll:
-					{entity1.
-					entity2}).
+	self assert: classGroup class identicalTo: FAMIXClassGroup.
+	self assert: (classGroup entities includesAll: {entity1 . entity2}).
 	methodGroup := model groupFor: #allMethods.
-	self assert: methodGroup class == MooseGroup.
+	self assert: methodGroup class identicalTo: MooseGroup.
 	self assert: methodGroup isEmpty
 ]
 
@@ -165,14 +144,6 @@ MooseEntityTest >> testLocalMooseModel [
 
 	model := MooseModel new.
 	self assert: (model localMooseModel == model)
-]
-
-{ #category : #tests }
-MooseEntityTest >> testMooseIncludes [
-	| t |
-	t := MooseEntity new.
-	self assert: (t mooseIncludes: t).
-	self deny: (t mooseIncludes: MooseEntity new).
 ]
 
 { #category : #tests }

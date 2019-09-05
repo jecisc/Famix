@@ -12,8 +12,8 @@ Trait {
 TAssociationMetaLevelDependency classSide >> annotation [
 
 	<MSEClass: #TAssociationMetaLevelDependency super: #Trait>
-	<generated>
 	<package: #'Moose-Query'>
+	<generated>
 	^self
 ]
 
@@ -23,19 +23,6 @@ TAssociationMetaLevelDependency classSide >> dependencyFM3PropertyDescriptionIn:
 
 	aMetamodel ifNil: [ ^ OrderedCollection new ].
 	^ (self allDeclaredPropertiesIn: aMetamodel) select: [ :e | e isSource or: [ e isTarget ] ]
-]
-
-{ #category : #generator }
-TAssociationMetaLevelDependency classSide >> generatedSlotNames [
-	<generated>
-	'TAssociationMetaLevelDependency class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-TAssociationMetaLevelDependency classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #private }

@@ -52,7 +52,9 @@ Class {
 		'tReferenceable',
 		'tScopingEntity',
 		'tSourceAnchor',
+		'tSourceEntity',
 		'tSourceLanguage',
+		'tStructuralEntity',
 		'tSub',
 		'tSubInheritance',
 		'tSuper',
@@ -80,7 +82,6 @@ Class {
 		'tWithDereferencedInvocations',
 		'tWithEnumValues',
 		'tWithExceptions',
-		'tWithFileInclude',
 		'tWithFiles',
 		'tWithFunctions',
 		'tWithHeader',
@@ -102,7 +103,6 @@ Class {
 		'tWithSuperInheritances',
 		'tWithTemplates',
 		'tWithThrownExceptions',
-		'tWithTrait',
 		'tWithTypeAliases',
 		'tWithTypedStructures',
 		'tWithTypes',
@@ -127,7 +127,9 @@ Class {
 		'tContainingWithInvocationsGlue',
 		'tWithMethodsWithAccessesGlue',
 		'tMultipleFileAnchor',
-		'tCohesionCouplingMetrics'
+		'tCohesionCouplingMetrics',
+		'tWithTraits',
+		'tWithFileIncludes'
 	],
 	#category : #'Famix-MetamodelGeneration'
 }
@@ -136,6 +138,17 @@ Class {
 FamixGenerator class >> packageName [
 
 	^ #'Famix-Traits'
+]
+
+{ #category : #initialization }
+FamixGenerator class >> prefix [
+
+	^ #Famix
+]
+
+{ #category : #accessing }
+FamixGenerator class >> submetamodels [
+	^ {FamixMooseQueryGenerator}
 ]
 
 { #category : #comments }
@@ -552,12 +565,22 @@ FamixGenerator >> commentForTSourceAnchor [
 ]
 
 { #category : #comments }
+FamixGenerator >> commentForTSourceEntity [
+	^ 'FAMIXSourcedEntity models any fact in a program source and it is the superclass (root class) of all source code entities and their relationships. It is a FAMIXEntity and it can hold comments, a source anchor and a source language.'
+]
+
+{ #category : #comments }
 FamixGenerator >> commentForTSourceLanguage [
 
 	^ 'FAMIXSourceLanguage represents the programming language in which an entity is written. It is used for dispatching entity actions for specific languages. For example, formatting a source text will be performed according to the language. A project may have multiple languages. 
 
 A source language has a name and entities that are written in this language. 
 One can create a default source language for a project by not associating any entities to it. In this case, all entities that do not have specific source langauge, belong to the default source language. One can attach entities to a sourceLanguage using addSourceEntity:.'
+]
+
+{ #category : #comments }
+FamixGenerator >> commentForTStructuralEntity [
+	^ 'FAMIXStructuralEntity is the abstract superclass for basic data structure in the source code. A structural entity has a declaredType that points to the type of the variable.'
 ]
 
 { #category : #comments }
@@ -730,7 +753,7 @@ FamixGenerator >> commentForTWithExceptions [
 ]
 
 { #category : #comments }
-FamixGenerator >> commentForTWithFileInclude [
+FamixGenerator >> commentForTWithFileIncludes [
 
 	^ ''
 ]
@@ -862,7 +885,7 @@ FamixGenerator >> commentForTWithThrownExceptions [
 ]
 
 { #category : #comments }
-FamixGenerator >> commentForTWithTrait [
+FamixGenerator >> commentForTWithTraits [
 
 	^ ''
 ]
@@ -890,6 +913,8 @@ FamixGenerator >> defineGlueingTraits [
 
 	tClassHierarchyNavigation := builder newTraitNamed: #TClassHierarchyNavigation.
 	
+	tLCOMMetrics := builder newTraitNamed: #TLCOMMetrics.
+	
 	tInheritanceGlue := builder newTraitNamed: #TInheritanceGlue.
 	tInheritanceGlue glues: tSubInheritance with: tSuperInheritance.
 
@@ -902,14 +927,14 @@ FamixGenerator >> defineGlueingTraits [
 	tWithMethodsWithModifiersGlue := builder newTraitNamed: #TWithMethodsWithModifiersGlue.
 	tWithMethodsWithModifiersGlue glueingCondition: [ :aClass |
 		| methodClasses |
-		methodClasses := self builder classesThatDirectlyUse: tMethod.
+		methodClasses := aClass builder classesThatDirectlyUse: tMethod.
 		(aClass allLocalTraits includes: tWithMethods) 
 			and: [ methodClasses anySatisfy: [ :methodClass | methodClass allTraitsInHierarchy includes: tWithModifiers ] ] ].
 
 	tWithMethodsWithAccessesGlue := builder newTraitNamed: #TWithMethodsWithAccessesGlue.
 	tWithMethodsWithAccessesGlue glueingCondition: [ :aClass |
 		| methodClasses |
-		methodClasses := self builder classesThatDirectlyUse: tMethod.
+		methodClasses := aClass builder classesThatDirectlyUse: tMethod.
 		(aClass allLocalTraits includes: tWithMethods) 
 			and: [ methodClasses anySatisfy: [ :methodClass | methodClass allTraitsInHierarchy includes: tWithAccesses ] ] ].
 
@@ -926,14 +951,63 @@ FamixGenerator >> defineGlueingTraits [
 ]
 
 { #category : #definition }
-FamixGenerator >> defineHierarchy [ 
+FamixGenerator >> defineHierarchy [
 	super defineHierarchy.
+
+	tAttribute --|> tStructuralEntity.
+	
+	tAnnotationInstance --|> #TEntityMetaLevelDependency.
+	tAnnotationInstance --|> #TDependencyQueries.
+
+	tAnnotationInstanceAttribute --|> #TEntityMetaLevelDependency.
+	tAnnotationInstanceAttribute --|> #TDependencyQueries.
+
 	tCohesionCouplingMetrics --|> tPackage.
+
+	tClass --|> #TWithMethods.
+	tClass --|> #TWithSubInheritances.
+	tClass --|> #TWithSuperInheritances.
+	tClass --|> #TWithAttributes.
+	tClass inheritsFromTrait: tNamed without: #(#mooseNameOn:).
+	tClass --|> tType.
+	tClass --|> #TPackageable.
+	tClass --|> #TInvocationsReceiver.
+	tClass --|> #TWithComments.
+	
+	tGlobalVariable --|> tStructuralEntity.
+	
+	tImplicitVariable --|> tStructuralEntity.
+	
+	tLocalVariable --|> tStructuralEntity.
+
+	tMethod --|> #TWithParameters.
+	tMethod --|> #TInvocable.
+	tMethod --|> #TWithInvocations.
+	tMethod --|> #TWithReferences.
+	tMethod --|> #TWithAccesses.
+	tMethod --|> #TWithLocalVariables.
+	tMethod --|> #TWithImplicitVariables.
+	tMethod --|> #TWithSignature.
+	tMethod --|> #TWithClassScope.
+	tMethod --|> #TTypedStructure.	
+	
+	tParameter --|> tStructuralEntity.
+
+	tStructuralEntity --|> tNamed.
+	tStructuralEntity --|> #TAccessible.
+	tStructuralEntity --|> #TInvocationsReceiver.
+	tStructuralEntity --|> #TTypedStructure.
+	
+	tSourceEntity --|> #TWithSourceAnchor.
+	tSourceEntity --|> #TWithSourceLanguage.
+
+	tType --|> #TReferenceable.
+	tType --|> #TWithTypedStructures
 ]
 
 { #category : #definition }
 FamixGenerator >> defineProperties [
-
+	super defineProperties.
 	((tFileAnchor property: #correspondingFile type: #FamixTFile) 
 		comment: 'File associated to this source anchor').
 	((tFileAnchor property: #encoding type: #String) 
@@ -1112,13 +1186,13 @@ FamixGenerator >> defineRelations [
 	((tFileInclude property: #source)
 			comment: 'The file that is including')
 		*-
-	((tWithFileInclude property: #outgoingIncludeRelations)
+	((tWithFileIncludes property: #outgoingIncludeRelations)
 			comment: 'The include entities that have this file as a source.').
 
 	((tFileInclude property: #target)
 			comment: 'The file that is included')
 		*-
-	((tWithFileInclude property: #incomingIncludeRelations)
+	((tWithFileIncludes property: #incomingIncludeRelations)
 			comment: 'The include entities that have this file as a target.').
 
 	((tFunction property: #functionOwner)
@@ -1286,7 +1360,7 @@ FamixGenerator >> defineRelations [
 
 	((tTrait property: #traitOwner))
 		*-
-	((tWithTrait property: #traits)).
+	((tWithTraits property: #traits)).
 
 	((tTrait property: #incomingTraitUsages))
 		-*
@@ -1324,7 +1398,7 @@ FamixGenerator >> defineRelations [
 
 { #category : #definition }
 FamixGenerator >> defineTraits [
-
+	super defineTraits.
 	tAccess := builder newTraitNamed: #TAccess.
 	tAccess comment: self commentForTAccess.
 	tAccess withTesting.
@@ -1412,6 +1486,7 @@ FamixGenerator >> defineTraits [
 
 	tImplicitVariable := builder newTraitNamed: #TImplicitVariable.
 	tImplicitVariable comment: self commentForTImplicitVariable.
+	tImplicitVariable withTesting.
 
 	tInvocable := builder newTraitNamed: #TInvocable.
 	tInvocable comment: self commentForTInvocable.
@@ -1477,10 +1552,17 @@ FamixGenerator >> defineTraits [
 
 	tSourceAnchor := builder newTraitNamed: #TSourceAnchor.
 	tSourceAnchor comment: self commentForTSourceAnchor.
+	
+	tSourceEntity := builder newTraitNamed: #TSourceEntity.
+	tSourceEntity comment: self commentForTSourceEntity.
 
 	tSourceLanguage := builder newTraitNamed: #TSourceLanguage.
 	tSourceLanguage comment: self commentForTSourceLanguage.
 
+	tStructuralEntity := builder newTraitNamed: #TStructuralEntity.
+	tStructuralEntity comment: self commentForTStructuralEntity.
+	tStructuralEntity withTesting.
+	
 	tSub := builder newTraitNamed: #TSub.
 	tSub comment: self commentForTSub.
 
@@ -1569,8 +1651,8 @@ FamixGenerator >> defineTraits [
 	tWithExceptions := builder newTraitNamed: #TWithExceptions.
 	tWithExceptions comment: self commentForTWithExceptions.
 
-	tWithFileInclude := builder newTraitNamed: #TWithFileInclude.
-	tWithFileInclude comment: self commentForTWithFileInclude.
+	tWithFileIncludes := builder newTraitNamed: #TWithFileIncludes.
+	tWithFileIncludes comment: self commentForTWithFileIncludes.
 
 	tWithFiles := builder newTraitNamed: #TWithFiles.
 	tWithFiles comment: self commentForTWithFiles.
@@ -1635,8 +1717,8 @@ FamixGenerator >> defineTraits [
 	tWithThrownExceptions := builder newTraitNamed: #TWithThrownExceptions.
 	tWithThrownExceptions comment: self commentForTWithThrownExceptions.
 
-	tWithTrait := builder newTraitNamed: #TWithTrait.
-	tWithTrait comment: self commentForTWithTrait.
+	tWithTraits := builder newTraitNamed: #TWithTraits.
+	tWithTraits comment: self commentForTWithTraits.
 
 	tWithTypeAliases := builder newTraitNamed: #TWithTypeAliases.
 	tWithTypeAliases comment: self commentForTWithTypeAliases.
@@ -1670,21 +1752,10 @@ FamixGenerator >> initialize [
 
 	super initialize.
 
-	builder := FamixMetamodelBuilder new.
+	builder := FamixMetamodelBuilder forGenerator: self.
+
 	builder configuration 
 		prefix: self prefix;
 		packageName: self packageName.
 
-]
-
-{ #category : #initialization }
-FamixGenerator >> packageName [
-
-	^ self class packageName
-]
-
-{ #category : #initialization }
-FamixGenerator >> prefix [
-
-	^ #Famix
 ]

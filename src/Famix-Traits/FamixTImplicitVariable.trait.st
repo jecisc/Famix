@@ -6,6 +6,8 @@ Trait {
 	#instVars : [
 		'#parentBehaviouralEntity => FMOne type: #FamixTWithImplicitVariables opposite: #implicitVariables'
 	],
+	#traits : 'FamixTStructuralEntity',
+	#classTraits : 'FamixTStructuralEntity classTrait',
 	#category : #'Famix-Traits-ImplicitVariable'
 }
 
@@ -13,31 +15,25 @@ Trait {
 FamixTImplicitVariable classSide >> annotation [
 
 	<MSEClass: #TImplicitVariable super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTImplicitVariable classSide >> generatedSlotNames [
-	<generated>
-	'FamixTImplicitVariable class>>#generatedSlotNames'.
-	^ #(parentBehaviouralEntity)
-]
+{ #category : #testing }
+FamixTImplicitVariable >> isImplicitVariable [
 
-{ #category : #generator }
-FamixTImplicitVariable classSide >> generatedTraitNames [
 	<generated>
-	^ #()
+	^ true
 ]
 
 { #category : #accessing }
 FamixTImplicitVariable >> parentBehaviouralEntity [
+	"Relation named: #parentBehaviouralEntity type: #FamixTWithImplicitVariables opposite: #implicitVariables"
 
 	<generated>
 	<MSEComment: 'The behaviour containing this implicit variable. belongsTo implementation'>
 	<container>
-
 	^ parentBehaviouralEntity
 ]
 
@@ -52,9 +48,7 @@ FamixTImplicitVariable >> parentBehaviouralEntity: anObject [
 
 { #category : #navigation }
 FamixTImplicitVariable >> parentBehaviouralEntityGroup [
-
 	<generated>
 	<navigation: 'ParentBehaviouralEntity'>
-	^ MooseGroup
-			with: (self parentBehaviouralEntity)
+	^ MooseGroup with: self parentBehaviouralEntity
 ]

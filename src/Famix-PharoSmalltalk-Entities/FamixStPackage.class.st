@@ -15,26 +15,6 @@ FamixStPackage class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixStPackage class >> generatedSlotNames [
-	<generated>
-	'FamixStPackage class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStPackage class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTCohesionCouplingMetrics FamixTPackage FamixTPackageWithClassesGlue)
-]
-
-{ #category : #meta }
-FamixStPackage class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
 { #category : #'Famix-Extensions-metrics' }
 FamixStPackage >> abstractness [
 	"Abstractness is the ratio between the number of abstract classes and the total number of classes in a package, in the range [0, 1]. 0 means the package is fully concrete, 1 it is fully abstract."
@@ -59,13 +39,6 @@ FamixStPackage >> classes [
 
 	^ self privateState 	cacheAt: #classes 
 							ifAbsentPut: [ self childEntities select: [ :child | child isClass ]]
-]
-
-{ #category : #accessing }
-FamixStPackage >> clientPackages [
-	"^ self inheritedByPackages union: self invokingPackages"
-
-	^ (self queryAllIncoming atScope: FamixTPackage) withoutSelfLoops
 ]
 
 { #category : #accessing }
@@ -126,13 +99,6 @@ FamixStPackage >> methods [
 ]
 
 { #category : #accessing }
-FamixStPackage >> namespaceScope [
-
-	self shouldNotImplement 
-
-]
-
-{ #category : #accessing }
 FamixStPackage >> numberOfClasses [
 	<MSEProperty: #numberOfClasses type: #Number>
 	<derived>
@@ -143,37 +109,16 @@ FamixStPackage >> numberOfClasses [
 
 { #category : #accessing }
 FamixStPackage >> numberOfClientPackages [
-"	<property: #CP longName: 'Number of client packages' description:
-			'The number of packages which depend on this package'>"
-
 	<MSEProperty: #numberOfClientPackages type: #Number>
 	<MSEComment: 'The number of packages which depend on this package'>
 	<derived>
-
-	^ self lookUpPropertyNamed: #numberOfClientPackages
-				 computedAs: [ self clientPackages size ]
+	^ self lookUpPropertyNamed: #numberOfClientPackages computedAs: [ self allClients size ]
 ]
 
 { #category : #accessing }
 FamixStPackage >> numberOfClientPackages: aNumber [
 
 	self privateState propertyAt: #numberOfClientPackages put: aNumber
-]
-
-{ #category : #accessing }
-FamixStPackage >> providerPackages [
-	"^ self inheritedPackages union: self invokedPackages"
-
-	^ (self queryAllOutgoing atScope: FamixTPackage) withoutSelfLoops
-]
-
-{ #category : #accessing }
-FamixStPackage >> providerTypes [
-	<MSEProperty: #providerTypes type: #FamixStType>
-	<derived>
-	<multivalued>
-	<MSEComment: 'All types that the receiver depends on'>
-	^ (self queryAllOutgoing atScope: FamixTType) withoutSelfLoops
 ]
 
 { #category : #accessing }

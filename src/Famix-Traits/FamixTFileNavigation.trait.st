@@ -1,10 +1,10 @@
 Trait {
 	#name : #FamixTFileNavigation,
 	#instVars : [
-		'endColumn',
-		'endLine',
-		'startColumn',
-		'startLine'
+		'#endColumn => FMProperty',
+		'#endLine => FMProperty',
+		'#startColumn => FMProperty',
+		'#startLine => FMProperty'
 	],
 	#category : #'Famix-Traits-Traits'
 }
@@ -13,8 +13,8 @@ Trait {
 FamixTFileNavigation classSide >> annotation [
 
 	<MSEClass: #TFileNavigation super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -39,19 +39,6 @@ FamixTFileNavigation classSide >> fileName: aString startLine: anInteger startCo
 		endLine: anInteger3;
 		endColumn: anInteger4;
 		yourself
-]
-
-{ #category : #generator }
-FamixTFileNavigation classSide >> generatedSlotNames [
-	<generated>
-	'FamixTFileNavigation class>>#generatedSlotNames'.
-	^ #(endColumn endLine startColumn startLine)
-]
-
-{ #category : #generator }
-FamixTFileNavigation classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }

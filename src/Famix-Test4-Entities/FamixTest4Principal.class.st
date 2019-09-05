@@ -16,19 +16,6 @@ FamixTest4Principal class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTest4Principal class >> generatedSlotNames [
-	<generated>
-	'FamixTest4Principal class>>#generatedSlotNames'.
-	^ #(school)
-]
-
-{ #category : #generator }
-FamixTest4Principal class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FamixTest4Principal class >> requirements [
 
@@ -37,11 +24,27 @@ FamixTest4Principal class >> requirements [
 ]
 
 { #category : #accessing }
+FamixTest4Principal >> belongsTo [
+
+	<generated>
+	^ self school
+
+]
+
+{ #category : #accessing }
+FamixTest4Principal >> belongsTo: anObject [
+
+	<generated>
+	self school: anObject
+
+]
+
+{ #category : #accessing }
 FamixTest4Principal >> school [
+	"Relation named: #school type: #FamixTest4School opposite: #principal"
 
 	<generated>
 	<container>
-
 	^ school
 ]
 
@@ -55,9 +58,7 @@ FamixTest4Principal >> school: anObject [
 
 { #category : #navigation }
 FamixTest4Principal >> schoolGroup [
-
 	<generated>
 	<navigation: 'School'>
-	^ MooseGroup
-			with: (self school)
+	^ MooseGroup with: self school
 ]

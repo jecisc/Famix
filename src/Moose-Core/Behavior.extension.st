@@ -1,18 +1,23 @@
 Extension { #name : #Behavior }
 
 { #category : #'*Moose-Core' }
-Behavior >> mooseInheritsFrom: aClass [ 
-
-	(self inheritsFrom: aClass) ifTrue: [ ^true].
-	(self traits includes: aClass) ifTrue: [ ^true].
-	
-	^ (self withAllSuperclasses anySatisfy: [:each | each traits includes: aClass ])
-		or: [ self traits includes: aClass ]
-
+Behavior >> allUsers [
+	^ #()
 ]
 
 { #category : #'*Moose-Core' }
-Behavior >> usesMooseTraitDirectly: aTrait [
+Behavior >> mooseInheritsFrom: aClass [
+	(self inheritsFrom: aClass) ifTrue: [ ^ true ].
 
-	^ false
+	^ self usedStatefulTraits includes: aClass
+]
+
+{ #category : #'*Moose-Core' }
+Behavior >> resetMooseEntityCache [
+	"Do nothing here"
+]
+
+{ #category : #'*Moose-Core' }
+Behavior >> usedStatefulTraits [
+	^ self withAllSuperclasses flatCollect: [ :class | class allGeneratedTraits ] as: Set
 ]

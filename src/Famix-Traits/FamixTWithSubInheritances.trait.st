@@ -10,22 +10,9 @@ Trait {
 FamixTWithSubInheritances classSide >> annotation [
 
 	<MSEClass: #TWithSubInheritances super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithSubInheritances classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithSubInheritances class>>#generatedSlotNames'.
-	^ #(superInheritances)
-]
-
-{ #category : #generator }
-FamixTWithSubInheritances classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -35,6 +22,7 @@ FamixTWithSubInheritances >> addSuperInheritance: anInheritance [
 
 { #category : #accessing }
 FamixTWithSubInheritances >> superInheritances [
+	"Relation named: #superInheritances type: #FamixTSubInheritance opposite: #subclass"
 
 	<generated>
 	<MSEComment: 'Superinheritance relationships, i.e. known superclasses of this type.'>

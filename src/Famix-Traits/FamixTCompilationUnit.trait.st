@@ -13,26 +13,14 @@ Trait {
 FamixTCompilationUnit classSide >> annotation [
 
 	<MSEClass: #TCompilationUnit super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTCompilationUnit classSide >> generatedSlotNames [
-	<generated>
-	'FamixTCompilationUnit class>>#generatedSlotNames'.
-	^ #(compilationUnitOwner)
-]
-
-{ #category : #generator }
-FamixTCompilationUnit classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTCompilationUnit >> compilationUnitOwner [
+	"Relation named: #compilationUnitOwner type: #FamixTWithCompilationUnit opposite: #compilationUnit"
 
 	<generated>
 	<MSEComment: 'The compilation unit that defines this module'>

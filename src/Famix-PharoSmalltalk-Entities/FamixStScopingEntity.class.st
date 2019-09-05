@@ -15,19 +15,6 @@ FamixStScopingEntity class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixStScopingEntity class >> generatedSlotNames [
-	<generated>
-	'FamixStScopingEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStScopingEntity class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTGlobalVariableScope FamixTScopingEntity)
-]
-
 { #category : #meta }
 FamixStScopingEntity class >> requirements [
 
@@ -61,10 +48,4 @@ FamixStScopingEntity >> belongsTo: anObject [
 	<generated>
 	self parentScope: anObject
 
-]
-
-{ #category : #accessing }
-FamixStScopingEntity >> typeScope [
-	"This only makes sense to reject self loops in #collectAtScope:"
-	^ self classes
 ]

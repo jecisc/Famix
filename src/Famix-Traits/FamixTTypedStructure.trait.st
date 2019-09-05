@@ -10,26 +10,14 @@ Trait {
 FamixTTypedStructure classSide >> annotation [
 
 	<MSEClass: #TTypedStructure super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTTypedStructure classSide >> generatedSlotNames [
-	<generated>
-	'FamixTTypedStructure class>>#generatedSlotNames'.
-	^ #(declaredType)
-]
-
-{ #category : #generator }
-FamixTTypedStructure classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTTypedStructure >> declaredType [
+	"Relation named: #declaredType type: #FamixTWithTypedStructures opposite: #structuresWithDeclaredType"
 
 	<generated>
 	<MSEComment: 'Type of the behavioral entity, if any'>
@@ -42,4 +30,19 @@ FamixTTypedStructure >> declaredType: anObject [
 	<generated>
 	declaredType := anObject
 
+]
+
+{ #category : #'moose query' }
+FamixTTypedStructure >> entityHasOutgoingTypeDeclarations [
+	^ self hasDeclaredType
+]
+
+{ #category : #testing }
+FamixTTypedStructure >> hasDeclaredType [
+	^ self declaredType isNotNil
+]
+
+{ #category : #'moose query' }
+FamixTTypedStructure >> outgoingTypeDeclarations [
+	^ self declaredType ifNil: [ {} ] ifNotNil: [ :dt | {(MooseQueryTypeDeclarationAssociation newFrom: self to: dt)} ]
 ]

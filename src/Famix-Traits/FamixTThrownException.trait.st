@@ -13,26 +13,14 @@ Trait {
 FamixTThrownException classSide >> annotation [
 
 	<MSEClass: #TThrownException super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTThrownException classSide >> generatedSlotNames [
-	<generated>
-	'FamixTThrownException class>>#generatedSlotNames'.
-	^ #(definingEntity)
-]
-
-{ #category : #generator }
-FamixTThrownException classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTThrownException >> definingEntity [
+	"Relation named: #definingEntity type: #FamixTWithThrownExceptions opposite: #thrownExceptions"
 
 	<generated>
 	^ definingEntity

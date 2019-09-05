@@ -378,6 +378,87 @@ FmxMBClassTest >> testMultipleClasses [
 
 ]
 
+{ #category : #tests }
+FmxMBClassTest >> testPrimaryContainerCombined [
+
+	| tPackage tPackageable method package class env |
+
+	tPackage := builder newTraitNamed: #TPackage.
+	tPackageable := builder newTraitNamed: #TPackageable.
+	
+	tPackage <>-* tPackageable. 
+
+	package := builder newClassNamed: #Package.    
+	method := builder newClassNamed: #Method.    
+	class := builder newClassNamed: #Class.    
+
+	package --|> tPackage.
+	class --|> tPackageable.
+	(class <>-* method). 
+	method usesWithoutPrimaryContainer: tPackageable.
+	
+	self assert: package primaryContainerProperties size equals: 0.
+	self assert: class primaryContainerProperties size equals: 1.
+	self assert: method primaryContainerProperties size equals: 1.
+	
+	builder generate.
+	
+	env := builder environment ringEnvironment.
+	
+	self assert: ((env ask classNamed: #TstPackage) methodNamed: 'belongsTo') isNil.
+	self assert: (((env ask classNamed: #TstMethod) methodNamed: 'belongsTo') sourceCode includesSubstring: '^ self class').
+	self assert: (((env ask classNamed: #TstClass) methodNamed: 'belongsTo') sourceCode includesSubstring: '^ self package').
+]
+
+{ #category : #tests }
+FmxMBClassTest >> testPrimaryContainerFromTraits [
+
+	| tMethod tWithMethods method class env |
+	
+	tMethod := builder newTraitNamed: #TMethod.
+	tWithMethods := builder newTraitNamed: #TWithMethods.
+	
+	tWithMethods <>-* tMethod. 
+
+	class := builder newClassNamed: #Class.    
+	method := builder newClassNamed: #Method.    
+
+	class --|> tWithMethods.
+	tMethod <|-- method.
+	
+	self assert: method primaryContainerProperties size equals: 1.
+	
+	builder generate.
+	
+	env := builder environment ringEnvironment.
+	
+	self assert: ((env ask classNamed: #TstClass) methodNamed: 'belongsTo') isNil.
+	self assert: (((env ask classNamed: #TstMethod) methodNamed: 'belongsTo') sourceCode includesSubstring: '^ self withMethods').
+
+]
+
+{ #category : #tests }
+FmxMBClassTest >> testPrimaryContainerWithoutTraits [
+
+	| method package class env |
+	
+	package := builder newClassNamed: #Package.    
+	method := builder newClassNamed: #Method.    
+	class := builder newClassNamed: #Class.    
+
+	(package <>-* class). 
+	(class <>-* method). 
+	(package <>-* method) withoutPrimaryContainer.
+
+	builder generate.
+	
+	env := builder environment ringEnvironment.
+	
+	self assert: ((env ask classNamed: #TstPackage) methodNamed: 'belongsTo') isNil.
+	self assert: (((env ask classNamed: #TstMethod) methodNamed: 'belongsTo') sourceCode includesSubstring: '^ self class').
+	self assert: (((env ask classNamed: #TstClass) methodNamed: 'belongsTo') sourceCode includesSubstring: '^ self package').
+]
+
 { #category : #'tests - names' }
 FmxMBClassTest >> testRelatedOwnerTraitName [
 
@@ -416,20 +497,18 @@ FmxMBClassTest >> testRelatedTraitName [
 
 { #category : #tests }
 FmxMBClassTest >> testSimpleClass [
-
 	"check expected parameters of a newely generated class"
 
-	| simpleClass generated |
-	
-	simpleClass := builder newClassNamed: #Comment.	
+	| generated |
+	builder newClassNamed: #Comment.
 	builder generate.
 	generated := builder testingEnvironment ask classNamed: 'TstComment'.
 	self assert: generated notNil.
 	self assert: generated isClass.
 	self assert: generated superclass name equals: 'MooseEntity'.
 	self assert: generated slots isEmpty.
-	self assert: generated instanceSide localSelectors isEmpty.	
-	self assertCollection: generated classSide localSelectors sorted equals: #(annotation #metamodel #requirements).
+	self assert: generated instanceSide localSelectors isEmpty.
+	self assertCollection: generated classSide localSelectors sorted equals: #(annotation #metamodel)
 ]
 
 { #category : #tests }

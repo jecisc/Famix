@@ -23,22 +23,9 @@ Trait {
 FamixTEnumValue classSide >> annotation [
 
 	<MSEClass: #TEnumValue super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTEnumValue classSide >> generatedSlotNames [
-	<generated>
-	'FamixTEnumValue class>>#generatedSlotNames'.
-	^ #(parentEnum)
-]
-
-{ #category : #generator }
-FamixTEnumValue classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -56,11 +43,11 @@ FamixTEnumValue >> mooseNameSeparator [
 
 { #category : #accessing }
 FamixTEnumValue >> parentEnum [
+	"Relation named: #parentEnum type: #FamixTWithEnumValues opposite: #enumValues"
 
 	<generated>
 	<MSEComment: 'The Enum declaring this value. It offers the implementation of belongsTo'>
 	<container>
-
 	^ parentEnum
 ]
 
@@ -74,11 +61,9 @@ FamixTEnumValue >> parentEnum: anObject [
 
 { #category : #navigation }
 FamixTEnumValue >> parentEnumGroup [
-
 	<generated>
 	<navigation: 'ParentEnum'>
-	^ MooseGroup
-			with: (self parentEnum)
+	^ MooseGroup with: self parentEnum
 ]
 
 { #category : #accessing }

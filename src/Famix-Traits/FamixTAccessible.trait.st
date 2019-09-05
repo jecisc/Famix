@@ -10,22 +10,9 @@ Trait {
 FamixTAccessible classSide >> annotation [
 
 	<MSEClass: #TAccessible super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTAccessible classSide >> generatedSlotNames [
-	<generated>
-	'FamixTAccessible class>>#generatedSlotNames'.
-	^ #(incomingAccesses)
-]
-
-{ #category : #generator }
-FamixTAccessible classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -39,6 +26,14 @@ FamixTAccessible >> accessingMethods [
 
 	^ self incomingAccesses collectAsSet: [:anAccess | anAccess accessor].
 
+]
+
+{ #category : #accessing }
+FamixTAccessible >> accessors [
+	<MSEProperty: #accessors type: #FamixTWithAccesses>
+	<multivalued>
+	<derived>
+	^ (self incomingAccesses collectAsSet: [ :each | each accessor ]) asMooseGroup
 ]
 
 { #category : #adding }
@@ -62,6 +57,7 @@ FamixTAccessible >> globalAccesses [
 
 { #category : #accessing }
 FamixTAccessible >> incomingAccesses [
+	"Relation named: #incomingAccesses type: #FamixTAccess opposite: #variable"
 
 	<generated>
 	<MSEComment: 'All Famix accesses pointing to this structural entity'>

@@ -10,26 +10,20 @@ Trait {
 FamixTWithEnumValues classSide >> annotation [
 
 	<MSEClass: #TWithEnumValues super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithEnumValues classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithEnumValues class>>#generatedSlotNames'.
-	^ #(enumValues)
-]
+{ #category : #accessing }
+FamixTWithEnumValues >> addEnumValue: anObject [
+	enumValues add: anObject
 
-{ #category : #generator }
-FamixTWithEnumValues classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithEnumValues >> enumValues [
+	"Relation named: #enumValues type: #FamixTEnumValue opposite: #parentEnum"
 
 	<generated>
 	^ enumValues

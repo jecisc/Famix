@@ -24,22 +24,9 @@ Trait {
 FamixTReference classSide >> annotation [
 
 	<MSEClass: #TReference super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTReference classSide >> generatedSlotNames [
-	<generated>
-	'FamixTReference class>>#generatedSlotNames'.
-	^ #(source target)
-]
-
-{ #category : #generator }
-FamixTReference classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #'instance creation' }
@@ -66,11 +53,11 @@ FamixTReference >> isReference [
 
 { #category : #accessing }
 FamixTReference >> source [
+	"Relation named: #source type: #FamixTWithReferences opposite: #outgoingReferences"
 
 	<generated>
 	<MSEComment: 'Source entity making the reference. from-side of the association'>
 	<source>
-
 	^ source
 ]
 
@@ -84,11 +71,11 @@ FamixTReference >> source: anObject [
 
 { #category : #accessing }
 FamixTReference >> target [
+	"Relation named: #target type: #FamixTReferenceable opposite: #incomingReferences"
 
 	<generated>
 	<MSEComment: 'Target entity referenced. to-side of the association'>
 	<target>
-
 	^ target
 ]
 

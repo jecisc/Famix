@@ -7,22 +7,9 @@ Trait {
 FamixTClassHierarchyNavigation classSide >> annotation [
 
 	<MSEClass: #TClassHierarchyNavigation super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTClassHierarchyNavigation classSide >> generatedSlotNames [
-	<generated>
-	'FamixTClassHierarchyNavigation class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTClassHierarchyNavigation classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #metrics }

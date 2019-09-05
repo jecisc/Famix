@@ -19,6 +19,13 @@ Class {
 }
 
 { #category : #'instance creation' }
+MooseQueryResult class >> new: nElements [
+	^ self new
+		storage: (OrderedCollection new: nElements);
+		yourself
+]
+
+{ #category : #'instance creation' }
 MooseQueryResult class >> on: aSourceObject withAll: aCollection [
 
 	^ self new
@@ -135,37 +142,15 @@ MooseQueryResult >> newObjectResultWith: aCollection [
 ]
 
 { #category : #filtering }
-MooseQueryResult >> outOfClass: aFAMIXClass [ 
-	self subclassResponsibility 
+MooseQueryResult >> outOf: aFAMIXEntity [
+	"Return the results which are out the entity as parameter."
+
+	^ self subclassResponsibility
 ]
 
 { #category : #filtering }
-MooseQueryResult >> outOfMyClass [
-
-	^ self outOfClass: self receiver typeScope
-
-]
-
-{ #category : #filtering }
-MooseQueryResult >> outOfMyNamespace [
-
-	^ self outOfNamespace: self receiver namespaceScope   
-]
-
-{ #category : #filtering }
-MooseQueryResult >> outOfMyPackage [
-	
-	^ self outOfPackage: self receiver packageScope    
-]
-
-{ #category : #filtering }
-MooseQueryResult >> outOfNamespace: aFAMIXNamespace [ 
-	self subclassResponsibility 
-]
-
-{ #category : #filtering }
-MooseQueryResult >> outOfPackage: aFAMIXPackage [ 
-	self subclassResponsibility 
+MooseQueryResult >> outOfParentUsing: aFamixTrait [
+	^ self outOf: (self receiver atScope: aFamixTrait) anyOne
 ]
 
 { #category : #accessing }
@@ -246,41 +231,19 @@ MooseQueryResult >> withScope: aSymbol [
 	^ self subclassResponsibility
 ]
 
-{ #category : #evaluating }
-MooseQueryResult >> within: aFAMIXEntity [ 
-	 self subclassResponsibility
+{ #category : #filtering }
+MooseQueryResult >> within: aFAMIXEntity [
+	"Return the results which are in the entity as parameter."
+
+	^ self subclassResponsibility
 ]
 
 { #category : #filtering }
-MooseQueryResult >> withinClass: aFAMIXClass [ 
-	self subclassResponsibility 
+MooseQueryResult >> withinParentUsing: aFamixTrait [
+	^ self within: (self receiver atScope: aFamixTrait) anyOne
 ]
 
-{ #category : #filtering }
-MooseQueryResult >> withinMyClass [
-
-	^ self withinClass: self receiver typeScope
-
-]
-
-{ #category : #filtering }
-MooseQueryResult >> withinMyNamespace [
-
-	^ self withinNamespace: self receiver namespaceScope   
-]
-
-{ #category : #filtering }
-MooseQueryResult >> withinMyPackage [
-	
-	^ self withinPackage: self receiver packageScope    
-]
-
-{ #category : #filtering }
-MooseQueryResult >> withinNamespace: aFAMIXNamespace [ 
-	self subclassResponsibility 
-]
-
-{ #category : #filtering }
-MooseQueryResult >> withinPackage: aFAMIXPackage [ 
-	self subclassResponsibility 
+{ #category : #accessing }
+MooseQueryResult >> withoutSelfLoops [
+	^ self subclassResponsibility
 ]

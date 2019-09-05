@@ -13,26 +13,14 @@ Trait {
 FamixTException classSide >> annotation [
 
 	<MSEClass: #TException super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTException classSide >> generatedSlotNames [
-	<generated>
-	'FamixTException class>>#generatedSlotNames'.
-	^ #(exceptionClass)
-]
-
-{ #category : #generator }
-FamixTException classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTException >> exceptionClass [
+	"Relation named: #exceptionClass type: #FamixTWithExceptions opposite: #exceptions"
 
 	<generated>
 	<MSEComment: 'Class to which the exception points. It is specific to Java'>

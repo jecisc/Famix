@@ -16,26 +16,14 @@ Trait {
 FamixTTypeAlias classSide >> annotation [
 
 	<MSEClass: #TTypeAlias super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTTypeAlias classSide >> generatedSlotNames [
-	<generated>
-	'FamixTTypeAlias class>>#generatedSlotNames'.
-	^ #(aliasedType)
-]
-
-{ #category : #generator }
-FamixTTypeAlias classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTTypeAlias >> aliasedType [
+	"Relation named: #aliasedType type: #FamixTWithTypeAliases opposite: #typeAliases"
 
 	<generated>
 	<MSEComment: 'Points to the actual type.'>

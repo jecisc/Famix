@@ -1,8 +1,8 @@
 Class {
 	#name : #FAMIXSourceAnchor,
 	#superclass : #FAMIXEntity,
-	#traits : 'FamixTSourceAnchor + TDependencyQueries + TEntityMetaLevelDependency',
-	#classTraits : 'FamixTSourceAnchor classTrait + TDependencyQueries classTrait + TEntityMetaLevelDependency classTrait',
+	#traits : 'FamixTSourceAnchor',
+	#classTraits : 'FamixTSourceAnchor classTrait',
 	#category : #'Famix-Compatibility-Entities-Entities'
 }
 
@@ -21,43 +21,10 @@ FAMIXSourceAnchor class >> childrenTypes [
 	^ {}
 ]
 
-{ #category : #generator }
-FAMIXSourceAnchor class >> generatedSlotNames [
-	<generated>
-	'FAMIXSourceAnchor class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXSourceAnchor class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTSourceAnchor TDependencyQueries TEntityMetaLevelDependency)
-]
-
 { #category : #'Moose-Query-Extensions' }
 FAMIXSourceAnchor class >> parentTypes [
 	self flag: #todo. "Source Anchors should not implement TEntityMetaLevelDependency but currently a source anchor is in Moose containment tree. This is a bug but Orion depend on this hack. So we first need to clean Orion, then we can remove those aweful methods. here."
 	^ {}
-]
-
-{ #category : #meta }
-FAMIXSourceAnchor class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #generator }
-FAMIXSourceAnchor class >> resetMooseQueryCaches [
-	super resetMooseQueryCaches.
-	self resetTEntityMetaLevelDependencyCaches.
-
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXSourceAnchor >> accept: aVisitor [
-
-	aVisitor visitSourceAnchor: self
 ]
 
 { #category : #accessing }
@@ -81,13 +48,6 @@ FAMIXSourceAnchor >> containerFiles [
 	"I should return a collection of files corresponding to the source anchor. If there is no file just return an empty collection."
 
 	^ self subclassResponsibility
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXSourceAnchor >> copyFrom: anEntity within: aVisitor [
-
-	super copyFrom: anEntity within: aVisitor.
-	self element: (aVisitor visit: anEntity)
 ]
 
 { #category : #accessing }
@@ -138,7 +98,7 @@ FAMIXSourceAnchor >> queryIncomingReferences [
 	^ MooseQueryResult new
 ]
 
-{ #category : #'moosequery-queries-incoming' }
+{ #category : #'query dependencies' }
 FAMIXSourceAnchor >> queryIncomingTypeDeclarations [
 	^ MooseQueryResult new
 ]
@@ -153,7 +113,7 @@ FAMIXSourceAnchor >> queryOutgoingReferences [
 	^ MooseQueryResult new
 ]
 
-{ #category : #'moosequery-queries-outgoing' }
+{ #category : #'query dependencies' }
 FAMIXSourceAnchor >> queryOutgoingTypeDeclarations [
 	^ MooseQueryResult new
 ]

@@ -9,7 +9,8 @@ Class {
 		'association',
 		'comment',
 		'namedEntity',
-		'sourceTextAnchor'
+		'sourceTextAnchor',
+		'unknownSourceLanguage'
 	],
 	#category : #'Famix-BasicInfrastructure'
 }
@@ -27,6 +28,16 @@ FamixBasicInfrastructureGenerator class >> basicMetamodelClasses [
 	
 ]
 
+{ #category : #testing }
+FamixBasicInfrastructureGenerator class >> isAbstract [
+	^ self = FamixBasicInfrastructureGenerator
+]
+
+{ #category : #accessing }
+FamixBasicInfrastructureGenerator class >> submetamodels [
+	^ {FamixGenerator}
+]
+
 { #category : #definition }
 FamixBasicInfrastructureGenerator >> defineClasses [
 
@@ -35,6 +46,7 @@ FamixBasicInfrastructureGenerator >> defineClasses [
 	entity := builder newClassNamed: #Entity.
 	sourceAnchor := builder newClassNamed: #SourceAnchor.
 	sourceLanguage := builder newClassNamed: #SourceLanguage.
+	unknownSourceLanguage := builder newClassNamed: #UnknownSourceLanguage.
 	sourcedEntity := builder newClassNamed: #SourcedEntity.
 	association := builder newClassNamed: #Association.
 	comment := builder newClassNamed: #Comment.
@@ -48,17 +60,13 @@ FamixBasicInfrastructureGenerator >> defineHierarchy [
 
 	sourceAnchor --|> entity.
 	sourceAnchor --|> #TSourceAnchor.
-	
-	sourceAnchor --|> #TEntityMetaLevelDependency.
-	sourceAnchor --|> #TDependencyQueries.
 
 	sourceLanguage --|> entity.
 	sourceLanguage --|> #TSourceLanguage.
 	
 	sourcedEntity --|> entity.
-	sourcedEntity --|> #TWithSourceAnchor.
+	sourcedEntity --|> #TSourceEntity.
 	sourcedEntity --|> #TWithComments.
-	sourcedEntity --|> #TWithSourceLanguage.
 	
 	association --|> sourcedEntity.
 	association --|> #TAssociation.
@@ -70,18 +78,12 @@ FamixBasicInfrastructureGenerator >> defineHierarchy [
 
 	namedEntity --|> sourcedEntity.
 	namedEntity --|> #TNamed.
-
 	namedEntity --|> #TDependencyQueries.
 	namedEntity --|> #TEntityMetaLevelDependency.
 	
 	sourceTextAnchor --|> sourceAnchor.
 	sourceTextAnchor --|> #TWithImmediateSource.
-
-
-]
-
-{ #category : #definition }
-FamixBasicInfrastructureGenerator >> newBuilder [
-
-	^ self builderWithStandardTraits
+	
+	unknownSourceLanguage --|> sourceLanguage.
+	unknownSourceLanguage --|> #TSourceLanguage
 ]

@@ -10,22 +10,9 @@ Trait {
 FamixTWithInvocations classSide >> annotation [
 
 	<MSEClass: #TWithInvocations super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithInvocations classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithInvocations class>>#generatedSlotNames'.
-	^ #(outgoingInvocations)
-]
-
-{ #category : #generator }
-FamixTWithInvocations classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -35,6 +22,7 @@ FamixTWithInvocations >> addOutgoingInvocation: anInvocation [
 
 { #category : #accessing }
 FamixTWithInvocations >> outgoingInvocations [
+	"Relation named: #outgoingInvocations type: #FamixTInvocation opposite: #sender"
 
 	<generated>
 	<MSEComment: 'Outgoing invocations sent by this behaviour.'>

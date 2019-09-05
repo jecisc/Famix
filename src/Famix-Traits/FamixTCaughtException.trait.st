@@ -13,26 +13,14 @@ Trait {
 FamixTCaughtException classSide >> annotation [
 
 	<MSEClass: #TCaughtException super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTCaughtException classSide >> generatedSlotNames [
-	<generated>
-	'FamixTCaughtException class>>#generatedSlotNames'.
-	^ #(definingEntity)
-]
-
-{ #category : #generator }
-FamixTCaughtException classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTCaughtException >> definingEntity [
+	"Relation named: #definingEntity type: #FamixTWithCaughtExceptions opposite: #caughtExceptions"
 
 	<generated>
 	^ definingEntity

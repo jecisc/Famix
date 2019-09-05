@@ -16,6 +16,8 @@ Trait {
 	#instVars : [
 		'#annotatedEntity => FMOne type: #FamixTWithAnnotationInstances opposite: #annotationInstances'
 	],
+	#traits : 'TEntityMetaLevelDependency + TDependencyQueries',
+	#classTraits : 'TEntityMetaLevelDependency classTrait + TDependencyQueries classTrait',
 	#category : #'Famix-Traits-AnnotationInstance'
 }
 
@@ -23,8 +25,8 @@ Trait {
 FamixTAnnotationInstance classSide >> annotation [
 
 	<MSEClass: #TAnnotationInstance super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -36,26 +38,13 @@ FamixTAnnotationInstance classSide >> famixTAnnotationInstanceRelatedGroup [
 	^ FAMIXAnnotationInstanceGroup
 ]
 
-{ #category : #generator }
-FamixTAnnotationInstance classSide >> generatedSlotNames [
-	<generated>
-	'FamixTAnnotationInstance class>>#generatedSlotNames'.
-	^ #(annotatedEntity)
-]
-
-{ #category : #generator }
-FamixTAnnotationInstance classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #accessing }
 FamixTAnnotationInstance >> annotatedEntity [
+	"Relation named: #annotatedEntity type: #FamixTWithAnnotationInstances opposite: #annotationInstances"
 
 	<generated>
 	<MSEComment: 'The NamedEntity on which the annotation occurs.'>
 	<container>
-
 	^ annotatedEntity
 ]
 
@@ -69,9 +58,7 @@ FamixTAnnotationInstance >> annotatedEntity: anObject [
 
 { #category : #navigation }
 FamixTAnnotationInstance >> annotatedEntityGroup [
-
 	<generated>
 	<navigation: 'AnnotatedEntity'>
-	^ MooseGroup
-			with: (self annotatedEntity)
+	^ MooseGroup with: self annotatedEntity
 ]

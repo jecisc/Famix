@@ -38,26 +38,8 @@ FamixTest2Generator >> defineHierarchy [
 
 	classEntity --|> namedEntity.
 	classEntity --|> #TClass.
-	classEntity --|> #TWithSuperInheritances.
-	classEntity --|> #TWithSubInheritances.
 
 	inheritance --|> association.
 	inheritance --|> #TSubInheritance.
-	inheritance --|> #TSuperInheritance.
-
-
-	
-
-
-]
-
-{ #category : #definition }
-FamixTest2Generator >> newBuilder [
-
-	^ self builderWithStandardTraits
-		withImportingContext;
-		yourself
-		
-		
-	
+	inheritance --|> #TSuperInheritance
 ]

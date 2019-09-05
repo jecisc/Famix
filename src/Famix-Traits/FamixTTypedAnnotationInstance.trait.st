@@ -10,26 +10,14 @@ Trait {
 FamixTTypedAnnotationInstance classSide >> annotation [
 
 	<MSEClass: #TTypedAnnotationInstance super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTTypedAnnotationInstance classSide >> generatedSlotNames [
-	<generated>
-	'FamixTTypedAnnotationInstance class>>#generatedSlotNames'.
-	^ #(annotationType)
-]
-
-{ #category : #generator }
-FamixTTypedAnnotationInstance classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTTypedAnnotationInstance >> annotationType [
+	"Relation named: #annotationType type: #FamixTAnnotationType opposite: #instances"
 
 	<generated>
 	<MSEComment: 'Refers to the type of an annotation. (In some languages, Java and C#, an annotation as an explicit type). '>

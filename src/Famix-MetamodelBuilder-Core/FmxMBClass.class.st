@@ -34,9 +34,7 @@ FmxMBClass >> allClassGeneralizations [
 
 { #category : #accessing }
 FmxMBClass >> allLocalTraits [
-
-	^ self traitsFromRelations, self traitGeneralizations
-
+	^ self traitsFromRelations , super allLocalTraits
 ]
 
 { #category : #accessing }
@@ -148,9 +146,7 @@ FmxMBClass >> classGeneralization: anObject [
 
 { #category : #accessing }
 FmxMBClass >> conditionalGlueingTraitsFor: aClass [
-
-	^ self builder traits select: [ :each | 
-		each canGlueTo: aClass ].
+	^ self builder traitsWithSubBuildersTraits select: [ :each | each canGlueTo: aClass ]
 ]
 
 { #category : #accessing }
@@ -166,17 +162,6 @@ FmxMBClass >> directlyUses: aTrait [
 	self = aTrait ifTrue: [ ^ true ].
 
 	^ self allLocalTraits includes: aTrait
-]
-
-{ #category : #accessing }
-FmxMBClass >> generalization: anObject [
-
-	^ anObject isSymbol
-		ifTrue: [ self addTraitGeneralization: (self builder ensureTraitNamed: anObject) ]
-		ifFalse: [ 
-			anObject isMetamodelTrait 
-				ifTrue: [ self addTraitGeneralization: anObject ]
-				ifFalse: [ self classGeneralization: anObject ] ]
 ]
 
 { #category : #generating }
@@ -211,10 +196,20 @@ FmxMBClass >> generate [
 	self generateRequirementsFor: aClass.
 
 	self generateMethodsMadeByTraitsFor: aClass.
-
+	self generateMethodsToRemoveFromTraitCompositionFor: aClass.
 	
-	
+	self generateNavigationGroupsFor: aClass.
+	self generateAddToCollectionFor: aClass
+]
 
+{ #category : #generating }
+FmxMBClass >> generateContainerMethodsIn: aClass [
+	| primaryContainerProperties |
+	primaryContainerProperties := self primaryContainerProperties.
+
+	primaryContainerProperties size > 1 ifTrue: [ self error: aClass name , ' defines more than one primary container: ' , ((primaryContainerProperties collect: #name) sorted joinUsing: ', ') ].
+
+	primaryContainerProperties do: [ :aSide | aSide generateExtendedContainerMethodsIn: aClass ]
 ]
 
 { #category : #generating }
@@ -246,39 +241,36 @@ FmxMBClass >> generateRemotes [
 
 { #category : #generating }
 FmxMBClass >> generateRequirementsFor: aClass [
-
-	aClass classSide compile: ('requirements
+	self allRequirementNames
+		ifNotEmpty: [ :requirementNames | 
+			aClass classSide
+				compile:
+					('requirements
 
 	<generated>
-	^ \{ {1} \}' format: { self allRequirementNames joinUsing: '. ' }) 
-		classified: #meta
+	^ \{ {1} \}' format: {(requirementNames joinUsing: '. ')})
+				classified: #meta ]
 ]
 
 { #category : #accessing }
 FmxMBClass >> generateTestingMethodsIn: aClass [
-	
-	self isRoot ifTrue: [ 
-		builder testingSelectorsMapping do: [ :sel |
-			| selectorsFromTraits |
-			selectorsFromTraits := self traitGeneralizations flatCollect: #testingSelectors.
-			(selectorsFromTraits includes: sel) 
-				ifFalse: [ 
-				aClass instanceSide 
-					compile: ('{1}\\	<generated>\	^ false' withCRs format: { sel }) 
-					classified: #testing ] ] ].
+	self isRoot
+		ifTrue: [ builder testingSelectorsMapping
+				keysAndValuesDo: [ :concernedClass :selectors | 
+					"In case a testing selector is relatif to a Trait that is not used in the current MM, then we do not need to generate the testing selector."
+					(concernedClass isMetamodelTrait and: [ builder classes noneSatisfy: [ :class | class allTransitiveTraits includes: concernedClass ] ])
+						ifFalse: [ selectors
+								do: [ :sel | 
+									| selectorsFromTraits |
+									selectorsFromTraits := self traitGeneralizations flatCollect: #testingSelectors.
+									(selectorsFromTraits includes: sel) ifFalse: [ aClass instanceSide compile: ('{1}\\	<generated>\	^ false' withCRs format: {sel}) classified: #testing ] ] ] ] ].
 
 	super generateTestingMethodsIn: aClass
 ]
 
 { #category : #accessing }
 FmxMBClass >> glueingTraitsOf: selectedTraits whenAllHierarchyHas: allTraitsInHierarchy [
-
-	| potentialGlues |
-	
-	potentialGlues := self builder traits select: [ :each | each gluesSomeOf: allTraitsInHierarchy ].
-	
-	^ potentialGlues select: [ :each | each gluesOneOf: selectedTraits ]
-	
+	^ self builder traitsWithSubBuildersTraits select: [ :each | (each gluesSomeOf: allTraitsInHierarchy) and: [ each gluesOneOf: selectedTraits ] ]
 ]
 
 { #category : #testing }
@@ -317,6 +309,16 @@ FmxMBClass >> isMetamodelClass [
 FmxMBClass >> isRoot [
 
 	^ self classGeneralization isNil
+]
+
+{ #category : #generating }
+FmxMBClass >> primaryContainerProperties [
+	| primaryContainers |
+	primaryContainers := ((self allTraits copyWithoutAll: self usedTraitsWithoutPrimaryContainers) flatCollect: #sides) select: #isContainer.
+
+	primaryContainers addAll: ((self properties select: #isContainer) select: #providesPrimaryContainer).
+
+	^ primaryContainers
 ]
 
 { #category : #'name conversion' }

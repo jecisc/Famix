@@ -28,7 +28,8 @@ Class {
 	#superclass : #FamixFileBasedLanguageGenerator,
 	#instVars : [
 		'classEntity',
-		'method'
+		'method',
+		'attribute'
 	],
 	#category : #'Famix-TestGenerators'
 }
@@ -47,18 +48,15 @@ FamixTest1Generator class >> prefix [
 
 { #category : #definition }
 FamixTest1Generator >> defineClasses [
-
 	super defineClasses.
 
 	classEntity := builder newClassNamed: #Class.
 	method := builder newClassNamed: #Method.
-
-
+	attribute := builder newClassNamed: #Attribute
 ]
 
 { #category : #definition }
 FamixTest1Generator >> defineHierarchy [
-
 	super defineHierarchy.
 
 	method --|> namedEntity.
@@ -66,20 +64,7 @@ FamixTest1Generator >> defineHierarchy [
 
 	classEntity --|> namedEntity.
 	classEntity --|> #TClass.
-	classEntity --|> #TWithMethods.
 
-	
-
-
-]
-
-{ #category : #definition }
-FamixTest1Generator >> newBuilder [
-
-	^ self builderWithStandardTraits
-		withImportingContext;
-		yourself
-		
-		
-	
+	attribute --|> namedEntity.
+	attribute --|> #TAttribute
 ]

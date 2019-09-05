@@ -6,6 +6,8 @@ Trait {
 	#instVars : [
 		'#parentBehaviouralEntity => FMOne type: #FamixTWithParameters opposite: #parameters'
 	],
+	#traits : 'FamixTStructuralEntity',
+	#classTraits : 'FamixTStructuralEntity classTrait',
 	#category : #'Famix-Traits-Parameter'
 }
 
@@ -13,31 +15,18 @@ Trait {
 FamixTParameter classSide >> annotation [
 
 	<MSEClass: #TParameter super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTParameter classSide >> generatedSlotNames [
-	<generated>
-	'FamixTParameter class>>#generatedSlotNames'.
-	^ #(parentBehaviouralEntity)
-]
-
-{ #category : #generator }
-FamixTParameter classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTParameter >> parentBehaviouralEntity [
+	"Relation named: #parentBehaviouralEntity type: #FamixTWithParameters opposite: #parameters"
 
 	<generated>
 	<MSEComment: 'Behavioural entity containing this parameter. belongsTo implementation'>
 	<container>
-
 	^ parentBehaviouralEntity
 ]
 
@@ -51,9 +40,7 @@ FamixTParameter >> parentBehaviouralEntity: anObject [
 
 { #category : #navigation }
 FamixTParameter >> parentBehaviouralEntityGroup [
-
 	<generated>
 	<navigation: 'ParentBehaviouralEntity'>
-	^ MooseGroup
-			with: (self parentBehaviouralEntity)
+	^ MooseGroup with: self parentBehaviouralEntity
 ]

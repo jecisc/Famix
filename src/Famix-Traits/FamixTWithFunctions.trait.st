@@ -10,26 +10,20 @@ Trait {
 FamixTWithFunctions classSide >> annotation [
 
 	<MSEClass: #TWithFunctions super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithFunctions classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithFunctions class>>#generatedSlotNames'.
-	^ #(functions)
-]
+{ #category : #accessing }
+FamixTWithFunctions >> addFunction: anObject [
+	functions add: anObject
 
-{ #category : #generator }
-FamixTWithFunctions classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithFunctions >> functions [
+	"Relation named: #functions type: #FamixTFunction opposite: #functionOwner"
 
 	<generated>
 	<MSEComment: 'Functions defined in the container, if any.'>

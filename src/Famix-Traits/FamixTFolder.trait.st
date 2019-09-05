@@ -13,8 +13,8 @@ Trait {
 FamixTFolder classSide >> annotation [
 
 	<MSEClass: #TFolder super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -24,19 +24,6 @@ FamixTFolder classSide >> famixTFolderRelatedGroup [
 	<mooseGroup>
 	
 	^ FAMIXFolderGroup
-]
-
-{ #category : #generator }
-FamixTFolder classSide >> generatedSlotNames [
-	<generated>
-	'FamixTFolder class>>#generatedSlotNames'.
-	^ #(childrenFileSystemEntities)
-]
-
-{ #category : #generator }
-FamixTFolder classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -62,6 +49,7 @@ FamixTFolder >> allRecursiveFolders [
 
 { #category : #accessing }
 FamixTFolder >> childrenFileSystemEntities [
+	"Relation named: #childrenFileSystemEntities type: #FamixTFileSystemEntity opposite: #parentFolder"
 
 	<generated>
 	<MSEComment: 'List of entities contained in this folder.'>

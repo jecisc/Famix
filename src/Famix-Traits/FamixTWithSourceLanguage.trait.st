@@ -10,26 +10,14 @@ Trait {
 FamixTWithSourceLanguage classSide >> annotation [
 
 	<MSEClass: #TWithSourceLanguage super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithSourceLanguage classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithSourceLanguage class>>#generatedSlotNames'.
-	^ #(declaredSourceLanguage)
-]
-
-{ #category : #generator }
-FamixTWithSourceLanguage classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithSourceLanguage >> declaredSourceLanguage [
+	"Relation named: #declaredSourceLanguage type: #FamixTSourceLanguage opposite: #sourcedEntities"
 
 	<generated>
 	<MSEComment: 'The declared SourceLanguage for the source code of this entity'>

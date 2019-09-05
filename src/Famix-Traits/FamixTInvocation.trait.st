@@ -24,8 +24,8 @@ Trait {
 FamixTInvocation classSide >> annotation [
 
 	<MSEClass: #TInvocation super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -35,19 +35,6 @@ FamixTInvocation classSide >> famixTInvocationRelatedGroup [
 	<mooseGroup>
 	
 	^ FAMIXInvocationGroup
-]
-
-{ #category : #generator }
-FamixTInvocation classSide >> generatedSlotNames [
-	<generated>
-	'FamixTInvocation class>>#generatedSlotNames'.
-	^ #(candidates receiver sender)
-]
-
-{ #category : #generator }
-FamixTInvocation classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -64,11 +51,11 @@ FamixTInvocation >> anyCandidate [
 
 { #category : #accessing }
 FamixTInvocation >> candidates [
+	"Relation named: #candidates type: #FamixTInvocable opposite: #incomingInvocations"
 
 	<generated>
 	<MSEComment: 'List of candidate behavioural entities for receiving the invocation'>
 	<target>
-
 	^ candidates
 ]
 
@@ -99,6 +86,7 @@ FamixTInvocation >> isInvocation [
 
 { #category : #accessing }
 FamixTInvocation >> receiver [
+	"Relation named: #receiver type: #FamixTInvocationsReceiver opposite: #receivingInvocations"
 
 	<generated>
 	<MSEComment: 'Named entity (variable, class...) receiving the invocation. to-side of the association'>
@@ -115,11 +103,11 @@ FamixTInvocation >> receiver: anObject [
 
 { #category : #accessing }
 FamixTInvocation >> sender [
+	"Relation named: #sender type: #FamixTWithInvocations opposite: #outgoingInvocations"
 
 	<generated>
 	<MSEComment: 'Behavioural entity making the call. from-side of the association'>
 	<source>
-
 	^ sender
 ]
 

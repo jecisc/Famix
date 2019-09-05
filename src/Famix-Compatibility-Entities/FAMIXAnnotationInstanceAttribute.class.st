@@ -1,8 +1,8 @@
 Class {
 	#name : #FAMIXAnnotationInstanceAttribute,
 	#superclass : #FAMIXSourcedEntity,
-	#traits : 'FamixTAnnotationInstanceAttribute + FamixTTypedAnnotationInstanceAttribute + TDependencyQueries + TEntityMetaLevelDependency',
-	#classTraits : 'FamixTAnnotationInstanceAttribute classTrait + FamixTTypedAnnotationInstanceAttribute classTrait + TDependencyQueries classTrait + TEntityMetaLevelDependency classTrait',
+	#traits : 'FamixTAnnotationInstanceAttribute + FamixTTypedAnnotationInstanceAttribute',
+	#classTraits : 'FamixTAnnotationInstanceAttribute classTrait + FamixTTypedAnnotationInstanceAttribute classTrait',
 	#category : #'Famix-Compatibility-Entities-Entities'
 }
 
@@ -15,31 +15,11 @@ FAMIXAnnotationInstanceAttribute class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXAnnotationInstanceAttribute class >> generatedSlotNames [
-	<generated>
-	'FAMIXAnnotationInstanceAttribute class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXAnnotationInstanceAttribute class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAnnotationInstanceAttribute FamixTTypedAnnotationInstanceAttribute TDependencyQueries TEntityMetaLevelDependency)
-]
-
 { #category : #meta }
 FAMIXAnnotationInstanceAttribute class >> requirements [
 
 	<generated>
 	^ { FAMIXAnnotationInstance }
-]
-
-{ #category : #'Moose-Query-Extensions' }
-FAMIXAnnotationInstanceAttribute class >> resetMooseQueryCaches [
-	super resetMooseQueryCaches.
-	self resetTEntityMetaLevelDependencyCaches.
-
 ]
 
 { #category : #accessing }

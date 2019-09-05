@@ -55,8 +55,7 @@ Class {
 		'MooseID'
 	],
 	#classInstVars : [
-		'mooseSubClasses',
-		'usedStatefulTraits'
+		'cache'
 	],
 	#category : #'Moose-Core'
 }
@@ -137,6 +136,11 @@ MooseEntity class >> annotation [
 ]
 
 { #category : #accessing }
+MooseEntity class >> cache [
+	^ cache ifNil: [ cache := Dictionary new ]
+]
+
+{ #category : #accessing }
 MooseEntity class >> defaultState [
 	^ DefaultState ifNil: [ DefaultState := MooseMemoryEfficientState ]
 ]
@@ -169,6 +173,19 @@ MooseEntity class >> implementingClassesIn: aMetamodel [
 	^ { self }
 ]
 
+{ #category : #testing }
+MooseEntity class >> isContainerEntityIn: aMetamodel [
+	^ aMetamodel
+		additionalProperty: #isContainerEntity
+		for: self
+		ifAbsentPut: [ (self allDeclaredPropertiesIn: aMetamodel) anySatisfy: #isChildrenProperty ]
+]
+
+{ #category : #testing }
+MooseEntity class >> isOfType: aClassFAMIX [
+	^ self superclassesAndFamixTraits includes: aClassFAMIX
+]
+
 { #category : #constants }
 MooseEntity class >> mooseDev [ 
 	"Answer the email address of the Moose mailinglist." 
@@ -176,14 +193,11 @@ MooseEntity class >> mooseDev [
 	^'moose-dev@iam.unibe.ch'
 ]
 
-{ #category : #meta }
-MooseEntity class >> mooseSubClasses [
-	 ^mooseSubClasses ifNil: [ mooseSubClasses := Set new ]
-]
+{ #category : #accessing }
+MooseEntity class >> requirements [
+	"Used by Famix generator."
 
-{ #category : #meta }
-MooseEntity class >> registerAsMooseSubclass: aClass [
-	self mooseSubClasses add: aClass
+	^ {}
 ]
 
 { #category : #private }
@@ -193,6 +207,11 @@ MooseEntity class >> resetIDGeneration [
 	MooseID := nil
 ]
 
+{ #category : #initialization }
+MooseEntity class >> resetMooseEntityCache [
+	cache := nil
+]
+
 { #category : #private }
 MooseEntity class >> setMooseID: anInteger [
 	"This method is used in the unit test"
@@ -200,36 +219,19 @@ MooseEntity class >> setMooseID: anInteger [
 	MooseID := anInteger 
 ]
 
-{ #category : #'stateful traits' }
-MooseEntity class >> statefulTraits [
-
-	^ {  }
+{ #category : #testing }
+MooseEntity class >> superclassesAndFamixTraits [
+	^ self cache at: #superclassesAndFamixTraits ifAbsentPut: [ self usedStatefulTraits , self withAllSuperclasses ]
 ]
 
 { #category : #'stateful traits' }
 MooseEntity class >> usedStatefulTraits [
-
-	^ (self instanceSide withAllSuperclasses flatCollect: [ :class | class traits ]) select: [ :trait | trait classSide includesSelector: #annotation ] 
-
-	
+	^ self cache at: #usedStatefulTraits ifAbsentPut: [ super usedStatefulTraits ]
 ]
 
 { #category : #accessing }
-MooseEntity class >> usesMooseTraitDirectly: aTrait [
-
-	^ self traits includes: aTrait
-]
-
-{ #category : #accessing }
-MooseEntity class >> usesTrait: aTrait [
-
-	^ (self instanceSide withAllSuperclasses flatCollect: #traits) includes: aTrait
-]
-
-{ #category : #meta }
-MooseEntity class >> withMooseSubclasses [
-	mooseSubClasses ifNil: [ ^self withAllSubclasses ].
-	^(mooseSubClasses copyWithAll: self withAllSubclasses) asSet
+MooseEntity class >> usesFamixTrait: aTrait [
+	^ self usedStatefulTraits includes: aTrait
 ]
 
 { #category : #'meta information' }
@@ -310,10 +312,6 @@ MooseEntity >> children [
 	^children
 ]
 
-{ #category : #'Famix-Extensions' }
-MooseEntity >> copyFrom: anEntity within: aVisitor [
-]
-
 { #category : #private }
 MooseEntity >> defaultStateClass [
 	"Answer the default implementator of this element's state."
@@ -344,15 +342,12 @@ MooseEntity >> entityCache [
 { #category : #groups }
 MooseEntity >> groupFor: aSelector [
 	"Return a group containing elements corresponding to aSelector"
+
 	"aSelector = allPackages, allClasses, allMethods, ... "
 
-	| res groupName |
-	res := self perform: aSelector.
-	groupName := aSelector asString capitalized, ' in ', self mooseName.
-	^ res isCollection
-			ifTrue: [ MooseGroup withAll: res withDescription: groupName ]
-			ifFalse: [ MooseGroup with: res withDescription: groupName ]
-
+	| groupName |
+	groupName := aSelector asString capitalized , ' in ' , self mooseName.
+	^ MooseGroup withAll: (self perform: aSelector) asCollection withDescription: groupName
 ]
 
 { #category : #printing }
@@ -405,9 +400,13 @@ MooseEntity >> isBookmarked: aBoolean [
 ]
 
 { #category : #testing }
+MooseEntity >> isContainerEntity [
+	^ self class isContainerEntityIn: self metamodel
+]
+
+{ #category : #testing }
 MooseEntity >> isOfType: aClassFAMIX [
-	
-	^ ((self mooseTypes flatCollect: #withAllSuperclasses as: Set) includes: aClassFAMIX)
+	^ self class isOfType: aClassFAMIX
 ]
 
 { #category : #testing }
@@ -443,8 +442,9 @@ MooseEntity >> metamodel [
 
 { #category : #accessing }
 MooseEntity >> mooseDescription [
-
-	^ self mooseModel ifNotNil: [:mooseModel | mooseModel metamodel descriptionOf: self class instanceSide ] ifNil: [ super mooseDescription ]  
+	^ self mooseModel
+		ifNil: [ super mooseDescription ]
+		ifNotNil: [ :model | model mooseDescriptionFor: self class ]
 ]
 
 { #category : #printing }
@@ -460,12 +460,6 @@ MooseEntity >> mooseID [
 	 
 	"nil = mooseID ifTrue: [mooseID := MooseModel freshID]." 
 	^mooseID
-]
-
-{ #category : #accessing }
-MooseEntity >> mooseIncludes: anObject [
-
-	^ self = anObject
 ]
 
 { #category : #accessing }
@@ -512,14 +506,6 @@ MooseEntity >> mooseNameOn: aStream [
 			[ self name 
 				ifNil: [ aStream print: self mooseID ]
 				ifNotNil: [ aStream nextPutAll: self name ] ]
-]
-
-{ #category : #accessing }
-MooseEntity >> mooseTypes [
-
-	^ { self class }, self class usedStatefulTraits
-
-	
 ]
 
 { #category : #accessing }
@@ -647,8 +633,13 @@ MooseEntity >> removeFromModel [
 
 { #category : #'meta information' }
 MooseEntity >> resetMooseName [
-	(self hasUniqueMooseNameInModel and: [ self privateState hasMooseModel ])
-		ifTrue: [ self mooseModel resetMooseNameFor: self ]
+	"If needed I reset my moose name in the MooseModel. I return true if my MooseName was updated and false if it was not."
+
+	(self hasUniqueMooseNameInModel and: [ self privateState hasMooseModel ]) ifFalse: [ ^ false ].
+
+	self mooseModel resetMooseNameFor: self.
+
+	^ true
 ]
 
 { #category : #initialization }
@@ -673,7 +664,7 @@ MooseEntity >> suspendAllAnnouncementsDuring: aBlock [
 ]
 
 { #category : #accessing }
-MooseEntity >> usesTrait: aTrait [
+MooseEntity >> usesFamixTrait: aTrait [
 
-	^ self class usesTrait: aTrait
+	^ self class usesFamixTrait: aTrait
 ]

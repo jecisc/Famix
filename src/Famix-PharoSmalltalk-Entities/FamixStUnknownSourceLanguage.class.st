@@ -1,6 +1,8 @@
 Class {
 	#name : #FamixStUnknownSourceLanguage,
 	#superclass : #FamixStSourceLanguage,
+	#traits : 'FamixTSourceLanguage',
+	#classTraits : 'FamixTSourceLanguage classTrait',
 	#category : #'Famix-PharoSmalltalk-Entities-Entities'
 }
 
@@ -13,22 +15,7 @@ FamixStUnknownSourceLanguage class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixStUnknownSourceLanguage class >> generatedSlotNames [
-	<generated>
-	'FamixStUnknownSourceLanguage class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStUnknownSourceLanguage class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
-{ #category : #meta }
-FamixStUnknownSourceLanguage class >> requirements [
-
-	<generated>
-	^ {  }
+{ #category : #testing }
+FamixStUnknownSourceLanguage >> isSmalltalk [
+	^ false
 ]
