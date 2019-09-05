@@ -10,22 +10,9 @@ Trait {
 FamixTInvocationsReceiver classSide >> annotation [
 
 	<MSEClass: #TInvocationsReceiver super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTInvocationsReceiver classSide >> generatedSlotNames [
-	<generated>
-	'FamixTInvocationsReceiver class>>#generatedSlotNames'.
-	^ #(receivingInvocations)
-]
-
-{ #category : #generator }
-FamixTInvocationsReceiver classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -35,6 +22,7 @@ FamixTInvocationsReceiver >> addReceivingInvocation: anInvocation [
 
 { #category : #accessing }
 FamixTInvocationsReceiver >> receivingInvocations [
+	"Relation named: #receivingInvocations type: #FamixTInvocation opposite: #receiver"
 
 	<generated>
 	<MSEComment: 'List of invocations performed on this entity (considered as the receiver)'>

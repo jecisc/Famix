@@ -30,12 +30,11 @@ Class {
 		'primitiveType',
 		'reference',
 		'scopingEntity',
-		'structuralEntity',
 		'thrownException',
 		'type',
 		'unknownVariable',
-		'unknownSourceLanguage',
-		'parameterizedType'
+		'parameterizedType',
+		'tStructuralEntity'
 	],
 	#category : #'Famix-Java-Generator'
 }
@@ -91,16 +90,32 @@ FamixJavaGenerator >> defineClasses [
 	primitiveType := builder newClassNamed: #PrimitiveType.
 	reference := builder newClassNamed: #Reference.
 	scopingEntity := builder newClassNamed: #ScopingEntity.
-	structuralEntity := builder newClassNamed: #StructuralEntity.
 	thrownException := builder newClassNamed: #ThrownException.
 	type := builder newClassNamed: #Type.
-	unknownSourceLanguage := builder newClassNamed: #UnknownSourceLanguage.
 	unknownVariable := builder newClassNamed: #UnknownVariable.
 	
 	primitiveType withTesting.
-	containerEntity withTesting.
 
+	self defineComments
+]
 
+{ #category : #definition }
+FamixJavaGenerator >> defineComments [
+	entity comment: 'file :=  ''ArgoUML-0.34.mse'' asFileReference readStream.
+
+dictionary := Dictionary newFrom: (
+	FamixJavaEntity withAllSubclasses collect: [ :c | 
+		cn := c name withoutPrefix: #FamixJava.
+		(''FAMIX.'', cn) -> (''FamixJava-Entities.'', cn) ]).
+
+dictionary at: ''FAMIX.JavaSourceLanguage'' put: ''FamixJava-Entities.SourceLanguage''.
+
+repo := MooseModel importFrom: file withMetamodel: FamixJavaGenerator metamodel translationDictionary: dictionary.
+
+model := MooseModel new.
+	model silentlyAddAll: repo elements.
+	model entityStorage forRuntime.
+model.'
 ]
 
 { #category : #definition }
@@ -117,13 +132,10 @@ FamixJavaGenerator >> defineHierarchy [
 	annotationInstance --|> #TAnnotationInstance.
 	annotationInstance --|> #TWithAnnotationInstanceAttributes.
 	annotationInstance --|> #TTypedAnnotationInstance.
-	annotationInstance --|> #TEntityMetaLevelDependency.
-	annotationInstance --|> #TDependencyQueries.
 
 	annotationInstanceAttribute --|> sourcedEntity.
 	annotationInstanceAttribute --|> #TAnnotationInstanceAttribute.
 	annotationInstanceAttribute --|> #TTypedAnnotationInstanceAttribute.
-	annotationInstanceAttribute --|> #TDependencyQueries.
 
 	annotationType --|> type.
 	annotationType --|> #TAnnotationType.
@@ -132,25 +144,16 @@ FamixJavaGenerator >> defineHierarchy [
 	annotationTypeAttribute --|> #TAnnotationTypeAttribute.
 	annotationTypeAttribute --|> #TTypedAnnotationInstanceAttribute.
 
-	attribute --|> structuralEntity.
+	attribute --|> namedEntity.
+	attribute --|> tStructuralEntity.
 	attribute --|> #TAttribute.
 	attribute --|> #TWithClassScope.
 
 	method --|> containerEntity.
 	method --|> #TMethod.
-	method --|> #TWithParameters.
-	method --|> #TInvocable.
-	method --|> #TWithInvocations.
-	method --|> #TWithReferences.
-	method --|> #TTypedStructure.
-	method --|> #TWithAccesses.
-	method --|> #TWithLocalVariables.
-	method --|> #TWithImplicitVariables.
-	method --|> #TWithSignature.
 	method --|> #TWithThrownExceptions.
 	method --|> #TWithDeclaredExceptions.
 	method --|> #TWithCaughtExceptions.
-	method --|> #TWithClassScope.
 	method --|> #TWithStatements.
 
 	caughtException --|> exception.
@@ -159,6 +162,7 @@ FamixJavaGenerator >> defineHierarchy [
 	class --|> type.
 	class --|> #TWithExceptions.
 	class --|> #TClass.
+	class --|> #TLCOMMetrics.
 
 	containerEntity --|> namedEntity.
 	containerEntity --|> #TWithTypes.
@@ -172,15 +176,18 @@ FamixJavaGenerator >> defineHierarchy [
 	enum --|> type.
 	enum --|> #TWithEnumValues.
 
-	enumValue --|> structuralEntity.
+	enumValue --|> namedEntity.
+	enumValue inheritsFromTrait: tStructuralEntity without: #(#mooseNameOn:).
 	enumValue --|> #TEnumValue.
 
 	exception --|> #TException.
 
-	globalVariable --|> structuralEntity.
+	globalVariable --|> namedEntity.
+	globalVariable --|> tStructuralEntity.
 	globalVariable --|> #TGlobalVariable.
 
-	implicitVariable --|> structuralEntity.
+	implicitVariable --|> namedEntity.
+	implicitVariable --|> tStructuralEntity.
 	implicitVariable --|> #TImplicitVariable.
 
 	inheritance --|> association.
@@ -191,7 +198,8 @@ FamixJavaGenerator >> defineHierarchy [
 	invocation --|> #TInvocation.
 	invocation --|> #TWithSignature.
 
-	localVariable --|> structuralEntity.
+	localVariable --|> namedEntity.
+	localVariable --|> tStructuralEntity.
 	localVariable --|> #TLocalVariable.
 
 	namedEntity --|> #TPackageable.
@@ -206,7 +214,8 @@ FamixJavaGenerator >> defineHierarchy [
 	package --|> scopingEntity.
 	package --|> #TPackage.
 
-	parameter --|> structuralEntity.
+	parameter --|> namedEntity.
+	parameter --|> tStructuralEntity.
 	parameter --|> #TParameter.
 
 	parameterType --|> type.
@@ -227,42 +236,34 @@ FamixJavaGenerator >> defineHierarchy [
 	scopingEntity --|> #TGlobalVariableScope.
 	scopingEntity --|> #TScopingEntity.
 
-	structuralEntity --|> namedEntity.
-	structuralEntity --|> #TAccessible.
-	structuralEntity --|> #TWithDereferencedInvocations.
-	structuralEntity --|> #TTypedStructure.
-
 	thrownException --|> exception.
 	thrownException --|> #TThrownException.
 
 	type --|> containerEntity.
 	type --|> #TType.
-	type --|> #TReferenceable.
-	type --|> #TWithTypedStructures.
 	type --|> #TWithTypeAliases.
-	type --|> #TWithMethods.
-	type --|> #TWithSuperInheritances.
-	type --|> #TWithSubInheritances.
-	type --|> #TWithAttributes.
 	type --|> #TParameterizedTypeUser.
 	type --|> #TClassHierarchyNavigation. 
 
-	unknownSourceLanguage --|> entity.
-	unknownSourceLanguage --|> #TSourceLanguage.
+	tStructuralEntity --|> #TStructuralEntity.
+	tStructuralEntity --|> #TWithDereferencedInvocations.
 
-	unknownVariable --|> structuralEntity.
+	unknownVariable --|> namedEntity.
+	unknownVariable --|> tStructuralEntity.
 	
 
 
 ]
 
 { #category : #definition }
-FamixJavaGenerator >> newBuilder [
+FamixJavaGenerator >> defineTraits [
+	super defineTraits.
+	tStructuralEntity := builder newTraitNamed: #TStructuralEntity
+]
 
-	^ self builderWithStandardTraits
+{ #category : #definition }
+FamixJavaGenerator >> newBuilder [
+	^ super newBuilder
 		withImportingContext;
 		yourself
-		
-		
-	
 ]

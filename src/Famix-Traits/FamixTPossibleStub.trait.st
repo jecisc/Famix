@@ -1,7 +1,7 @@
 Trait {
 	#name : #FamixTPossibleStub,
 	#instVars : [
-		'isStub'
+		'#isStub => FMProperty'
 	],
 	#category : #'Famix-Traits-Utility'
 }
@@ -10,22 +10,9 @@ Trait {
 FamixTPossibleStub classSide >> annotation [
 
 	<MSEClass: #TPossibleStub super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTPossibleStub classSide >> generatedSlotNames [
-	<generated>
-	'FamixTPossibleStub class>>#generatedSlotNames'.
-	^ #(isStub)
-]
-
-{ #category : #generator }
-FamixTPossibleStub classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }

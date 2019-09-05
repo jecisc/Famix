@@ -15,41 +15,6 @@ FAMIXInvocation class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXInvocation class >> generatedSlotNames [
-	<generated>
-	'FAMIXInvocation class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXInvocation class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTInvocation FamixTWithSignature)
-]
-
-{ #category : #meta }
-FAMIXInvocation class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXInvocation >> accept: aVisitor [
-
-	aVisitor visitInvocation: self
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXInvocation >> copyFrom: anEntity within: aVisitor [
-	super copyFrom: anEntity within: aVisitor.
-	self sender: (aVisitor visit: anEntity sender).
-	self receiver: (aVisitor visit: anEntity receiver).
-	self signature: anEntity signature copy.
-	anEntity candidates do: [ :c | self addCandidate: (aVisitor visit: c) ]
-]
-
 { #category : #'Famix-Extensions' }
 FAMIXInvocation >> getReceivingFAMIXClass [
 	|tmpReceiver|
@@ -136,13 +101,4 @@ FAMIXInvocation >> printOn: aStream [
 { #category : #accessing }
 FAMIXInvocation >> receiverSourceCode [
 	^ self receiver sourceText
-]
-
-{ #category : #accessing }
-FAMIXInvocation >> receiverSourceCode: aString [
-	"CyrilFerlicot: Deprecated the 19 sept 2017"
-
-	self
-		deprecated:
-			'The source code of the receiver should not be saved as a property. Instead access it via the receiver entity and it should be created as a sourceAnchor in the receiver.'
 ]

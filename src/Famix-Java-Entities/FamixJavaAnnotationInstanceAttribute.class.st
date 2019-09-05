@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixJavaAnnotationInstanceAttribute,
 	#superclass : #FamixJavaSourcedEntity,
-	#traits : 'FamixTAnnotationInstanceAttribute + FamixTTypedAnnotationInstanceAttribute + TDependencyQueries + TEntityMetaLevelDependency',
-	#classTraits : 'FamixTAnnotationInstanceAttribute classTrait + FamixTTypedAnnotationInstanceAttribute classTrait + TDependencyQueries classTrait + TEntityMetaLevelDependency classTrait',
+	#traits : 'FamixTAnnotationInstanceAttribute + FamixTTypedAnnotationInstanceAttribute',
+	#classTraits : 'FamixTAnnotationInstanceAttribute classTrait + FamixTTypedAnnotationInstanceAttribute classTrait',
 	#category : #'Famix-Java-Entities-Entities'
 }
 
@@ -15,31 +15,11 @@ FamixJavaAnnotationInstanceAttribute class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixJavaAnnotationInstanceAttribute class >> generatedSlotNames [
-	<generated>
-	'FamixJavaAnnotationInstanceAttribute class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaAnnotationInstanceAttribute class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAnnotationInstanceAttribute FamixTTypedAnnotationInstanceAttribute TDependencyQueries)
-]
-
 { #category : #meta }
 FamixJavaAnnotationInstanceAttribute class >> requirements [
 
 	<generated>
 	^ { FamixJavaAnnotationInstance }
-]
-
-{ #category : #generator }
-FamixJavaAnnotationInstanceAttribute class >> resetMooseQueryCaches [
-	super resetMooseQueryCaches.
-	self resetTEntityMetaLevelDependencyCaches.
-
 ]
 
 { #category : #accessing }

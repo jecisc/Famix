@@ -1,8 +1,8 @@
 Class {
 	#name : #FAMIXAnnotationInstance,
 	#superclass : #FAMIXSourcedEntity,
-	#traits : 'FamixTAnnotationInstance + FamixTTypedAnnotationInstance + FamixTWithAnnotationInstanceAttributes + TDependencyQueries + TEntityMetaLevelDependency',
-	#classTraits : 'FamixTAnnotationInstance classTrait + FamixTTypedAnnotationInstance classTrait + FamixTWithAnnotationInstanceAttributes classTrait + TDependencyQueries classTrait + TEntityMetaLevelDependency classTrait',
+	#traits : 'FamixTAnnotationInstance + FamixTTypedAnnotationInstance + FamixTWithAnnotationInstanceAttributes',
+	#classTraits : 'FamixTAnnotationInstance classTrait + FamixTTypedAnnotationInstance classTrait + FamixTWithAnnotationInstanceAttributes classTrait',
 	#category : #'Famix-Compatibility-Entities-Entities'
 }
 
@@ -15,31 +15,11 @@ FAMIXAnnotationInstance class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXAnnotationInstance class >> generatedSlotNames [
-	<generated>
-	'FAMIXAnnotationInstance class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXAnnotationInstance class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAnnotationInstance FamixTTypedAnnotationInstance FamixTWithAnnotationInstanceAttributes TDependencyQueries TEntityMetaLevelDependency)
-]
-
 { #category : #meta }
 FAMIXAnnotationInstance class >> requirements [
 
 	<generated>
 	^ { FAMIXNamedEntity }
-]
-
-{ #category : #'Moose-Query-Extensions' }
-FAMIXAnnotationInstance class >> resetMooseQueryCaches [
-	super resetMooseQueryCaches.
-	self resetTEntityMetaLevelDependencyCaches.
-
 ]
 
 { #category : #accessing }
@@ -79,4 +59,16 @@ FAMIXAnnotationInstance >> name [
 			stream << '@'
 				<< (self annotationType ifNil: [ super name ] ifNotNil: [ :type | type name ])
 				<< ' on ' << (self annotatedEntity ifNotNil: #name ifNil: [ 'undefined' ]) ]
+]
+
+{ #category : #'query dependencies' }
+FAMIXAnnotationInstance >> throughAllTo [
+	"Collect all the targets of the receiver and its children.
+	
+	Example:
+		aFAMIXMethod throughAllTo.
+			--> Will return a MooseOutgoingQueryResult containing the class having aFAMIXClass or its children as source
+	"
+
+	^ (MooseQueryCalculator strategy: MooseQueryOutgoingDirectionStrategy) throughAllFor: self
 ]

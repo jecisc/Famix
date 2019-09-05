@@ -15,19 +15,6 @@ FAMIXEnumValue class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXEnumValue class >> generatedSlotNames [
-	<generated>
-	'FAMIXEnumValue class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXEnumValue class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTEnumValue)
-]
-
 { #category : #meta }
 FAMIXEnumValue class >> requirements [
 
@@ -49,9 +36,4 @@ FAMIXEnumValue >> belongsTo: anObject [
 	<generated>
 	self parentEnum: anObject
 
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXEnumValue >> namespaceScope [
-	^ self parentType namespaceScope
 ]

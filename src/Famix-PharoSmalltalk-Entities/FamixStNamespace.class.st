@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixStNamespace,
 	#superclass : #FamixStScopingEntity,
-	#traits : 'FamixTNamespace',
-	#classTraits : 'FamixTNamespace classTrait',
+	#traits : 'FamixTInvocationsReceiver + FamixTNamespace',
+	#classTraits : 'FamixTInvocationsReceiver classTrait + FamixTNamespace classTrait',
 	#category : #'Famix-PharoSmalltalk-Entities-Entities'
 }
 
@@ -13,26 +13,6 @@ FamixStNamespace class >> annotation [
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixStNamespace class >> generatedSlotNames [
-	<generated>
-	'FamixStNamespace class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStNamespace class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTNamespace)
-]
-
-{ #category : #meta }
-FamixStNamespace class >> requirements [
-
-	<generated>
-	^ {  }
 ]
 
 { #category : #'Famix-Extensions-metrics' }
@@ -50,13 +30,6 @@ FamixStNamespace >> abstractness [
 ]
 
 { #category : #'Famix-Extensions-nav All Dependencies' }
-FamixStNamespace >> clientNamespaces [
-	"MooseCook was: ^ self inheritedByNamespaces union: self invokingNamespaces"
-
-	^ (self queryAllIncoming atScope: FamixTNamespace) withoutSelfLoops
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
 FamixStNamespace >> isNamespace [
 	^ true
 ]
@@ -71,12 +44,6 @@ FamixStNamespace >> mooseNameOn: aStream [
 			nextPut: $:;
 			nextPut: $: ].
 	self name ifNotNil: [aStream nextPutAll: self name]
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FamixStNamespace >> namespaceScope [
-
-	^ self 
 ]
 
 { #category : #'Famix-Extensions' }
@@ -130,26 +97,4 @@ FamixStNamespace >> numberOfMethods [
 FamixStNamespace >> numberOfMethods: aNumber [
 
 	self privateState propertyAt: #numberOfMethods put: aNumber
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FamixStNamespace >> packageScope [
-
-	self shouldNotImplement
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FamixStNamespace >> providerNamespaces [
-	"MooseCook was: ^ self inheritedNamespaces union: self invokedNamespaces"
-
-	^ (self queryAllOutgoing atScope: FamixTNamespace) withoutSelfLoops
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FamixStNamespace >> providerTypes [
-	<MSEProperty: #providerTypes type: #FamixStType>
-	<derived>
-	<multivalued>
-	<MSEComment: 'All types that the receiver depends on'>
-	^ (self queryAllOutgoing atScope: FamixTType) withoutSelfLoops
 ]

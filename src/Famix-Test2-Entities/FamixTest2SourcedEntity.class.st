@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixTest2SourcedEntity,
 	#superclass : #FamixTest2Entity,
-	#traits : 'FamixTWithComments + FamixTWithSourceAnchor + FamixTWithSourceLanguage',
-	#classTraits : 'FamixTWithComments classTrait + FamixTWithSourceAnchor classTrait + FamixTWithSourceLanguage classTrait',
+	#traits : 'FamixTSourceEntity + FamixTWithComments',
+	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithComments classTrait',
 	#category : #'Famix-Test2-Entities-Entities'
 }
 
@@ -13,24 +13,4 @@ FamixTest2SourcedEntity class >> annotation [
 	<package: #'Famix-Test2-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTest2SourcedEntity class >> generatedSlotNames [
-	<generated>
-	'FamixTest2SourcedEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTest2SourcedEntity class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTWithComments FamixTWithSourceAnchor FamixTWithSourceLanguage)
-]
-
-{ #category : #meta }
-FamixTest2SourcedEntity class >> requirements [
-
-	<generated>
-	^ {  }
 ]

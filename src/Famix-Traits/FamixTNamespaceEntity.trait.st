@@ -10,26 +10,14 @@ Trait {
 FamixTNamespaceEntity classSide >> annotation [
 
 	<MSEClass: #TNamespaceEntity super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTNamespaceEntity classSide >> generatedSlotNames [
-	<generated>
-	'FamixTNamespaceEntity class>>#generatedSlotNames'.
-	^ #(parentNamespace)
-]
-
-{ #category : #generator }
-FamixTNamespaceEntity classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTNamespaceEntity >> parentNamespace [
+	"Relation named: #parentNamespace type: #FamixTNamespace opposite: #namespaceEntities"
 
 	<generated>
 	^ parentNamespace

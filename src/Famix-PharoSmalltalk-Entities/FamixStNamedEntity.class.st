@@ -15,31 +15,11 @@ FamixStNamedEntity class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixStNamedEntity class >> generatedSlotNames [
-	<generated>
-	'FamixStNamedEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStNamedEntity class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTInvocationsReceiver FamixTNamed FamixTPackageable FamixTPossibleStub FamixTWithAnnotationInstances FamixTWithModifiers TDependencyQueries TEntityMetaLevelDependency)
-]
-
 { #category : #meta }
 FamixStNamedEntity class >> requirements [
 
 	<generated>
 	^ { FamixStPackage }
-]
-
-{ #category : #'as yet unclassified' }
-FamixStNamedEntity class >> resetMooseQueryCaches [
-	super resetMooseQueryCaches.
-	self resetTEntityMetaLevelDependencyCaches.
-
 ]
 
 { #category : #accessing }
@@ -56,12 +36,6 @@ FamixStNamedEntity >> belongsTo: anObject [
 	<generated>
 	self parentPackage: anObject
 
-]
-
-{ #category : #accessing }
-FamixStNamedEntity >> packageScope [
-	"Empty default scope"
-	^ nil
 ]
 
 { #category : #'Famix-Extensions' }

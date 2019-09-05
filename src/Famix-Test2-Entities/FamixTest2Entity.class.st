@@ -13,19 +13,6 @@ FamixTest2Entity class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTest2Entity class >> generatedSlotNames [
-	<generated>
-	'FamixTest2Entity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTest2Entity class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FamixTest2Entity class >> metamodel [
 
@@ -33,29 +20,8 @@ FamixTest2Entity class >> metamodel [
 	^ (self class environment at: #FamixTest2Generator) metamodel
 ]
 
-{ #category : #meta }
-FamixTest2Entity class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #testing }
-FamixTest2Entity >> isAccess [
-
-	<generated>
-	^ false
-]
-
 { #category : #testing }
 FamixTest2Entity >> isAssociation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixTest2Entity >> isAttribute [
 
 	<generated>
 	^ false
@@ -69,49 +35,7 @@ FamixTest2Entity >> isClass [
 ]
 
 { #category : #testing }
-FamixTest2Entity >> isFunction [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
 FamixTest2Entity >> isInheritance [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixTest2Entity >> isInvocation [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixTest2Entity >> isMethod [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixTest2Entity >> isNamespace [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixTest2Entity >> isPackage [
-
-	<generated>
-	^ false
-]
-
-{ #category : #testing }
-FamixTest2Entity >> isReference [
 
 	<generated>
 	^ false

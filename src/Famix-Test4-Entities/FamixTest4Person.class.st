@@ -16,28 +16,15 @@ FamixTest4Person class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTest4Person class >> generatedSlotNames [
+{ #category : #adding }
+FamixTest4Person >> addBooks: anObject [
 	<generated>
-	'FamixTest4Person class>>#generatedSlotNames'.
-	^ #(books)
-]
-
-{ #category : #generator }
-FamixTest4Person class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
-{ #category : #meta }
-FamixTest4Person class >> requirements [
-
-	<generated>
-	^ {  }
+	^ self books add: anObject
 ]
 
 { #category : #accessing }
 FamixTest4Person >> books [
+	"Relation named: #books type: #FamixTest4Book opposite: #person"
 
 	<generated>
 	^ books
@@ -53,9 +40,7 @@ FamixTest4Person >> books: anObject [
 
 { #category : #navigation }
 FamixTest4Person >> booksGroup [
-
 	<generated>
 	<navigation: 'Books'>
-	^ MooseGroup
-			withAll: (self books asSet)
+	^ MooseGroup withAll: self books asSet
 ]

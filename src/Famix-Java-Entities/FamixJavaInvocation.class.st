@@ -15,41 +15,6 @@ FamixJavaInvocation class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixJavaInvocation class >> generatedSlotNames [
-	<generated>
-	'FamixJavaInvocation class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaInvocation class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTInvocation FamixTWithSignature)
-]
-
-{ #category : #meta }
-FamixJavaInvocation class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaInvocation >> accept: aVisitor [
-
-	aVisitor visitInvocation: self
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaInvocation >> copyFrom: anEntity within: aVisitor [
-	super copyFrom: anEntity within: aVisitor.
-	self sender: (aVisitor visit: anEntity sender).
-	self receiver: (aVisitor visit: anEntity receiver).
-	self signature: anEntity signature copy.
-	anEntity candidates do: [ :c | self addCandidate: (aVisitor visit: c) ]
-]
-
 { #category : #'as yet unclassified' }
 FamixJavaInvocation >> getReceivingFAMIXClass [
 	|tmpReceiver|
@@ -136,13 +101,4 @@ FamixJavaInvocation >> printOn: aStream [
 { #category : #'as yet unclassified' }
 FamixJavaInvocation >> receiverSourceCode [
 	^ self receiver sourceText
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaInvocation >> receiverSourceCode: aString [
-	"CyrilFerlicot: Deprecated the 19 sept 2017"
-
-	self
-		deprecated:
-			'The source code of the receiver should not be saved as a property. Instead access it via the receiver entity and it should be created as a sourceAnchor in the receiver.'
 ]

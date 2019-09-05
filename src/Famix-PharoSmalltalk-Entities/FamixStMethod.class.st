@@ -1,10 +1,10 @@
 Class {
 	#name : #FamixStMethod,
 	#superclass : #FamixStContainerEntity,
-	#traits : 'FamixTInvocable + FamixTMethod + FamixTTypedStructure + FamixTWithAccesses + FamixTWithClassScope + FamixTWithImplicitVariables + FamixTWithInvocations + FamixTWithLocalVariables + FamixTWithParameters + FamixTWithReferences + FamixTWithSignature',
-	#classTraits : 'FamixTInvocable classTrait + FamixTMethod classTrait + FamixTTypedStructure classTrait + FamixTWithAccesses classTrait + FamixTWithClassScope classTrait + FamixTWithImplicitVariables classTrait + FamixTWithInvocations classTrait + FamixTWithLocalVariables classTrait + FamixTWithParameters classTrait + FamixTWithReferences classTrait + FamixTWithSignature classTrait',
+	#traits : 'FamixTMethod',
+	#classTraits : 'FamixTMethod classTrait',
 	#instVars : [
-		'#protocol'
+		'#protocol => FMProperty'
 	],
 	#category : #'Famix-PharoSmalltalk-Entities-Entities'
 }
@@ -18,38 +18,13 @@ FamixStMethod class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixStMethod class >> generatedSlotNames [
-	<generated>
-	'FamixStMethod class>>#generatedSlotNames'.
-	^ #(protocol)
-]
-
-{ #category : #generator }
-FamixStMethod class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTInvocable FamixTMethod FamixTTypedStructure FamixTWithAccesses FamixTWithClassScope FamixTWithImplicitVariables FamixTWithInvocations FamixTWithLocalVariables FamixTWithParameters FamixTWithReferences FamixTWithSignature)
-]
-
-{ #category : #meta }
-FamixStMethod class >> requirements [
-
-	<generated>
-	^ { FamixStClass }
-]
-
-{ #category : #meta }
-FamixStMethod class >> shouldSearchForSmalltalkCodeInImage [
-	^ true
-]
-
 { #category : #'Famix-Extensions-metrics-support' }
 FamixStMethod >> accessedAttributes [
 	
 	"Returns the set of attributes of my class accessed by me (method). 
 	Used to support the calculation of LCOM"
 	
-	^ self queryOutgoingAccesses opposites withinMyClass asSet select: #isAttribute
+	^ (self queryOutgoingAccesses opposites withinParentUsing: FamixTClass) asSet select: #isAttribute
 ]
 
 { #category : #accessing }
@@ -66,15 +41,6 @@ FamixStMethod >> belongsTo: anObject [
 	<generated>
 	self parentType: anObject
 
-]
-
-{ #category : #'Famix-Extensions-metrics-support' }
-FamixStMethod >> category [
-	<MSEProperty: #category type: #String>
-	<MSEComment: 'Category of the method'>
-	<package: 'Smalltalk'>
-	
-	^ self privateState attributeAt: #category ifAbsentPut: [ nil ]
 ]
 
 { #category : #'Famix-Extensions-metrics-support' }
@@ -96,11 +62,7 @@ FamixStMethod >> compiledMethod [
 
 { #category : #'Famix-Extensions-private' }
 FamixStMethod >> computeNumberOfLinesOfCodeIfSmalltalk [
-	| parser |
-	
-	parser := RBVisitorForFAMIXMetrics new.
-	parser processMethod: self usingImporter: nil inModel: nil.
-	^ parser numberOfLinesOfCode
+	^self sourceText lineCount.
 ]
 
 { #category : #'Famix-Extensions-private' }
@@ -115,11 +77,6 @@ FamixStMethod >> cyclomaticComplexity [
 			parser processMethod: self usingImporter: nil inModel: nil.
 			parser cyclomaticNumber2 ]
 			
-]
-
-{ #category : #'Famix-Extensions-private' }
-FamixStMethod >> entityHasOutgoingTypeDeclarations [
-	^ self declaredType isNotNil
 ]
 
 { #category : #'Famix-Extensions-private' }
@@ -155,7 +112,7 @@ FamixStMethod >> hierarchyNestingLevel: aNumber [
 { #category : #'Famix-Extensions-metrics-support' }
 FamixStMethod >> initialize [
 	super initialize.
-	hasClassScope := false
+	isClassSide := false
 ]
 
 { #category : #'Famix-Extensions' }
@@ -180,7 +137,7 @@ FamixStMethod >> isCalledInternally [
 
 { #category : #'Famix-Extensions-metrics-support' }
 FamixStMethod >> isInitializer [
-	^ (('*initialize*' match: self category) or: [ '*initialize*' match: self name ]) or: [ self isConstructor ] 
+	^ (('*initialize*' match: self protocol) or: [ '*initialize*' match: self name ]) or: [ self isConstructor ] 
 ]
 
 { #category : #'Famix-Extensions-metrics-support' }
@@ -203,23 +160,24 @@ FamixStMethod >> isJUnit4Test [
 
 { #category : #'Famix-Extensions-metrics-support' }
 FamixStMethod >> isOverriden [
+	"If we have a stub and we don't have the container, we can't have the information"
+
 	<MSEProperty: #isOverriden type: #Boolean>
 	<derived>
 	<MSEComment: 'The method is overrided in a sub class'>
-	"If we have a stub and we don't have the container, we can't have the information"
 	(self belongsTo isNil and: [ self isStub ]) ifTrue: [ ^ false ].
-	
-	^ self belongsTo subclassHierarchyGroup anySatisfy: [ :each | each hasMethodWithSignature: self signature ]
+
+	^ self belongsTo subclassHierarchyGroup anySatisfy: [ :each | each implements: self signature ]
 ]
 
-{ #category : #'Famix-Extensions-metrics-support' }
+{ #category : #accessing }
 FamixStMethod >> isOverriding [
 	<MSEProperty: #isOverriding type: #Boolean>
 	<derived>
 	<MSEComment: 'The method is overrinding a method defined in a super class'>
 	
 	^self belongsTo directSuperclasses anySatisfy: [:each | 
-		each isInterface not and: [each understands: self signature]]
+		each understands: self signature]
 ]
 
 { #category : #'Famix-Extensions-metrics-support' }
@@ -255,11 +213,6 @@ FamixStMethod >> mooseNameOn: stream [
 		ifNotNil: [ stream nextPutAll: self signature ]
 		ifNil: [ 
 			self name ifNotNil: [ stream nextPutAll: self name] ]
-]
-
-{ #category : #'Famix-Extensions-metrics-support' }
-FamixStMethod >> namespaceScope [
-	^ self parentType namespaceScope
 ]
 
 { #category : #'Famix-Extensions-private' }
@@ -377,18 +330,6 @@ FamixStMethod >> outgoingTypeDeclarations [
 	^ self declaredType ifNil: [ {} ] ifNotNil: [ :dt | {(MooseQueryTypeDeclarationAssociation newFrom: self to: dt)} ]
 ]
 
-{ #category : #'Famix-Extensions-metrics-support' }
-FamixStMethod >> packageScope [
-
-	^ self parentPackage ifNil:[ 
-		|cl|
-		cl := self parentType.
-		cl isNil 
-			ifTrue:[nil]
-			ifFalse:[cl packageScope]
-	]
-]
-
 { #category : #accessing }
 FamixStMethod >> protocol [
 
@@ -420,16 +361,9 @@ FamixStMethod >> smalltalkClass [
 { #category : #'Famix-Extensions-metrics-support' }
 FamixStMethod >> sourceText [
 	self flag: 'This code should be delegated to the FAMIXPharoAnchor'.
-	^ self class shouldSearchForSmalltalkCodeInImage
-		ifTrue: [ [ | class |
-			"take the normal class"
-			class := Smalltalk at: self parentType instanceSide name asSymbol.
-			self hasClassScope
-				ifFalse: [ class sourceCodeAt: self name asSymbol ]
-				ifTrue: [ class class sourceCodeAt: self name asSymbol ]	"dispatch on class or metaclass depending on method scope" ]
-				on: Error
-				do: [ super sourceText ]	"probably class is not in the system" ]
-		ifFalse: [ super sourceText ]
+	^ [ self compiledMethod sourceCode ]
+		on: Error
+		do: [ "probably class is not in the system" super sourceText ]
 ]
 
 { #category : #'Famix-Extensions-metrics-support' }
@@ -445,10 +379,4 @@ FamixStMethod >> timeStamp [
 FamixStMethod >> timeStamp: aTimeStamp [
 
 	self privateState attributeAt: #timeStamp put: aTimeStamp
-]
-
-{ #category : #'Famix-Extensions-metrics-support' }
-FamixStMethod >> typeScope [
-
-	^ self parentType 
 ]

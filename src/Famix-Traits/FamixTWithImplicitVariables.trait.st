@@ -10,22 +10,9 @@ Trait {
 FamixTWithImplicitVariables classSide >> annotation [
 
 	<MSEClass: #TWithImplicitVariables super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithImplicitVariables classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithImplicitVariables class>>#generatedSlotNames'.
-	^ #(implicitVariables)
-]
-
-{ #category : #generator }
-FamixTWithImplicitVariables classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -35,6 +22,7 @@ FamixTWithImplicitVariables >> addImplicitVariable: anImplicitVariable [
 
 { #category : #accessing }
 FamixTWithImplicitVariables >> implicitVariables [
+	"Relation named: #implicitVariables type: #FamixTImplicitVariable opposite: #parentBehaviouralEntity"
 
 	<generated>
 	<MSEComment: 'Implicit variables used locally by this behaviour.'>

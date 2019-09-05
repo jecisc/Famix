@@ -10,22 +10,9 @@ Trait {
 FamixTReferenceable classSide >> annotation [
 
 	<MSEClass: #TReferenceable super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTReferenceable classSide >> generatedSlotNames [
-	<generated>
-	'FamixTReferenceable class>>#generatedSlotNames'.
-	^ #(incomingReferences)
-]
-
-{ #category : #generator }
-FamixTReferenceable classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -35,6 +22,7 @@ FamixTReferenceable >> addIncomingReference: aReference [
 
 { #category : #accessing }
 FamixTReferenceable >> incomingReferences [
+	"Relation named: #incomingReferences type: #FamixTReference opposite: #target"
 
 	<generated>
 	<MSEComment: 'References to this entity by other entities.'>

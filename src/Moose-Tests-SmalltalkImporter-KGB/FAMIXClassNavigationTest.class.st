@@ -4,105 +4,47 @@ Class {
 	#category : #'Moose-Tests-SmalltalkImporter-KGB'
 }
 
-{ #category : #'MooseKGB-TestFamix3-allDependencies' }
+{ #category : #tests }
 FAMIXClassNavigationTest >> testClientClasses [
-	self assert: self c14ReferencerOutSideRefereeOutSide clientTypes size equals: 2.
 	self
-		assert:
-			(self c14ReferencerOutSideRefereeOutSide clientTypes
-				equalsTo:
-					(Set new
-						add: self c2ReferencerOutSideRefereeInSide;
-						add: self c15FullReferencerOutSide;
-						yourself)).
-	self assert: self c3ReferencerInSideRefereeOutSide clientTypes size equals: 3.
+		assertCollection: (self c14ReferencerOutSideRefereeOutSide allClientsAtScope: FamixTType)
+		hasSameElements: {self c2ReferencerOutSideRefereeInSide . self c15FullReferencerOutSide}.
 	self
-		assert:
-			(self c3ReferencerInSideRefereeOutSide clientTypes
-				equalsTo:
-					(Set new
-						add: self c1FullReferencerOutSide;
-						add: self c6FullReferencerInSideOutSide;
-						add: self c14ReferencerOutSideRefereeOutSide;
-						yourself))
+		assertCollection: (self c3ReferencerInSideRefereeOutSide allClientsAtScope: FamixTType)
+		hasSameElements: {self c1FullReferencerOutSide . self c6FullReferencerInSideOutSide . self c14ReferencerOutSideRefereeOutSide}
 ]
 
-{ #category : #'MooseKGB-TestFamix3-allDependencies' }
+{ #category : #tests }
 FAMIXClassNavigationTest >> testClientNamespaces [
-	self assert: self c14ReferencerOutSideRefereeOutSide clientNamespaces size equals: 3.
 	self
-		assert:
-			(self c14ReferencerOutSideRefereeOutSide clientNamespaces
-				equalsTo:
-					(Set new
-						add: self namespace1InteractedReferencerReferee;
-						add: self namespace4FullReferencer;
-						add: self namespace3ReferencerReferee;
-						yourself))
+		assertCollection: (self c14ReferencerOutSideRefereeOutSide allClientsAtScope: FamixTNamespace)
+		hasSameElements: {self n1InteractedReferencerReferee . self n4FullReferencer}
 ]
 
-{ #category : #'MooseKGB-TestFamix3-allDependencies' }
+{ #category : #tests }
 FAMIXClassNavigationTest >> testClientPackages [
-	| p2 p8 p7 |
-	p2 := self packageP2InteractedReferencerReferee.
-	p7 := self packageP7ReferencerReferee.
-	p8 := self packageP8FullReferencer.
-	self assert: self c14ReferencerOutSideRefereeOutSide clientPackages size equals: 3.
 	self
-		assert:
-			(self c14ReferencerOutSideRefereeOutSide clientPackages
-				equalsTo:
-					(Set new
-						add: p2;
-						add: p8;
-						add: p7;
-						yourself))
+		assertCollection: (self c14ReferencerOutSideRefereeOutSide allClientsAtScope: FamixTPackage)
+		hasSameElements: {self p2InteractedReferencerReferee . self p8FullReferencer}
 ]
 
-{ #category : #'MooseKGB-TestFamix3-allDependencies' }
+{ #category : #tests }
 FAMIXClassNavigationTest >> testProviderClasses [
-	self assert: self c15FullReferencerOutSide providerTypes size equals: 3.
 	self
-		assert:
-			(self c15FullReferencerOutSide providerTypes
-				equalsTo:
-					(Set new
-						add: self c14ReferencerOutSideRefereeOutSide;
-						add: self c18FullRefereeInSideOutSide;
-						add: self c19FullRefereeOutSide;
-						yourself))
+		assertCollection: (self c15FullReferencerOutSide allProvidersAtScope: FamixTType)
+		hasSameElements: {self c14ReferencerOutSideRefereeOutSide . self c18FullRefereeInSideOutSide . self c19FullRefereeOutSide}
 ]
 
-{ #category : #'MooseKGB-TestFamix3-allDependencies' }
+{ #category : #tests }
 FAMIXClassNavigationTest >> testProviderNamespace [
-	self assert: self c15FullReferencerOutSide providerNamespaces size equals: 3.
 	self
-		assert:
-			(self c15FullReferencerOutSide providerNamespaces
-				equalsTo:
-					(Set new
-						add: self namespace3ReferencerReferee;
-						add: self namespace5InteractedReferencer;
-						add: self namespace6InteractedReferee;
-						yourself))
+		assertCollection: (self c15FullReferencerOutSide allProvidersAtScope: FamixTNamespace)
+		hasSameElements: {self n3ReferencerReferee . self n5InteractedReferencer . self n6InteractedReferee}
 ]
 
-{ #category : #'MooseKGB-TestFamix3-allDependencies' }
+{ #category : #tests }
 FAMIXClassNavigationTest >> testProviderPackages [
-	| p10 p11 p7 pEx |
-	p10 := self packageP10InteractedReferee.
-	p11 := self packageP11FullReferee.
-	p7 := self packageP7ReferencerReferee.
-	pEx := self packagePExtensions.
-	self assert: self c15FullReferencerOutSide providerPackages size equals: 4.
 	self
-		assert:
-			(self c15FullReferencerOutSide providerPackages
-				equalsTo:
-					(Set new
-						add: p10;
-						add: p11;
-						add: pEx;
-						add: p7;
-						yourself))
+		assertCollection: (self c15FullReferencerOutSide allProvidersAtScope: FamixTPackage)
+		hasSameElements: {self p10InteractedReferee . self p11FullReferee . self pExtensions . self p7ReferencerReferee}
 ]

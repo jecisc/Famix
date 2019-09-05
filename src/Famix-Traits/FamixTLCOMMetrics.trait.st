@@ -7,22 +7,9 @@ Trait {
 FamixTLCOMMetrics classSide >> annotation [
 
 	<MSEClass: #TLCOMMetrics super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTLCOMMetrics classSide >> generatedSlotNames [
-	<generated>
-	'FamixTLCOMMetrics class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTLCOMMetrics classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #'Famix-Extensions-metrics-support' }

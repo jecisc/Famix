@@ -7,6 +7,8 @@ Trait {
 	#instVars : [
 		'#parentType => FMOne type: #FamixTWithAttributes opposite: #attributes'
 	],
+	#traits : 'FamixTStructuralEntity',
+	#classTraits : 'FamixTStructuralEntity classTrait',
 	#category : #'Famix-Traits-Attribute'
 }
 
@@ -14,22 +16,9 @@ Trait {
 FamixTAttribute classSide >> annotation [
 
 	<MSEClass: #TAttribute super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTAttribute classSide >> generatedSlotNames [
-	<generated>
-	'FamixTAttribute class>>#generatedSlotNames'.
-	^ #(parentType)
-]
-
-{ #category : #generator }
-FamixTAttribute classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #testing }
@@ -41,11 +30,11 @@ FamixTAttribute >> isAttribute [
 
 { #category : #accessing }
 FamixTAttribute >> parentType [
+	"Relation named: #parentType type: #FamixTWithAttributes opposite: #attributes"
 
 	<generated>
 	<MSEComment: 'Type declaring the attribute. belongsTo implementation'>
 	<container>
-
 	^ parentType
 ]
 
@@ -59,9 +48,7 @@ FamixTAttribute >> parentType: anObject [
 
 { #category : #navigation }
 FamixTAttribute >> parentTypeGroup [
-
 	<generated>
 	<navigation: 'ParentType'>
-	^ MooseGroup
-			with: (self parentType)
+	^ MooseGroup with: self parentType
 ]

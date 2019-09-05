@@ -4,8 +4,8 @@ FamixMetamodelBuilderBehavior
 Class {
 	#name : #FmxMBBehavior,
 	#superclass : #FmxMBEntity,
-	#traits : 'FmxMBRelationSideTrait + FmxMBInheritableTrait',
-	#classTraits : 'FmxMBRelationSideTrait classTrait + FmxMBInheritableTrait classTrait',
+	#traits : 'FmxMBRelationSideTrait',
+	#classTraits : 'FmxMBRelationSideTrait classTrait',
 	#instVars : [
 		'relations',
 		'realClass',
@@ -15,10 +15,23 @@ Class {
 		'packageName',
 		'testingSelectors',
 		'isRoot',
-		'traitGeneralizations'
+		'traitGeneralizations',
+		'methodsToRemoveFromTraitComposition'
 	],
 	#category : #'Famix-MetamodelBuilder-Core-Implementation'
 }
+
+{ #category : #generalization }
+FmxMBBehavior >> --|> anObject [
+	self generalization: anObject.
+	^ anObject
+]
+
+{ #category : #generalization }
+FmxMBBehavior >> <|-- anObject [
+	anObject generalization: self.
+	^ anObject
+]
 
 { #category : #accessing }
 FmxMBBehavior >> addRelation: aRelation with: anotherClass [
@@ -48,11 +61,23 @@ FmxMBBehavior >> addTraitGeneralization: aTrait [
 	^ aTrait
 ]
 
+{ #category : #accessing }
+FmxMBBehavior >> allLocalTraits [
+	^ self traitGeneralizations
+]
+
 { #category : #'as yet unclassified' }
 FmxMBBehavior >> allNavigationGroups [
 
 	^ self navigationGroups, (self relations flatCollect: [ :relation |
 		relation side navigationGroups ]).
+]
+
+{ #category : #accessing }
+FmxMBBehavior >> allTransitiveTraits [
+	^ (Set with: self)
+		addAll: (self allLocalTraits flatCollect: [ :trait | trait allTransitiveTraits ]);
+		yourself
 ]
 
 { #category : #converting }
@@ -75,6 +100,21 @@ FmxMBBehavior >> canProvidePrimaryContainer [
 	^ additionalProperties at: #providesPrimaryContainer ifAbsent: [ true ]
 ]
 
+{ #category : #accessing }
+FmxMBBehavior >> classGeneralization [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+FmxMBBehavior >> classGeneralization: anObject [
+	^ self subclassResponsibility
+]
+
+{ #category : #'settings - default' }
+FmxMBBehavior >> defaultSuperclass [
+	^ self builder environment basicSuperclass
+]
+
 { #category : #'settings - default' }
 FmxMBBehavior >> defaultTag [
 
@@ -87,6 +127,17 @@ FmxMBBehavior >> fullName [
 	^ (self prefix, self name) asSymbol
 ]
 
+{ #category : #accessing }
+FmxMBBehavior >> generalization: anObject [
+
+	^ anObject isSymbol
+		ifTrue: [ self addTraitGeneralization: (self builder getTraitNamed: anObject) ]
+		ifFalse: [ 
+			anObject isMetamodelTrait 
+				ifTrue: [ self addTraitGeneralization: anObject ]
+				ifFalse: [ self classGeneralization: anObject ] ]
+]
+
 { #category : #generating }
 FmxMBBehavior >> generateAccessors [
 
@@ -96,79 +147,73 @@ FmxMBBehavior >> generateAccessors [
 ]
 
 { #category : #generating }
+FmxMBBehavior >> generateAddToCollectionFor: aClass [
+	| sideName |
+	self allNavigationGroups
+		do: [ :aGroup | 
+			sideName := aGroup entity name.
+			aGroup entity isMany
+				ifTrue: [ self builder environment
+						compile:
+							('add{1}: anObject
+	<generated>
+	^ self {2} add: anObject' format: {sideName capitalized . sideName})
+						in: aClass instanceSide
+						classified: #adding ] ]
+]
+
+{ #category : #generating }
 FmxMBBehavior >> generateAnnotationIn: aRealClass as: aName superclass: aSuperclass [
-
 	| aSuperclassName |
-	
-	aSuperclassName := aSuperclass  
+	aSuperclassName := aSuperclass
 		ifNotNil: [ aSuperclass name ]
-		ifNil: [ 
-			(self classGeneralization = self defaultSuperclass) 
-				ifTrue: [ self defaultSuperclass name]
-				ifFalse: [ self classGeneralization 
-					ifNil: [ self defaultSuperclass name ]
-					ifNotNil: [ 
-						self classGeneralization realClass name ] ] ].
+		ifNil: [ self classGeneralization = self defaultSuperclass
+				ifTrue: [ self defaultSuperclass name ]
+				ifFalse: [ self classGeneralization ifNil: [ self defaultSuperclass name ] ifNotNil: [ self classGeneralization realClass name ] ] ].
 
-	aRealClass classSide compile: ('annotation
+	aRealClass classSide
+		compile:
+			('annotation
 
 	<MSEClass: #{1} super: #{2}>
 	<package: {3}>
 	<generated>
-	^self' format: { aName. aSuperclassName. self builder safeAnnotationPackageName})
+	^self' format: {aName . aSuperclassName . self builder safeAnnotationPackageName})
 		classified: 'meta'
-
 ]
 
 { #category : #generating }
-FmxMBBehavior >> generateContainerMethodsIn: aClass [
+FmxMBBehavior >> generateMethodsToRemoveFromTraitCompositionFor: aBehavioral [
+	"In case of method conflict the user can select methods to remove from a trait. In that case we give the information to ring here."
 
-	| primaryContainerProperties |
-	
-	primaryContainerProperties := self primaryContainerProperties.
-		
-	primaryContainerProperties size > 1 ifTrue: [ self error: aClass name, ' defines more than one primary container: ', ((primaryContainerProperties collect: #name) sorted joinUsing: ', ') ].
-	
-	primaryContainerProperties do: [ :aSide | aSide generateExtendedContainerMethodsIn: aClass ].
-	
-	
+	self additionalProperties
+		at: #methodsToRemoveFromTraitComposition
+		ifPresent: [ :methodsDictionary |
+			aBehavioral
+				propertyNamed: #methodsToRemoveFromTraitComposition
+				put: methodsDictionary ]
 ]
 
 { #category : #generating }
-FmxMBBehavior >> generateNavigationGroups [
+FmxMBBehavior >> generateNavigationGroupsFor: aClass [
+	self allNavigationGroups
+		do: [ :aNavigationGroup | 
+			| sideName |
+			sideName := aNavigationGroup entity name.
 
-	| allNavigationGroups |
-
-	allNavigationGroups := self allNavigationGroups.
-
-	allNavigationGroups do: [ :aGroup | 
-		| sideName |
-		sideName := aGroup entity name.
-		aGroup entity isMany ifTrue: [ 
-			self realClass instanceSide compile: ('{1}
-
+			self builder environment
+				compile:
+					((aNavigationGroup entity isMany
+						ifTrue: [ '{1}
 	<generated>
 	<navigation: ''{2}''>
-	^ MooseGroup
-			withAll: (self {3} asSet)' format: { 
-				sideName, 'Group'.
-				sideName capitalized.
-				sideName }) 
-			classified: #navigation.]
-		ifFalse: [ 
-			self realClass instanceSide compile: ('{1}
-
+	^ MooseGroup withAll: self {3} asSet' ]
+						ifFalse: [ '{1}
 	<generated>
 	<navigation: ''{2}''>
-	^ MooseGroup
-			with: (self {3})' format: { 
-				sideName, 'Group'.
-				sideName capitalized.
-				sideName }) 
-			classified: #navigation.]
-
-	].
-
+	^ MooseGroup with: self {3}' ]) format: {(sideName , 'Group') . sideName capitalized . sideName})
+				in: aClass instanceSide
+				classified: #navigation ]
 ]
 
 { #category : #generating }
@@ -180,17 +225,16 @@ FmxMBBehavior >> generateRemoteAccessors [
 ]
 
 { #category : #generating }
-FmxMBBehavior >> generateRootMetamodelMethodIn: aClass [ 
+FmxMBBehavior >> generateRootMetamodelMethodIn: aClass [
+	self isRoot ifFalse: [ ^ self ].
 
-	self isRoot ifFalse: [ 
-		^ self ].
-
-	aClass classSide compile: ('metamodel
+	aClass classSide
+		compile:
+			('metamodel
 
 	<generated>
-	^ (self class environment at: #{1}) metamodel' 
-		format: {self builder generator class name})
-		classified: 'meta' 
+	^ (self class environment at: #{1}) metamodel' format: {self builder generator class name})
+		classified: 'meta'
 ]
 
 { #category : #generating }
@@ -203,7 +247,13 @@ FmxMBBehavior >> generateTestingMethodsIn: aClass [
 
 ]
 
-{ #category : #accessing }
+{ #category : #generalization }
+FmxMBBehavior >> inheritsFromTrait: aTrait without: aCollection [
+	self --|> aTrait.
+	(self additionalProperties at: #methodsToRemoveFromTraitComposition ifAbsentPut: [ Dictionary new ]) at: aTrait fullName put: aCollection
+]
+
+{ #category : #initialization }
 FmxMBBehavior >> initialize [
 
 	super initialize.
@@ -212,7 +262,7 @@ FmxMBBehavior >> initialize [
 	prefix := String new.
 	packageName := String new.
 	testingSelectors := Set new.
-	isRoot := true.
+	isRoot := true
 ]
 
 { #category : #testing }
@@ -284,20 +334,6 @@ FmxMBBehavior >> prefix [
 { #category : #accessing }
 FmxMBBehavior >> prefix: anObject [
 	prefix := anObject
-]
-
-{ #category : #generating }
-FmxMBBehavior >> primaryContainerProperties [
-
-	| primaryContainers |
-	
-	primaryContainers := ((self allTraits copyWithoutAll: self usedTraitsWithoutPrimaryContainers)
-		flatCollect: #sides) 
-		select: #isContainer.
-		
-	primaryContainers addAll: ((self properties select: #isContainer) select: #providesPrimaryContainer).
-	
-	^ primaryContainers
 ]
 
 { #category : #generating }
@@ -404,17 +440,13 @@ FmxMBBehavior >> singularPropertyName [
 
 { #category : #generating }
 FmxMBBehavior >> slotDefinitions [
-
 	| slotGroups |
-	
 	slotGroups := (self properties select: #producesSlot thenCollect: [ :property | property asSlot ]) groupedBy: #name.
 
 	"check that all slots with the same name have the same properties"
-	slotGroups valuesDo: [ :similarSlots |
-		self assert: (similarSlots collect: #name) asSet size = 1. ].
-		
-	^ slotGroups values collect: [ :each | each anyOne ].
+	slotGroups valuesDo: [ :similarSlots | self assert: (similarSlots collect: #name) asSet size = 1 ].
 
+	^ slotGroups values collect: [ :each | each anyOne ]
 ]
 
 { #category : #accessing }

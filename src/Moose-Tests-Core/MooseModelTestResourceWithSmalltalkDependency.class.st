@@ -7,7 +7,12 @@ Class {
 { #category : #'as yet unclassified' }
 MooseModelTestResourceWithSmalltalkDependency >> metamodelFactory [
 
-	^ SmalltalkCompatibilityMetamodelFactory
+	^ SmalltalkMetamodelFactory
+]
+
+{ #category : #setup }
+MooseModelTestResourceWithSmalltalkDependency >> modelClass [
+	^ FamixStMooseModel
 ]
 
 { #category : #'as yet unclassified' }

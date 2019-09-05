@@ -10,22 +10,9 @@ Trait {
 FamixTWithMethods classSide >> annotation [
 
 	<MSEClass: #TWithMethods super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithMethods classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithMethods class>>#generatedSlotNames'.
-	^ #(methods)
-]
-
-{ #category : #generator }
-FamixTWithMethods classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -35,6 +22,7 @@ FamixTWithMethods >> addMethod: aMethod [
 
 { #category : #accessing }
 FamixTWithMethods >> methods [
+	"Relation named: #methods type: #FamixTMethod opposite: #parentType"
 
 	<generated>
 	<MSEComment: 'Methods declared by this type.'>
@@ -150,7 +138,7 @@ FamixTWithMethods >> numberOfMethodProtocols [
 	
 	^self
 		lookUpPropertyNamed: #numberOfMethodProtocols
-		computedAs: [((self methods collect: [:each | each category]) reject: #isNil) asSet size]
+		computedAs: [((self methods collect: [:each | each protocol]) reject: #isNil) asSet size]
 ]
 
 { #category : #metrics }

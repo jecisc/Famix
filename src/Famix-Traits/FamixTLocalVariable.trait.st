@@ -6,6 +6,8 @@ Trait {
 	#instVars : [
 		'#parentBehaviouralEntity => FMOne type: #FamixTWithLocalVariables opposite: #localVariables'
 	],
+	#traits : 'FamixTStructuralEntity',
+	#classTraits : 'FamixTStructuralEntity classTrait',
 	#category : #'Famix-Traits-LocalVariable'
 }
 
@@ -13,31 +15,18 @@ Trait {
 FamixTLocalVariable classSide >> annotation [
 
 	<MSEClass: #TLocalVariable super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTLocalVariable classSide >> generatedSlotNames [
-	<generated>
-	'FamixTLocalVariable class>>#generatedSlotNames'.
-	^ #(parentBehaviouralEntity)
-]
-
-{ #category : #generator }
-FamixTLocalVariable classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTLocalVariable >> parentBehaviouralEntity [
+	"Relation named: #parentBehaviouralEntity type: #FamixTWithLocalVariables opposite: #localVariables"
 
 	<generated>
 	<MSEComment: 'Behavioural entity declaring this local variable. belongsTo implementation'>
 	<container>
-
 	^ parentBehaviouralEntity
 ]
 
@@ -52,9 +41,7 @@ FamixTLocalVariable >> parentBehaviouralEntity: anObject [
 
 { #category : #navigation }
 FamixTLocalVariable >> parentBehaviouralEntityGroup [
-
 	<generated>
 	<navigation: 'ParentBehaviouralEntity'>
-	^ MooseGroup
-			with: (self parentBehaviouralEntity)
+	^ MooseGroup with: self parentBehaviouralEntity
 ]

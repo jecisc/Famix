@@ -4,8 +4,7 @@ It represents a file in the file system.
 Trait {
 	#name : #FamixTFile,
 	#instVars : [
-		'#entities => FMMany type: #FamixTWithFiles opposite: #containerFiles',
-		'#name'
+		'#entities => FMMany type: #FamixTWithFiles opposite: #containerFiles'
 	],
 	#category : #'Famix-Traits-File'
 }
@@ -14,8 +13,8 @@ Trait {
 FamixTFile classSide >> annotation [
 
 	<MSEClass: #TFile super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -27,19 +26,6 @@ FamixTFile classSide >> famixTFileRelatedGroup [
 	^ FAMIXFileGroup
 ]
 
-{ #category : #generator }
-FamixTFile classSide >> generatedSlotNames [
-	<generated>
-	'FamixTFile class>>#generatedSlotNames'.
-	^ #(entities)
-]
-
-{ #category : #generator }
-FamixTFile classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #accessing }
 FamixTFile >> addEntity: famixEntity [
 	self entities add: famixEntity
@@ -47,6 +33,7 @@ FamixTFile >> addEntity: famixEntity [
 
 { #category : #accessing }
 FamixTFile >> entities [
+	"Relation named: #entities type: #FamixTWithFiles opposite: #containerFiles"
 
 	<generated>
 	<MSEComment: 'List of entities defined in the file'>

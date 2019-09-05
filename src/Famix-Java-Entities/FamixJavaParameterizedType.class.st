@@ -15,26 +15,6 @@ FamixJavaParameterizedType class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixJavaParameterizedType class >> generatedSlotNames [
-	<generated>
-	'FamixJavaParameterizedType class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaParameterizedType class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTParameterizedType FamixTWithParameterizedTypeUsers)
-]
-
-{ #category : #meta }
-FamixJavaParameterizedType class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
 { #category : #'as yet unclassified' }
 FamixJavaParameterizedType >> allSubclassesDo: aBlock [
 	"we override this traversal because we want to
@@ -66,12 +46,4 @@ FamixJavaParameterizedType >> mooseNameOn: aStream [
 		separatedBy: [aStream nextPut: $,].  
 	aStream nextPut: $>.  
 
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaParameterizedType >> namespaceScope [
-	"we ask the namespaceScope of the parameterizable class"
-	
-	^ self parameterizableClass ifNotNil: [
-		self parameterizableClass namespaceScope ]
 ]

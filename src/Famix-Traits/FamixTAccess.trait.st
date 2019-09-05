@@ -16,8 +16,7 @@ Trait {
 	#name : #FamixTAccess,
 	#instVars : [
 		'#accessor => FMOne type: #FamixTWithAccesses opposite: #accesses',
-		'#isWrite',
-		'#mySlot',
+		'#isWrite => FMProperty',
 		'#variable => FMOne type: #FamixTAccessible opposite: #incomingAccesses'
 	],
 	#category : #'Famix-Traits-Access'
@@ -27,31 +26,18 @@ Trait {
 FamixTAccess classSide >> annotation [
 
 	<MSEClass: #TAccess super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTAccess classSide >> generatedSlotNames [
-	<generated>
-	'FamixTAccess class>>#generatedSlotNames'.
-	^ #(accessor isWrite variable)
-]
-
-{ #category : #generator }
-FamixTAccess classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTAccess >> accessor [
+	"Relation named: #accessor type: #FamixTWithAccesses opposite: #accesses"
 
 	<generated>
 	<MSEComment: 'Behavioural entity making the access to the variable. from-side of the association'>
 	<source>
-
 	^ accessor
 ]
 
@@ -125,11 +111,11 @@ FamixTAccess >> to: aVariable [
 
 { #category : #accessing }
 FamixTAccess >> variable [
+	"Relation named: #variable type: #FamixTAccessible opposite: #incomingAccesses"
 
 	<generated>
 	<MSEComment: 'Variable accessed. to-side of the association'>
 	<target>
-
 	^ variable
 ]
 

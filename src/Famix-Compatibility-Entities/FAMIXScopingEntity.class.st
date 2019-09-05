@@ -15,19 +15,6 @@ FAMIXScopingEntity class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXScopingEntity class >> generatedSlotNames [
-	<generated>
-	'FAMIXScopingEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXScopingEntity class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTGlobalVariableScope FamixTScopingEntity)
-]
-
 { #category : #meta }
 FAMIXScopingEntity class >> requirements [
 
@@ -40,12 +27,6 @@ FAMIXScopingEntity >> abstractness [
 	"Abstractness is the ratio between the number of abstract classes and the total number of classes in a package, in the range [0, 1]. 0 means the package is fully concrete, 1 it is fully abstract."
 	
 	self subclassResponsibility
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXScopingEntity >> accept: aVisitor [
-
-	aVisitor visitScopingEntity: self
 ]
 
 { #category : #'Famix-Extensions-metrics' }
@@ -67,12 +48,6 @@ FAMIXScopingEntity >> allClasses [
 FAMIXScopingEntity >> allClassesGroup [
 	<navigation: 'All classes'>
 	^ FAMIXTypeGroup withAll: self allClasses withDescription: 'All classes from ', self printString
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXScopingEntity >> allRecursiveClasses [
-	self deprecated: 'Use allClasses'.
-	^ self allClasses 
 ]
 
 { #category : #accessing }
@@ -110,18 +85,6 @@ FAMIXScopingEntity >> childrenOfMyKind [
 	^ self children allWithSubTypesOf: self class
 ]
 
-{ #category : #'Famix-Extensions' }
-FAMIXScopingEntity >> copyFrom: anEntity within: aVisitor [
-
-	super copyFrom: anEntity within: aVisitor.
-	anEntity globalVariables do: [ :glv | 
-		self addGlobalVariable: (aVisitor visit: glv) ].
-	anEntity childScopes do: [ :cs | 
-		self addChildScope: (aVisitor visit: cs) ].
-	anEntity functions do: [ :f | "empty loop in smalltalk models"
-		self addFunction: (aVisitor visit: f) ].
-]
-
 { #category : #'Famix-Extensions-metrics' }
 FAMIXScopingEntity >> distance [
 	"D = A + I - 1. A package should be balanced between abstractness and instability, i.e., somewhere between abstract and stable or concrete and unstable. This rule defines the main sequence by the equation A + I - 1 = 0. D is the distance to the main sequence."
@@ -143,22 +106,9 @@ FAMIXScopingEntity >> instability [
 	self subclassResponsibility
 ]
 
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXScopingEntity >> methodScope [
-	"This only makes sense to reject self loops in #collectAtScope:"
-
-	^ self classes collectAsSet: [:c | c methods]
-]
-
 { #category : #'Famix-Extensions' }
 FAMIXScopingEntity >> structuralChildren [ 
 	^ (OrderedCollection withAll: self childScopes), self classes 
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXScopingEntity >> typeScope [
-	"This only makes sense to reject self loops in #collectAtScope:"
-	^ self classes
 ]
 
 { #category : #'Famix-Extensions' }

@@ -10,22 +10,9 @@ Trait {
 FamixTWithLocalVariables classSide >> annotation [
 
 	<MSEClass: #TWithLocalVariables super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithLocalVariables classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithLocalVariables class>>#generatedSlotNames'.
-	^ #(localVariables)
-]
-
-{ #category : #generator }
-FamixTWithLocalVariables classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
@@ -35,6 +22,7 @@ FamixTWithLocalVariables >> addLocalVariable: aLocalVariable [
 
 { #category : #accessing }
 FamixTWithLocalVariables >> localVariables [
+	"Relation named: #localVariables type: #FamixTLocalVariable opposite: #parentBehaviouralEntity"
 
 	<generated>
 	<MSEComment: 'Variables locally defined by this behaviour.'>

@@ -10,26 +10,20 @@ Trait {
 FamixTWithCaughtExceptions classSide >> annotation [
 
 	<MSEClass: #TWithCaughtExceptions super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithCaughtExceptions classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithCaughtExceptions class>>#generatedSlotNames'.
-	^ #(caughtExceptions)
-]
+{ #category : #accessing }
+FamixTWithCaughtExceptions >> addCaughtException: aCaughtException [
+	caughtExceptions add: aCaughtException 
 
-{ #category : #generator }
-FamixTWithCaughtExceptions classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithCaughtExceptions >> caughtExceptions [
+	"Relation named: #caughtExceptions type: #FamixTCaughtException opposite: #definingEntity"
 
 	<generated>
 	<MSEComment: 'The exceptions caught by the method'>

@@ -10,26 +10,20 @@ Trait {
 FamixTWithNamespaces classSide >> annotation [
 
 	<MSEClass: #TWithNamespaces super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithNamespaces classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithNamespaces class>>#generatedSlotNames'.
-	^ #(namespaces)
-]
+{ #category : #accessing }
+FamixTWithNamespaces >> addNamespace: anObject [
+	namespaces add: anObject
 
-{ #category : #generator }
-FamixTWithNamespaces classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithNamespaces >> namespaces [
+	"Relation named: #namespaces type: #FamixTNamespace opposite: #namespaceOwner"
 
 	<generated>
 	^ namespaces

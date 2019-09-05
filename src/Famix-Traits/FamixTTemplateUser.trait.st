@@ -10,26 +10,14 @@ Trait {
 FamixTTemplateUser classSide >> annotation [
 
 	<MSEClass: #TTemplateUser super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTTemplateUser classSide >> generatedSlotNames [
-	<generated>
-	'FamixTTemplateUser class>>#generatedSlotNames'.
-	^ #(template)
-]
-
-{ #category : #generator }
-FamixTTemplateUser classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTTemplateUser >> template [
+	"Relation named: #template type: #FamixTTemplate opposite: #templateUsers"
 
 	<generated>
 	^ template

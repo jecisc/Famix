@@ -1,31 +1,18 @@
 Class {
 	#name : #FamixJavaEnumValue,
-	#superclass : #FamixJavaStructuralEntity,
-	#traits : 'FamixTEnumValue',
-	#classTraits : 'FamixTEnumValue classTrait',
+	#superclass : #FamixJavaNamedEntity,
+	#traits : 'FamixJavaTStructuralEntity - {#mooseNameOn:} + FamixTEnumValue',
+	#classTraits : 'FamixJavaTStructuralEntity classTrait + FamixTEnumValue classTrait',
 	#category : #'Famix-Java-Entities-Entities'
 }
 
 { #category : #meta }
 FamixJavaEnumValue class >> annotation [
 
-	<MSEClass: #EnumValue super: #FamixJavaStructuralEntity>
+	<MSEClass: #EnumValue super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixJavaEnumValue class >> generatedSlotNames [
-	<generated>
-	'FamixJavaEnumValue class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaEnumValue class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTEnumValue)
 ]
 
 { #category : #meta }

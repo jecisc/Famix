@@ -1,31 +1,18 @@
 Class {
 	#name : #FamixStAnnotationType,
-	#superclass : #FamixStType,
-	#traits : 'FamixTAnnotationType',
-	#classTraits : 'FamixTAnnotationType classTrait',
+	#superclass : #FamixStContainerEntity,
+	#traits : 'FamixTAnnotationType + FamixTWithAttributes',
+	#classTraits : 'FamixTAnnotationType classTrait + FamixTWithAttributes classTrait',
 	#category : #'Famix-PharoSmalltalk-Entities-Entities'
 }
 
 { #category : #meta }
 FamixStAnnotationType class >> annotation [
 
-	<MSEClass: #AnnotationType super: #FamixStType>
+	<MSEClass: #AnnotationType super: #FamixStContainerEntity>
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixStAnnotationType class >> generatedSlotNames [
-	<generated>
-	'FamixStAnnotationType class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStAnnotationType class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAnnotationType)
 ]
 
 { #category : #meta }
@@ -53,8 +40,7 @@ FamixStAnnotationType >> belongsTo: anObject [
 
 { #category : #compatibility }
 FamixStAnnotationType >> directSubclasses [
-
-	^ OrderedCollection new.
+	^ OrderedCollection new
 ]
 
 { #category : #compatibility }

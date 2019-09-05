@@ -13,26 +13,14 @@ Trait {
 FamixTHeader classSide >> annotation [
 
 	<MSEClass: #THeader super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTHeader classSide >> generatedSlotNames [
-	<generated>
-	'FamixTHeader class>>#generatedSlotNames'.
-	^ #(headerOwner)
-]
-
-{ #category : #generator }
-FamixTHeader classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTHeader >> headerOwner [
+	"Relation named: #headerOwner type: #FamixTWithHeader opposite: #header"
 
 	<generated>
 	^ headerOwner

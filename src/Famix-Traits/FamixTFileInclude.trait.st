@@ -1,8 +1,8 @@
 Trait {
 	#name : #FamixTFileInclude,
 	#instVars : [
-		'#source => FMOne type: #FamixTWithFileInclude opposite: #outgoingIncludeRelations',
-		'#target => FMOne type: #FamixTWithFileInclude opposite: #incomingIncludeRelations'
+		'#source => FMOne type: #FamixTWithFileIncludes opposite: #outgoingIncludeRelations',
+		'#target => FMOne type: #FamixTWithFileIncludes opposite: #incomingIncludeRelations'
 	],
 	#category : #'Famix-Traits-FileInclude'
 }
@@ -11,26 +11,14 @@ Trait {
 FamixTFileInclude classSide >> annotation [
 
 	<MSEClass: #TFileInclude super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTFileInclude classSide >> generatedSlotNames [
-	<generated>
-	'FamixTFileInclude class>>#generatedSlotNames'.
-	^ #(source target)
-]
-
-{ #category : #generator }
-FamixTFileInclude classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTFileInclude >> source [
+	"Relation named: #source type: #FamixTWithFileIncludes opposite: #outgoingIncludeRelations"
 
 	<generated>
 	<MSEComment: 'The file that is including'>
@@ -47,6 +35,7 @@ FamixTFileInclude >> source: anObject [
 
 { #category : #accessing }
 FamixTFileInclude >> target [
+	"Relation named: #target type: #FamixTWithFileIncludes opposite: #incomingIncludeRelations"
 
 	<generated>
 	<MSEComment: 'The file that is included'>

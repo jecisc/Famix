@@ -13,19 +13,6 @@ FamixTestComposedCustomEntity2 class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTestComposedCustomEntity2 class >> generatedSlotNames [
-	<generated>
-	'FamixTestComposedCustomEntity2 class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTestComposedCustomEntity2 class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FamixTestComposedCustomEntity2 class >> metamodel [
 
@@ -33,15 +20,9 @@ FamixTestComposedCustomEntity2 class >> metamodel [
 	^ (self class environment at: #FamixTestComposedGenerator) metamodel
 ]
 
-{ #category : #meta }
-FamixTestComposedCustomEntity2 class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
 { #category : #accessing }
 FamixTestComposedCustomEntity2 >> c22s [
+	"Relation named: #c22s type: #FamixTestComposedCustomEntity2 opposite: #c2"
 
 	<generated>
 	<MSEProperty: #c22s type: #Object>
@@ -57,6 +38,7 @@ FamixTestComposedCustomEntity2 >> c22s: anObject [
 
 { #category : #accessing }
 FamixTestComposedCustomEntity2 >> customEntities2 [
+	"Relation named: #customEntities2 type: #FamixTestComposedCustomEntity2 opposite: #customEntity2"
 
 	<generated>
 	<MSEProperty: #customEntities2 type: #Object>

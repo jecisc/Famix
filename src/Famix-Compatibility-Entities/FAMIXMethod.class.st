@@ -1,8 +1,8 @@
 Class {
 	#name : #FAMIXMethod,
 	#superclass : #FAMIXBehaviouralEntity,
-	#traits : 'FamixTMethod + FamixTWithCaughtExceptions + FamixTWithClassScope + FamixTWithDeclaredExceptions + FamixTWithThrownExceptions',
-	#classTraits : 'FamixTMethod classTrait + FamixTWithCaughtExceptions classTrait + FamixTWithClassScope classTrait + FamixTWithDeclaredExceptions classTrait + FamixTWithThrownExceptions classTrait',
+	#traits : 'FamixTMethod + FamixTWithCaughtExceptions + FamixTWithDeclaredExceptions + FamixTWithThrownExceptions',
+	#classTraits : 'FamixTMethod classTrait + FamixTWithCaughtExceptions classTrait + FamixTWithDeclaredExceptions classTrait + FamixTWithThrownExceptions classTrait',
 	#classVars : [
 		'#ShouldSearchForSmalltalkCodeInImage'
 	],
@@ -16,19 +16,6 @@ FAMIXMethod class >> annotation [
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FAMIXMethod class >> generatedSlotNames [
-	<generated>
-	'FAMIXMethod class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXMethod class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTMethod FamixTWithCaughtExceptions FamixTWithClassScope FamixTWithDeclaredExceptions FamixTWithThrownExceptions)
 ]
 
 { #category : #meta }
@@ -48,19 +35,13 @@ FAMIXMethod class >> shouldSearchForSmalltalkCodeInImage: anObject [
 	ShouldSearchForSmalltalkCodeInImage := anObject
 ]
 
-{ #category : #'Famix-Extensions' }
-FAMIXMethod >> accept: aVisitor [
-
-	aVisitor visitMethod: self
-]
-
 { #category : #'Famix-Extensions-metrics-support' }
 FAMIXMethod >> accessedAttributes [
 	
 	"Returns the set of attributes of my class accessed by me (method). 
 	Used to support the calculation of LCOM"
 	
-	^ self queryOutgoingAccesses opposites withinMyClass asSet select: #isAttribute
+	^ (self queryOutgoingAccesses opposites withinParentUsing: FamixTClass) asSet select: #isAttribute
 ]
 
 { #category : #accessing }
@@ -96,31 +77,6 @@ FAMIXMethod >> category: aString [
 	
 ]
 
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXMethod >> clientClasses [
-	self deprecated: 'use clientTypes instead'.
-	^ self clientTypes
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXMethod >> clientMethods [
-	^ self clientBehaviours select: [ :each | each isMethod ]
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXMethod >> clientNamespaces [
-	"returns a set of all the namespaces that depend on the receiver"
-
-	^ (self queryAllIncoming atScope: FamixTNamespace) withoutSelfLoops
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXMethod >> clientPackages [
-	"returns a set of all the packages that depend on the receiver"
-
-	^ (self queryAllIncoming atScope: FamixTPackage) withoutSelfLoops
-]
-
 { #category : #'Famix-Implementation' }
 FAMIXMethod >> compiledMethod [
 	"Return the compiled method associated to the receiver or nil"
@@ -128,16 +84,6 @@ FAMIXMethod >> compiledMethod [
 	^ self smalltalkClass  compiledMethodAt: self name asSymbol
 	
 	
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXMethod >> copyFrom: anEntity within: aVisitor [
-
-	super copyFrom: anEntity within: aVisitor.
-	self kind: anEntity kind copy.
-	self category: anEntity category copy.
-
-
 ]
 
 { #category : #'Famix-Extensions' }
@@ -188,7 +134,7 @@ FAMIXMethod >> implementMethod [
 { #category : #initialization }
 FAMIXMethod >> initialize [
 	super initialize.
-	hasClassScope := false
+	isClassSide := false
 ]
 
 { #category : #'Famix-Java' }
@@ -319,13 +265,6 @@ FAMIXMethod >> isSurelyInvokedBy: aFAMIXMethod [
 	^false
 ]
 
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXMethod >> methodScope [
-"This is a special case, only meaningful when using #withoutSelfLoops. Rejecting self loops with a method means rejecting recursive calls."
-
-	^ self
-]
-
 { #category : #'Famix-Implementation' }
 FAMIXMethod >> mooseNameOn: stream [ 
 	| parent |
@@ -337,11 +276,6 @@ FAMIXMethod >> mooseNameOn: stream [
 		ifNotNil: [ stream nextPutAll: self signature ]
 		ifNil: [ 
 			self name ifNotNil: [ stream nextPutAll: self name] ]
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXMethod >> namespaceScope [
-	^ self parentType namespaceScope
 ]
 
 { #category : #'Famix-Extensions' }
@@ -386,18 +320,6 @@ FAMIXMethod >> overridesMethod [
 	^ self belongsTo superclassHierarchy collect: [ :each | each implementationOf: self signature ] thenSelect: #isNotNil
 ]
 
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXMethod >> packageScope [
-
-	^ self parentPackage ifNil:[ 
-		|cl|
-		cl := self parentType.
-		cl isNil 
-			ifTrue:[nil]
-			ifFalse:[cl packageScope]
-	]
-]
-
 { #category : #'Famix-Implementation' }
 FAMIXMethod >> parentScope [
 	"Polymorphic alias to mimic GlobalVariable#parentScope and similar"
@@ -411,40 +333,6 @@ FAMIXMethod >> printOn: aStream [
 	aStream nextPutAll: '>>'.
 	signature ifNotNil: [ aStream nextPutAll: signature ].
 	aStream nextPutAll: ' (Method)'
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXMethod >> providerClasses [
-	self deprecated: 'use providerTypes'.
-	^ self providerTypes
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXMethod >> providerMethods [
-	^ self providerBehaviours select: [ :each | each isMethod ]
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXMethod >> providerNamespaces [
-	"returns a set of all the namespaces that the receiver depends on the receiver"
-
-	^ (self queryAllOutgoing atScope: FamixTNamespace) withoutSelfLoops
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXMethod >> providerPackages [
-	"returns a set of all the packages that the receiver depends on the receiver"
-
-	^ (self queryAllOutgoing atScope: FamixTPackage) withoutSelfLoops
-]
-
-{ #category : #'Famix-Extensions-nav All Dependencies' }
-FAMIXMethod >> providerTypes [
-	<MSEProperty: #providerTypes type: #FAMIXType>
-	<derived>
-	<multivalued>
-	<MSEComment: 'All types that the receiver depends on'>
-	^ (self queryAllOutgoing atScope: FamixTType) withoutSelfLoops
 ]
 
 { #category : #'Famix-Implementation' }
@@ -486,10 +374,4 @@ FAMIXMethod >> timeStamp [
 FAMIXMethod >> timeStamp: aTimeStamp [
 
 	self privateState attributeAt: #timeStamp put: aTimeStamp
-]
-
-{ #category : #'moosechef-scoping-filtering' }
-FAMIXMethod >> typeScope [
-
-	^ self parentType 
 ]

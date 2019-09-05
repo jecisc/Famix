@@ -7,6 +7,15 @@ Class {
 	#category : #'Moose-Query'
 }
 
+{ #category : #'instance creation' }
+MooseObjectQueryResult class >> withAll: aCollection [
+	"Create a new collection containing all the elements from aCollection."
+
+	^ self new
+		addAll: aCollection;
+		yourself
+]
+
 { #category : #filtering }
 MooseObjectQueryResult >> allAtAnyScope: aCollectionOfFamixClasses [
 	^ self newObjectResultWith: (self storage inject: OrderedCollection new into: [ :res :entity | entity allAtAnyScope: aCollectionOfFamixClasses in: res ]) asSet
@@ -47,22 +56,9 @@ MooseObjectQueryResult >> atScope: aClassFamix [
 	^ self newObjectResultWith: (self storage inject: OrderedCollection new into: [ :res :entity | entity atScope: aClassFamix in: res ]) asSet
 ]
 
-{ #category : #filtering }
-MooseObjectQueryResult >> outOfClass: aFAMIXClass [ 
-	
-	^ self newObjectResultWith: (storage reject: [ :obj | aFAMIXClass == obj typeScope ])
-]
-
-{ #category : #filtering }
-MooseObjectQueryResult >> outOfNamespace: aFAMIXNamespace [ 
-
-	^ self newObjectResultWith: (storage reject: [:obj | aFAMIXNamespace==obj namespaceScope])
-]
-
-{ #category : #filtering }
-MooseObjectQueryResult >> outOfPackage: aFAMIXPackage [ 
-
-	^ self newObjectResultWith: (storage reject: [ :obj | aFAMIXPackage == obj packageScope ])
+{ #category : #evaluating }
+MooseObjectQueryResult >> outOf: aFAMIXEntity [
+	^ self newObjectResultWith: (storage reject: [ :obj | (obj allAtScope: aFAMIXEntity class) includes: aFAMIXEntity ])
 ]
 
 { #category : #filtering }
@@ -85,29 +81,9 @@ MooseObjectQueryResult >> withScope: aClassFamix [
 	^ self newObjectResultWith: (self storage inject: OrderedCollection new into: [ :res :entity | entity withScope: aClassFamix in: res ]) asSet
 ]
 
-{ #category : #filtering }
+{ #category : #evaluating }
 MooseObjectQueryResult >> within: aFAMIXEntity [
-	"Copy from TDependencyQueryResult because trait is not to be used"
-	^aFAMIXEntity selectWithinYourScope: self.
-	
-]
-
-{ #category : #filtering }
-MooseObjectQueryResult >> withinClass: aFAMIXClass [ 
-	
-	^ self newObjectResultWith: (storage select: [ :obj | aFAMIXClass == obj typeScope ])
-]
-
-{ #category : #filtering }
-MooseObjectQueryResult >> withinNamespace: aFAMIXNamespace [ 
-
-	^ self newObjectResultWith: (storage select: [:obj | aFAMIXNamespace==obj namespaceScope])
-]
-
-{ #category : #filtering }
-MooseObjectQueryResult >> withinPackage: aFAMIXPackage [ 
-
-	^ self newObjectResultWith: (storage select: [ :obj | aFAMIXPackage == obj packageScope ])
+	^ self newObjectResultWith: (storage select: [ :obj | (obj allAtScope: aFAMIXEntity class) includes: aFAMIXEntity ])
 ]
 
 { #category : #filtering }

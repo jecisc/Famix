@@ -10,27 +10,14 @@ Trait {
 FamixTFileSystemEntity classSide >> annotation [
 
 	<MSEClass: #TFileSystemEntity super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
 { #category : #constants }
 FamixTFileSystemEntity classSide >> famixFolderSeparatorString [
 	^'/'
-]
-
-{ #category : #generator }
-FamixTFileSystemEntity classSide >> generatedSlotNames [
-	<generated>
-	'FamixTFileSystemEntity class>>#generatedSlotNames'.
-	^ #(parentFolder)
-]
-
-{ #category : #generator }
-FamixTFileSystemEntity classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #constants }
@@ -50,6 +37,7 @@ FamixTFileSystemEntity classSide >> systemFolderSeparatorString [
 
 { #category : #accessing }
 FamixTFileSystemEntity >> parentFolder [
+	"Relation named: #parentFolder type: #FamixTFolder opposite: #childrenFileSystemEntities"
 
 	<generated>
 	^ parentFolder

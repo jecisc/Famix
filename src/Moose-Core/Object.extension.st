@@ -10,6 +10,11 @@ Object >> hasUniqueMooseNameInModel [
 	^false
 ]
 
+{ #category : #'*Moose-Core' }
+Object class >> isOfType: aClassFAMIX [
+	^ false
+]
+
 { #category : #'*moose-core' }
 Object >> mooseDescription [
 
@@ -115,15 +120,12 @@ Object >> mooseMenuMorph [
 	^ menu
 ]
 
+{ #category : #'*Moose-Core' }
+Object >> mooseModel [
+	^ nil
+]
+
 { #category : #'*moose-core' }
 Object >> mooseName [
 	^ self printString
-]
-
-{ #category : #'*Moose-Core' }
-Object >> mooseTypes [
-
-	^ { self class }
-
-	
 ]

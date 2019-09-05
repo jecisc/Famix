@@ -10,26 +10,19 @@ Trait {
 FamixTWithThrownExceptions classSide >> annotation [
 
 	<MSEClass: #TWithThrownExceptions super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithThrownExceptions classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithThrownExceptions class>>#generatedSlotNames'.
-	^ #(thrownExceptions)
-]
-
-{ #category : #generator }
-FamixTWithThrownExceptions classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+{ #category : #accessing }
+FamixTWithThrownExceptions >> addThrownException: anObject [
+	thrownExceptions add: anObject
 ]
 
 { #category : #accessing }
 FamixTWithThrownExceptions >> thrownExceptions [
+	"Relation named: #thrownExceptions type: #FamixTThrownException opposite: #definingEntity"
 
 	<generated>
 	<MSEComment: 'The exceptions thrown by the method'>

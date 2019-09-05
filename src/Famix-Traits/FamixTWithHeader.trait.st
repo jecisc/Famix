@@ -10,26 +10,14 @@ Trait {
 FamixTWithHeader classSide >> annotation [
 
 	<MSEClass: #TWithHeader super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithHeader classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithHeader class>>#generatedSlotNames'.
-	^ #(header)
-]
-
-{ #category : #generator }
-FamixTWithHeader classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithHeader >> header [
+	"Relation named: #header type: #FamixTHeader opposite: #headerOwner"
 
 	<generated>
 	<MSEComment: 'The header file that defines this module'>

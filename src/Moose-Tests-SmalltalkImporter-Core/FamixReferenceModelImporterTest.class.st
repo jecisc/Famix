@@ -24,7 +24,7 @@ FamixReferenceModelImporterTest >> model [
 FamixReferenceModelImporterTest >> privateTestAccessingVar: aVarName from: aMethodName shouldBeRead: aBoolean hasAccessesSize: anInteger [
 	| methodName var access |
 	methodName := self model allMethods entityNamed: aMethodName.
-	var := (self model allWithSubTypesOf: FamixTAccessible) entityNamed: aVarName.
+	var := (self model allUsing: FamixTAccessible) entityNamed: aVarName.
 	self assert: (var incomingAccesses select: [ :each | each accessor = methodName ]) size equals: anInteger.
 	access := (var incomingAccesses select: [ :each | each accessor = methodName ]) first.
 	self assert: access isRead == aBoolean.
@@ -99,7 +99,7 @@ FamixReferenceModelImporterTest >> testAccessingGlobalVariableFromInstanceSide [
 		hasAccessesSize: 1.
 	declaredType := (self model allGlobalVariables entityNamed: #Transcript) declaredType.
 	self assert: declaredType mooseName equals: Transcript class mooseName.
-	self assert: (declaredType usesTrait: FamixTType)
+	self assert: (declaredType usesFamixTrait: FamixTType)
 ]
 
 { #category : #'reference model access' }
@@ -305,7 +305,7 @@ FamixReferenceModelImporterTest >> testClassMethodAnnotation [
 		hasClassScope: false
 		class: definingClassName.
 	method := self model entityNamed: methodUniqueName.
-	self assert: method category equals: #'accessing superclassinstance on class side'
+	self assert: method protocol equals: #'accessing superclassinstance on class side'
 ]
 
 { #category : #'new tests' }
@@ -395,7 +395,7 @@ FamixReferenceModelImporterTest >> testExtendedClasses [
 	subRootModelTwo := self model entityNamed: SubRootModelTwo mooseName.
 	subRootModelThree := self model entityNamed: SubRootModelThree mooseName.
 	extensionMethod := self model entityNamed: (SubRootModelTwo >> #extendedMethodOne) mooseName.
-	self assert: subRootModelTwo packageScope equals: p1.
+	self assertCollection: (subRootModelTwo atScope: FamixTPackage) hasSameElements: {p1}.
 	self assert: subRootModelTwo isExtended.
 	self assert: (subRootModelTwo extendedInPackages includes: p2).
 	self assert: (subRootModelTwo extendedMethods includes: extensionMethod).
@@ -441,8 +441,8 @@ FamixReferenceModelImporterTest >> testExtensionMethod [
 	p2 := self model entityNamed: #'Moose-TestResources-Reference-PackageTwo'.
 	extensionMethod := self model entityNamed: (SubRootModelTwo >> #extendedMethodOne) mooseName.
 	self assert: extensionMethod isExtension.
-	self assert: extensionMethod packageScope equals: p2.
-	self assert: extensionMethod packageScope ~~ extensionMethod belongsTo packageScope
+	self assert: ((extensionMethod atScope: FamixTPackage) includes: p2).
+	self assert: (extensionMethod atScope: FamixTPackage) ~~ (extensionMethod belongsTo atScope: FamixTPackage)
 ]
 
 { #category : #'package and extensions' }
@@ -483,23 +483,14 @@ FamixReferenceModelImporterTest >> testExtensions [
 	extendedClass := self model entityNamed: SubRootModelTwo mooseName.
 	normalClass := self model entityNamed: SubRootModelThree mooseName.
 	self assert: extendedClass isExtended.
-	self assert: extendedClass packageScope name equals: #'Moose-TestResources-Reference-PackageOne'.
-	self assert: (extendedClass methods collect: #packageScope) asSet size equals: 2.
-	self
-		assert:
-			((extendedClass methods collect: #packageScope) asSet
-				anySatisfy: [ :each | each name = #'Moose-TestResources-Reference-PackageOne' ]).
-	self
-		assert:
-			((extendedClass methods collect: #packageScope) asSet
-				anySatisfy: [ :each | each name = #'Moose-TestResources-Reference-PackageTwo' ]).
+	self assert: (extendedClass atScope: FamixTPackage) anyOne name equals: #'Moose-TestResources-Reference-PackageOne'.
+	self assert: (extendedClass methods flatCollect: [ :m | m atScope: FamixTPackage ]) asSet size equals: 2.
+	self assert: ((extendedClass methods flatCollect: [ :m | m atScope: FamixTPackage ]) asSet anySatisfy: [ :each | each name = #'Moose-TestResources-Reference-PackageOne' ]).
+	self assert: ((extendedClass methods flatCollect: [ :m | m atScope: FamixTPackage ]) asSet anySatisfy: [ :each | each name = #'Moose-TestResources-Reference-PackageTwo' ]).
 	self deny: normalClass isExtended.
-	self assert: normalClass packageScope name equals: #'Moose-TestResources-Reference-PackageTwo'.
-	self assert: (normalClass methods collect: #packageScope) asSet size equals: 1.
-	self
-		assert:
-			((normalClass methods collect: #packageScope)
-				allSatisfy: [ :each | each name = #'Moose-TestResources-Reference-PackageTwo' ])
+	self assert: (normalClass atScope: FamixTPackage) anyOne name equals: #'Moose-TestResources-Reference-PackageTwo'.
+	self assert: (normalClass methods flatCollect: [ :m | m atScope: FamixTPackage ]) asSet size equals: 1.
+	self assert: ((normalClass methods flatCollect: [ :m | m atScope: FamixTPackage ]) allSatisfy: [ :each | each name = #'Moose-TestResources-Reference-PackageTwo' ])
 ]
 
 { #category : #'package and extensions' }
@@ -667,7 +658,7 @@ FamixReferenceModelImporterTest >> testMethodAnnotation [
 		class: definingClassName.
 	method := self model entityNamed: methodUniqueName ifAbsent: [ nil ].
 	self assert: method name equals: #accessSuperclassInstVar.
-	self assert: method category equals: #accessingSuperclassInstVar
+	self assert: method protocol equals: #accessingSuperclassInstVar
 ]
 
 { #category : #'reference model reification' }
@@ -964,11 +955,7 @@ FamixReferenceModelImporterTest >> testUsedClassReifiedWithinReturn [
 FamixReferenceModelImporterTest >> testaccessSharedVariableFromTheClassSide [
 	"self debug: #testaccessSharedVariableFromTheClassSide"
 
-	| attributeName definingClassName classVarUniqueName accessDefinition methodUniqueName methodName methodClassName |
-	attributeName := #TheRootSharedVariable.
-	definingClassName := TheRoot mooseName.
-	methodClassName := TheRoot class mooseName.
-	methodName := #accessSharedVariableFromTheClassSide.
+	| classVarUniqueName accessDefinition methodUniqueName |
 	methodUniqueName := (TheRoot class >> #accessSharedVariableFromTheClassSide) mooseName.
 	classVarUniqueName := TheRoot @ #TheRootSharedVariable.
 	accessDefinition := self model allAccesses

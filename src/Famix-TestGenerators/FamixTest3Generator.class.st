@@ -31,7 +31,7 @@ FamixTest3Generator >> defineClasses [
 
 	classEntity := builder newClassNamed: #Class.
 	method := builder newClassNamed: #Method.
-	type := builder newClassNamed: #Types.
+	type := builder newClassNamed: #Type.
 	primitiveType := builder newClassNamed: #PrimitiveType.
 	reference := builder newClassNamed: #Reference.
 	invocation := builder newClassNamed: #Invocation.
@@ -49,38 +49,17 @@ FamixTest3Generator >> defineHierarchy [
 
 	classEntity --|> type.
 	classEntity --|> #TClass.
-	classEntity --|> #TWithMethods.
 
 	method --|> namedEntity.
 	method --|> #TMethod.
-	method --|> #TWithTypes.
 	
 	primitiveType --|> type.
 	primitiveType --|> #TWithTypes.
+	primitiveType --|> #TReferenceable.
 
 	reference --|> association.
 	reference --|> #TReference.
 	
-	method --|> #TWithReferences.
-	primitiveType --|> #TReferenceable.
-	
 	invocation --|> association.
-	invocation --|> #TInvocation.
-
-	method --|> #TInvocable.
-	method --|> #TWithInvocations.
-	
-
-
-]
-
-{ #category : #definition }
-FamixTest3Generator >> newBuilder [
-
-	^ self builderWithStandardTraits
-		withImportingContext;
-		yourself
-		
-		
-	
+	invocation --|> #TInvocation
 ]

@@ -10,22 +10,9 @@ Trait {
 FamixTInvocable classSide >> annotation [
 
 	<MSEClass: #TInvocable super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTInvocable classSide >> generatedSlotNames [
-	<generated>
-	'FamixTInvocable class>>#generatedSlotNames'.
-	^ #(incomingInvocations)
-]
-
-{ #category : #generator }
-FamixTInvocable classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -35,6 +22,7 @@ FamixTInvocable >> addIncomingInvocation: anInvocation [
 
 { #category : #accessing }
 FamixTInvocable >> incomingInvocations [
+	"Relation named: #incomingInvocations type: #FamixTInvocation opposite: #candidates"
 
 	<generated>
 	<MSEComment: 'Incoming invocations from other behaviours computed by the candidate operator.'>

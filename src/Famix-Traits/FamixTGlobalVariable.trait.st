@@ -7,6 +7,8 @@ Trait {
 	#instVars : [
 		'#parentScope => FMOne type: #FamixTGlobalVariableScope opposite: #globalVariables'
 	],
+	#traits : 'FamixTStructuralEntity',
+	#classTraits : 'FamixTStructuralEntity classTrait',
 	#category : #'Famix-Traits-GlobalVariable'
 }
 
@@ -14,8 +16,8 @@ Trait {
 FamixTGlobalVariable classSide >> annotation [
 
 	<MSEClass: #TGlobalVariable super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -27,26 +29,13 @@ FamixTGlobalVariable classSide >> famixTGlobalVariableRelatedGroup [
 	^ FAMIXGlobalVariableGroup
 ]
 
-{ #category : #generator }
-FamixTGlobalVariable classSide >> generatedSlotNames [
-	<generated>
-	'FamixTGlobalVariable class>>#generatedSlotNames'.
-	^ #(parentScope)
-]
-
-{ #category : #generator }
-FamixTGlobalVariable classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #accessing }
 FamixTGlobalVariable >> parentScope [
+	"Relation named: #parentScope type: #FamixTGlobalVariableScope opposite: #globalVariables"
 
 	<generated>
 	<MSEComment: 'Scope declaring the global variable. belongsTo implementation'>
 	<container>
-
 	^ parentScope
 ]
 
@@ -60,9 +49,7 @@ FamixTGlobalVariable >> parentScope: anObject [
 
 { #category : #navigation }
 FamixTGlobalVariable >> parentScopeGroup [
-
 	<generated>
 	<navigation: 'ParentScope'>
-	^ MooseGroup
-			with: (self parentScope)
+	^ MooseGroup with: self parentScope
 ]

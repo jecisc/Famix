@@ -10,27 +10,43 @@ Trait {
 FamixTWithSourceAnchor classSide >> annotation [
 
 	<MSEClass: #TWithSourceAnchor super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithSourceAnchor classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithSourceAnchor class>>#generatedSlotNames'.
-	^ #(sourceAnchor)
-]
-
-{ #category : #generator }
-FamixTWithSourceAnchor classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+{ #category : #'Famix-Implementation' }
+FamixTWithSourceAnchor >> computeNumberOfLinesOfCode [
+	self hasSourceAnchor 
+		ifTrue: [ ^ self sourceAnchor lineCount ].
+	^ (self sourceText = '')
+			ifTrue: [ self notExistentMetricValue ]
+			ifFalse: [ self sourceText lineCount ]
 ]
 
 { #category : #testing }
 FamixTWithSourceAnchor >> hasSourceAnchor [
 	^ self sourceAnchor notNil
+]
+
+{ #category : #properties }
+FamixTWithSourceAnchor >> notExistentMetricValue [
+	^ self explicitRequirement
+]
+
+{ #category : #'Famix-Implementation' }
+FamixTWithSourceAnchor >> numberOfLinesOfCode [
+	<MSEProperty: #numberOfLinesOfCode type: #Number>
+	<MSEComment: 'The number of lines of code in a method.'>
+	^ self
+		lookUpPropertyNamed: #numberOfLinesOfCode
+		computedAs: [ self computeNumberOfLinesOfCode ]
+]
+
+{ #category : #'Famix-Implementation' }
+FamixTWithSourceAnchor >> numberOfLinesOfCode: aNumber [
+
+	self privateState propertyAt: #numberOfLinesOfCode put: aNumber
 ]
 
 { #category : #metrics }
@@ -51,6 +67,7 @@ FamixTWithSourceAnchor >> numberOfLinesOfCodeWithMoreThanOneCharacter [
 
 { #category : #accessing }
 FamixTWithSourceAnchor >> sourceAnchor [
+	"Relation named: #sourceAnchor type: #FamixTSourceAnchor opposite: #element"
 
 	<generated>
 	<MSEComment: 'SourceAnchor entity linking to the original source code for this entity'>

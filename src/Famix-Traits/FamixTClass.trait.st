@@ -7,6 +7,8 @@ A class is typically scoped in a namespace. To model nested or anonymous classes
 "
 Trait {
 	#name : #FamixTClass,
+	#traits : 'FamixTNamed - {#mooseNameOn:} + FamixTWithMethods + FamixTWithSubInheritances + FamixTWithSuperInheritances + FamixTWithAttributes + FamixTType + FamixTPackageable + FamixTInvocationsReceiver + FamixTWithComments',
+	#classTraits : 'FamixTNamed classTrait + FamixTWithMethods classTrait + FamixTWithSubInheritances classTrait + FamixTWithSuperInheritances classTrait + FamixTWithAttributes classTrait + FamixTType classTrait + FamixTPackageable classTrait + FamixTInvocationsReceiver classTrait + FamixTWithComments classTrait',
 	#category : #'Famix-Traits-Class'
 }
 
@@ -14,8 +16,8 @@ Trait {
 FamixTClass classSide >> annotation [
 
 	<MSEClass: #TClass super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -27,39 +29,11 @@ FamixTClass classSide >> famixTClassRelatedGroup [
 	^ FAMIXClassGroup
 ]
 
-{ #category : #generator }
-FamixTClass classSide >> generatedSlotNames [
-	<generated>
-	'FamixTClass class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTClass classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #testing }
 FamixTClass >> isClass [
 
 	<generated>
 	^ true
-]
-
-{ #category : #testing }
-FamixTClass >> isInterface [
-
-	<MSEProperty: #isInterface type: #Boolean>
-	<MSEComment: 'This is a boolean flag used to distinguish between classes with implementation and interfaces'>
-
-	^ self privateState attributeAt: #isInterface ifAbsent: [ false ]
-]
-
-{ #category : #testing }
-FamixTClass >> isInterface: aBoolean [
-
-	^ self privateState attributeAt: #isInterface put: true
 ]
 
 { #category : #testing }
@@ -73,7 +47,6 @@ FamixTClass >> isTestCase [
 
 { #category : #testing }
 FamixTClass >> isTestCase: aBoolean [
-
 	^ self privateState attributeAt: #isTestCase put: true
 ]
 

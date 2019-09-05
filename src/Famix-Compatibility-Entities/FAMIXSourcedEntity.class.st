@@ -1,8 +1,8 @@
 Class {
 	#name : #FAMIXSourcedEntity,
 	#superclass : #FAMIXEntity,
-	#traits : 'FamixTWithComments + FamixTWithFiles + FamixTWithSourceAnchor + FamixTWithSourceLanguage',
-	#classTraits : 'FamixTWithComments classTrait + FamixTWithFiles classTrait + FamixTWithSourceAnchor classTrait + FamixTWithSourceLanguage classTrait',
+	#traits : 'FamixTSourceEntity + FamixTWithComments + FamixTWithFiles',
+	#classTraits : 'FamixTSourceEntity classTrait + FamixTWithComments classTrait + FamixTWithFiles classTrait',
 	#category : #'Famix-Compatibility-Entities-Entities'
 }
 
@@ -13,37 +13,6 @@ FAMIXSourcedEntity class >> annotation [
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FAMIXSourcedEntity class >> generatedSlotNames [
-	<generated>
-	'FAMIXSourcedEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXSourcedEntity class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTWithComments FamixTWithFiles FamixTWithSourceAnchor FamixTWithSourceLanguage)
-]
-
-{ #category : #meta }
-FAMIXSourcedEntity class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXSourcedEntity >> accept: aVisitor [
-
-	aVisitor visitEntity: self
-]
-
-{ #category : #accessing }
-FAMIXSourcedEntity >> addComment: aComment [
-		self privateAddComment: aComment asFAMIXComment
 ]
 
 { #category : #'Famix-File' }
@@ -63,15 +32,6 @@ FAMIXSourcedEntity >> containerFiles: aColl [
 	"This method is a hack for now because we need an opposite to the files."
 
 	
-]
-
-{ #category : #'Famix-Extensions' }
-FAMIXSourcedEntity >> copyFrom: anEntity within: aVisitor [
-
-	sourceAnchor := aVisitor visit: anEntity sourceAnchor.
-	anEntity comments do: [:com | 
-		self comments add: (aVisitor visit: com) ].
-
 ]
 
 { #category : #'Famix-SourceAnchor' }
@@ -120,11 +80,6 @@ FAMIXSourcedEntity >> fileAnchorPath: aString startPos: anInteger endPos: anothe
 				startPos: anInteger
 				endPos: anotherInteger
 				model: self mooseModel)
-]
-
-{ #category : #'Famix-Implementation' }
-FAMIXSourcedEntity >> isImplicitVariable [
-	^false
 ]
 
 { #category : #'Famix-Extensions' }

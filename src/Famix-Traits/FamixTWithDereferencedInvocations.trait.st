@@ -10,26 +10,19 @@ Trait {
 FamixTWithDereferencedInvocations classSide >> annotation [
 
 	<MSEClass: #TWithDereferencedInvocations super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithDereferencedInvocations classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithDereferencedInvocations class>>#generatedSlotNames'.
-	^ #(dereferencedInvocations)
-]
-
-{ #category : #generator }
-FamixTWithDereferencedInvocations classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+{ #category : #accessing }
+FamixTWithDereferencedInvocations >> addDereferencedInvocation: aDeferencedInvocation [
+	dereferencedInvocations add: aDeferencedInvocation 
 ]
 
 { #category : #accessing }
 FamixTWithDereferencedInvocations >> dereferencedInvocations [
+	"Relation named: #dereferencedInvocations type: #FamixTDereferencedInvocation opposite: #referencer"
 
 	<generated>
 	<MSEComment: 'List of invocations performed on BehaviouralEntities referenced by this entity'>

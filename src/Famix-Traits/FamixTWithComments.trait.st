@@ -10,26 +10,21 @@ Trait {
 FamixTWithComments classSide >> annotation [
 
 	<MSEClass: #TWithComments super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithComments classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithComments class>>#generatedSlotNames'.
-	^ #(comments)
-]
-
-{ #category : #generator }
-FamixTWithComments classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+{ #category : #removing }
+FamixTWithComments >> addComment: aComment [
+	self flag: #todo.	"Cyril: Remove next check after some time. This is for a transition. 10 august 2019."
+	aComment isString ifTrue: [ self error: 'It is not possible to add a string as a comment anymore. Please create a comment entity to add.' ].
+	self comments add: aComment
 ]
 
 { #category : #accessing }
 FamixTWithComments >> comments [
+	"Relation named: #comments type: #FamixTComment opposite: #container"
 
 	<generated>
 	<MSEComment: 'list of comments defined in the entity'>
@@ -46,7 +41,7 @@ FamixTWithComments >> comments: anObject [
 
 { #category : #testing }
 FamixTWithComments >> hasComments [
-	^ self comments isEmpty not
+	^ self comments isNotEmpty
 ]
 
 { #category : #accessing }
@@ -54,22 +49,13 @@ FamixTWithComments >> numberOfComments [
 	<MSEProperty: #numberOfComments type: #Number>
 	<derived>
 	<MSEComment: 'The number of comments in a class'>
-
-	^ self lookUpPropertyNamed: #numberOfComments computedAs: [
-		self comments size + 
-		(self methods asArray inject: 0 into: [:sum : el| 
-			el numberOfComments + sum ]) ]
+	self flag: #todo.	"Cyril: I am not a big fan of this implementation... We should revisit it."
+	^ self lookUpPropertyNamed: #numberOfComments computedAs: [ self comments size + (self methods asArray inject: 0 into: [ :sum :el | el numberOfComments + sum ]) ]
 ]
 
 { #category : #accessing }
 FamixTWithComments >> numberOfComments: aNumber [
-
 	self privateState propertyAt: #numberOfComments put: aNumber
-]
-
-{ #category : #removing }
-FamixTWithComments >> privateAddComment: aComment [
-	self comments add: aComment 
 ]
 
 { #category : #removing }

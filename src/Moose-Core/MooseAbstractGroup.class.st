@@ -24,6 +24,20 @@ MooseAbstractGroup class >> annotation [
 
 ]
 
+{ #category : #'instance creation' }
+MooseAbstractGroup class >> with: anEntity [
+	^ anEntity ifNil: [ self new ] ifNotNil: [ self withAll: (Array with: anEntity) ]
+]
+
+{ #category : #'instance creation' }
+MooseAbstractGroup class >> withAll: aCollection [
+	"Create a new collection containing all the elements from aCollection."
+
+	^ self new
+		addAll: aCollection;
+		yourself
+]
+
 { #category : #'set operations' }
 MooseAbstractGroup >> & aCollection [
 	^ self intersection: aCollection
@@ -47,6 +61,18 @@ MooseAbstractGroup >> addAll: aCollectionOfItems [
 	^ self subclassResponsibility
 ]
 
+{ #category : #'adding/removing' }
+MooseAbstractGroup >> addLast: anEntity [ 
+	 
+	^self add: anEntity
+]
+
+{ #category : #accessing }
+MooseAbstractGroup >> allContainers [
+	<navigation: 'All containers'>
+	^ self lookUpPropertyNamed: #allContainers computedAs: [ self entities select: #isContainerEntity ]
+]
+
 { #category : #groups }
 MooseAbstractGroup >> allModels [ 
 	 "returns all known Models (be them MooseModels or of a subclass of it)"
@@ -55,39 +81,50 @@ MooseAbstractGroup >> allModels [
 ]
 
 { #category : #'public interface' }
-MooseAbstractGroup >> allSatisfy: aBlock [ 
-	 
-	^self entities allSatisfy: aBlock
+MooseAbstractGroup >> allSatisfy: aBlock [
+	^ self entities allSatisfy: aBlock
 ]
 
 { #category : #groups }
-MooseAbstractGroup >> allWithSubTypesOf: aSmalltalkClass [ 
-	^ self allWithSubTypesOf: aSmalltalkClass ofGroupClass: MooseGroup 
+MooseAbstractGroup >> allUsing: aTrait [
+	^ self allUsing: aTrait ofGroupClass: MooseGroup 
 ]
 
 { #category : #groups }
-MooseAbstractGroup >> allWithSubTypesOf: aSmalltalkClass ofGroupClass:  aGroupSmalltalkClass [
-	^ self privateState cacheAt: aSmalltalkClass
-		ifAbsentPut: [
-			aGroupSmalltalkClass 
-				withAll: (aSmalltalkClass withMooseSubclasses flatCollect: [:each |
-		self entityStorage selectAllWithType: each ])
-				withDescription: 'All ' , aSmalltalkClass name asLowercase asEnglishPlural]
+MooseAbstractGroup >> allUsing: aTrait ofGroupClass: aGroupClass [
+	aTrait isTrait ifFalse: [ MooseAllUsingOnClass signal ].
+	^ aGroupClass
+		withAll: ((aTrait allUsers flattened flatCollect: #withAllSubclasses) asSet flatCollect: [ :each | self entityStorage selectAllWithType: each ])
+		withDescription: 'All ' , aTrait name asLowercase asEnglishPlural
 ]
 
 { #category : #groups }
-MooseAbstractGroup >> allWithType: aSmalltalkClass [ 
-	^ self allWithType: aSmalltalkClass ofGroupClass: MooseGroup 
+MooseAbstractGroup >> allWithSubTypesOf: aFamixClass [
+	^ self allWithSubTypesOf: aFamixClass ofGroupClass: MooseGroup 
 ]
 
 { #category : #groups }
-MooseAbstractGroup >> allWithType: aSmalltalkClass ofGroupClass: aGroupSmalltalkClass [
+MooseAbstractGroup >> allWithSubTypesOf: aFamixClass ofGroupClass: aGroupClass [
+	aFamixClass isTrait ifTrue: [ MooseAllWithTypeOnTrait signal ].
+	^ aGroupClass
+		withAll: ((aFamixClass withAllSubclasses) asSet flatCollect: [ :each | self entityStorage selectAllWithType: each ])
+		withDescription: 'All ' , aFamixClass name asLowercase asEnglishPlural
+]
+
+{ #category : #groups }
+MooseAbstractGroup >> allWithType: aFamixClass [
+	^ self allWithType: aFamixClass ofGroupClass: MooseGroup 
+]
+
+{ #category : #groups }
+MooseAbstractGroup >> allWithType: aFamixClass ofGroupClass: aGroupClass [
+	aFamixClass isTrait ifTrue: [ MooseAllWithTypeOnTrait signal ].
 	^ self privateState 
-		cacheAt: aSmalltalkClass
+		cacheAt: aFamixClass
 		ifAbsentPut: [
-			aGroupSmalltalkClass 
-				withAll: (self entityStorage selectAllWithType: aSmalltalkClass)
-				withDescription: 'All ' , aSmalltalkClass name asLowercase asEnglishPlural ]
+			aGroupClass 
+				withAll: (self entityStorage selectAllWithType: aFamixClass)
+				withDescription: 'All ' , aFamixClass name asLowercase asEnglishPlural ]
 ]
 
 { #category : #accessing }
@@ -141,6 +178,12 @@ MooseAbstractGroup >> asSortedCollection: aSortBlock [
 { #category : #accessing }
 MooseAbstractGroup >> at: anIndex [
 	^ self entities at: anIndex
+]
+
+{ #category : #'public interface' }
+MooseAbstractGroup >> average: aSymbolOrBlock [ 
+	 
+	^ (self sumNumbers: aSymbolOrBlock) / self size
 ]
 
 { #category : #enumerating }
@@ -277,25 +320,6 @@ MooseAbstractGroup >> entityNamed: aMooseName ifAbsent: aBlock ifPresent: anothe
 		ifFalse: [anotherBlock value: entity]
 ]
 
-{ #category : #'public interface' }
-MooseAbstractGroup >> entityNamed: aMooseName ifAbsentPut: aValue [ 
-	^ self entityNamed: aMooseName ifAbsent: [self add: aValue]
-]
-
-{ #category : #'public interface' }
-MooseAbstractGroup >> entityNamed: aSymbol withType: aFamixType [
-	 
-	^self 
-		entityNamed: aSymbol 
-		withType: aFamixType
-		ifAbsent: [nil]
-]
-
-{ #category : #'public interface' }
-MooseAbstractGroup >> entityNamed: aMooseName withType: aFamixType ifAbsent: aBlock [
-	^ self entityStorage at: aMooseName withType: aFamixType ifAbsent: aBlock
-]
-
 { #category : #private }
 MooseAbstractGroup >> entityStorage [ 
 	 
@@ -414,12 +438,6 @@ MooseAbstractGroup >> insertInto: aSequenceableCollection from: anInteger to: an
 	^ self entities insertInto: aSequenceableCollection from: anInteger to: anotherInteger
 ]
 
-{ #category : #'set operations' }
-MooseAbstractGroup >> intersect: aGroup [ 
-	self deprecated: 'use intersection: instead, as it is polymorphic with the Collection protocol'.
-	^ self intersection: aGroup 
-]
-
 { #category : #'entity collection' }
 MooseAbstractGroup >> intersection: aCollection [
 	^ self species withAll: (self entities intersection: aCollection)
@@ -524,6 +542,11 @@ MooseAbstractGroup >> printOn: aStream [
 	aStream nextPut: $(. 
 	aStream nextPutAll: self size printString. 
 	aStream nextPut: $)
+]
+
+{ #category : #'adding/removing' }
+MooseAbstractGroup >> readStream [
+	^ self entities readStream
 ]
 
 { #category : #enumerating }

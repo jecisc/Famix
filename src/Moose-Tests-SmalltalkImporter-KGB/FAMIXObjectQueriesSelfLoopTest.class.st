@@ -4,28 +4,14 @@ Class {
 	#category : #'Moose-Tests-SmalltalkImporter-KGB-MooseChef'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 FAMIXObjectQueriesSelfLoopTest >> testClassObjectTests [
-	self
-		assert:
-			((self c1FullReferencerOutSide queryAllIncomingInvocations
-				atScope: FamixTType) includes: self c1FullReferencerOutSide).
-	self
-		deny:
-			((self c1FullReferencerOutSide queryAllIncomingInvocations
-				atScope: FamixTType) withoutSelfLoops
-				includes: self c1FullReferencerOutSide)
+	self assertCollection: (self c1FullReferencerOutSide queryAllIncomingInvocations atScope: FamixTType) hasSameElements: {self c1FullReferencerOutSide}.
+	self deny: ((self c1FullReferencerOutSide queryAllIncomingInvocations atScope: FamixTType) withoutSelfLoops includes: self c1FullReferencerOutSide)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 FAMIXObjectQueriesSelfLoopTest >> testPackageObjectTests [
-	self
-		assert:
-			((self packageP1FullReferencer queryAllIncomingInvocations
-				atScope: FamixTPackage) includes: self packageP1FullReferencer).
-	self
-		deny:
-			((self packageP1FullReferencer queryAllIncomingInvocations
-				atScope: FamixTType) withoutSelfLoops
-				includes: self packageP1FullReferencer)
+	self assertCollection: (self p1FullReferencer queryAllIncomingInvocations atScope: FamixTPackage) hasSameElements: {self p1FullReferencer}.
+	self deny: ((self p1FullReferencer queryAllIncomingInvocations atScope: FamixTType) withoutSelfLoops includes: self p1FullReferencer)
 ]

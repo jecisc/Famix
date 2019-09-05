@@ -7,8 +7,8 @@ Trait {
 FamixTContainingWithStatementsGlue classSide >> annotation [
 
 	<MSEClass: #TContainingWithStatementsGlue super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -29,19 +29,6 @@ FamixTContainingWithStatementsGlue classSide >> generateMethodsFor: aBuilderClas
 "
 ]
 
-{ #category : #generator }
-FamixTContainingWithStatementsGlue classSide >> generatedSlotNames [
-	<generated>
-	'FamixTContainingWithStatementsGlue class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTContainingWithStatementsGlue classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #metrics }
 FamixTContainingWithStatementsGlue >> numberOfStatements [
 	<MSEProperty: #numberOfStatements type: #Number>
@@ -53,7 +40,7 @@ FamixTContainingWithStatementsGlue >> numberOfStatements [
 		computedAs: [
 			| group |
 			group := MooseGroup
-				withAll: (self children select: [ :child | child usesTrait: FamixTWithStatements])
+				withAll: (self children select: [ :child | child usesFamixTrait: FamixTWithStatements])
 				withDescription: 'Entities from ' , self mooseName.
 			group sumNumbers: #numberOfStatements ] 
 ]

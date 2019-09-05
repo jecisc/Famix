@@ -12,20 +12,7 @@ Trait {
 FamixTPreprocessorIfdef classSide >> annotation [
 
 	<MSEClass: #TPreprocessorIfdef super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTPreprocessorIfdef classSide >> generatedSlotNames [
-	<generated>
-	'FamixTPreprocessorIfdef class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTPreprocessorIfdef classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]

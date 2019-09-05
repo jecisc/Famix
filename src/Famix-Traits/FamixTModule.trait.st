@@ -14,26 +14,21 @@ Trait {
 FamixTModule classSide >> annotation [
 
 	<MSEClass: #TModule super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTModule classSide >> generatedSlotNames [
-	<generated>
-	'FamixTModule class>>#generatedSlotNames'.
-	^ #(moduleEntities)
-]
+{ #category : #accessing }
+FamixTModule >> addModuleEntity: anObject [
 
-{ #category : #generator }
-FamixTModule classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+	moduleEntities add: anObject
+
 ]
 
 { #category : #accessing }
 FamixTModule >> moduleEntities [
+	"Relation named: #moduleEntities type: #FamixTDefinedInModule opposite: #parentModule"
 
 	<generated>
 	^ moduleEntities

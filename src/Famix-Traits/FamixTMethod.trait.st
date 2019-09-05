@@ -6,12 +6,13 @@ A FAMIXMethod is always contained in a parentType.
 Trait {
 	#name : #FamixTMethod,
 	#instVars : [
-		'#isAbstract',
-		'#isClassSide',
-		'#isPublic',
-		'#kind',
+		'#isAbstract => FMProperty',
+		'#isClassSide => FMProperty',
+		'#kind => FMProperty',
 		'#parentType => FMOne type: #FamixTWithMethods opposite: #methods'
 	],
+	#traits : 'FamixTWithParameters + FamixTInvocable + FamixTWithInvocations + FamixTWithReferences + FamixTWithAccesses + FamixTWithLocalVariables + FamixTWithImplicitVariables + FamixTWithSignature + FamixTWithClassScope + FamixTTypedStructure',
+	#classTraits : 'FamixTWithParameters classTrait + FamixTInvocable classTrait + FamixTWithInvocations classTrait + FamixTWithReferences classTrait + FamixTWithAccesses classTrait + FamixTWithLocalVariables classTrait + FamixTWithImplicitVariables classTrait + FamixTWithSignature classTrait + FamixTWithClassScope classTrait + FamixTTypedStructure classTrait',
 	#category : #'Famix-Traits-Method'
 }
 
@@ -19,8 +20,8 @@ Trait {
 FamixTMethod classSide >> annotation [
 
 	<MSEClass: #TMethod super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -30,28 +31,6 @@ FamixTMethod classSide >> famixTMethodRelatedGroup [
 	<mooseGroup>
 	
 	^ FAMIXMethodGroup
-]
-
-{ #category : #generator }
-FamixTMethod classSide >> generatedSlotNames [
-	<generated>
-	'FamixTMethod class>>#generatedSlotNames'.
-	^ #(isAbstract isClassSide kind parentType)
-]
-
-{ #category : #generator }
-FamixTMethod classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
-{ #category : #'Famix-Implementation' }
-FamixTMethod >> computeNumberOfLinesOfCode [
-	self hasSourceAnchor 
-		ifTrue: [ ^ self sourceAnchor lineCount ].
-	^ (self sourceText = '')
-			ifTrue: [ self notExistentMetricValue ]
-			ifFalse: [ self sourceText lineCount ]
 ]
 
 { #category : #metrics }
@@ -178,21 +157,6 @@ FamixTMethod >> kind: anObject [
 
 ]
 
-{ #category : #'Famix-Implementation' }
-FamixTMethod >> numberOfLinesOfCode [
-	<MSEProperty: #numberOfLinesOfCode type: #Number>
-	<MSEComment: 'The number of lines of code in a method.'>
-	^ self
-		lookUpPropertyNamed: #numberOfLinesOfCode
-		computedAs: [ self computeNumberOfLinesOfCode ]
-]
-
-{ #category : #'Famix-Implementation' }
-FamixTMethod >> numberOfLinesOfCode: aNumber [
-
-	self privateState propertyAt: #numberOfLinesOfCode put: aNumber
-]
-
 { #category : #metrics }
 FamixTMethod >> numberOfMessageSends [
 	<MSEProperty: #numberOfMessageSends type: #Number>
@@ -211,11 +175,11 @@ FamixTMethod >> numberOfMessageSends: aNumber [
 
 { #category : #accessing }
 FamixTMethod >> parentType [
+	"Relation named: #parentType type: #FamixTWithMethods opposite: #methods"
 
 	<generated>
 	<MSEComment: 'Type declaring the method. It provides the implementation for belongsTo.'>
 	<container>
-
 	^ parentType
 ]
 
@@ -229,11 +193,9 @@ FamixTMethod >> parentType: anObject [
 
 { #category : #navigation }
 FamixTMethod >> parentTypeGroup [
-
 	<generated>
 	<navigation: 'ParentType'>
-	^ MooseGroup
-			with: (self parentType)
+	^ MooseGroup with: self parentType
 ]
 
 { #category : #testing }

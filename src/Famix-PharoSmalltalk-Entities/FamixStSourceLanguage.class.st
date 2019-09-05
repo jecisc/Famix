@@ -15,29 +15,9 @@ FamixStSourceLanguage class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixStSourceLanguage class >> generatedSlotNames [
-	<generated>
-	'FamixStSourceLanguage class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStSourceLanguage class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTSourceLanguage)
-]
-
-{ #category : #meta }
-FamixStSourceLanguage class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
 { #category : #testing }
 FamixStSourceLanguage >> isSmalltalk [
-	^ false
+	^ true
 ]
 
 { #category : #testing }

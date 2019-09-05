@@ -15,26 +15,6 @@ FamixTestComposed1Method class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixTestComposed1Method class >> generatedSlotNames [
-	<generated>
-	'FamixTestComposed1Method class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTestComposed1Method class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTMethod)
-]
-
-{ #category : #meta }
-FamixTestComposed1Method class >> requirements [
-
-	<generated>
-	^ { FamixTestComposed1Class }
-]
-
 { #category : #accessing }
 FamixTestComposed1Method >> belongsTo [
 

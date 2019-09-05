@@ -1,31 +1,18 @@
 Class {
 	#name : #FamixJavaGlobalVariable,
-	#superclass : #FamixJavaStructuralEntity,
-	#traits : 'FamixTGlobalVariable',
-	#classTraits : 'FamixTGlobalVariable classTrait',
+	#superclass : #FamixJavaNamedEntity,
+	#traits : 'FamixJavaTStructuralEntity + FamixTGlobalVariable',
+	#classTraits : 'FamixJavaTStructuralEntity classTrait + FamixTGlobalVariable classTrait',
 	#category : #'Famix-Java-Entities-Entities'
 }
 
 { #category : #meta }
 FamixJavaGlobalVariable class >> annotation [
 
-	<MSEClass: #GlobalVariable super: #FamixJavaStructuralEntity>
+	<MSEClass: #GlobalVariable super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixJavaGlobalVariable class >> generatedSlotNames [
-	<generated>
-	'FamixJavaGlobalVariable class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaGlobalVariable class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTGlobalVariable)
 ]
 
 { #category : #meta }
@@ -33,12 +20,6 @@ FamixJavaGlobalVariable class >> requirements [
 
 	<generated>
 	^ { FamixJavaScopingEntity }
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaGlobalVariable >> accept: aVisitor [
-
-	aVisitor visitGlobalVariable: self
 ]
 
 { #category : #accessing }
@@ -70,16 +51,6 @@ FamixJavaGlobalVariable >> isPublic [
 ]
 
 { #category : #'as yet unclassified' }
-FamixJavaGlobalVariable >> namespaceScope [
-	^ self parentScope
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaGlobalVariable >> packageScope [
-	^ self parentPackage
-]
-
-{ #category : #'as yet unclassified' }
 FamixJavaGlobalVariable >> printOn: aStream [ 
 	| parent |
 	parent := self belongsTo.
@@ -88,12 +59,4 @@ FamixJavaGlobalVariable >> printOn: aStream [
 		aStream nextPut: $. ].
 	self name ifNotNil: [ aStream nextPutAll: self name ].
 	aStream nextPutAll: ' (Global Variable)'
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaGlobalVariable >> typeScope [
-	"typeScope does not make sense for a global variable,
-	so we return nil"
-
-	^ nil
 ]

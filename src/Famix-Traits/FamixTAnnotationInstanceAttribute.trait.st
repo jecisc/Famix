@@ -13,8 +13,10 @@ Trait {
 	#name : #FamixTAnnotationInstanceAttribute,
 	#instVars : [
 		'#parentAnnotationInstance => FMOne type: #FamixTWithAnnotationInstanceAttributes opposite: #attributes',
-		'#value'
+		'#value => FMProperty'
 	],
+	#traits : 'TEntityMetaLevelDependency + TDependencyQueries',
+	#classTraits : 'TEntityMetaLevelDependency classTrait + TDependencyQueries classTrait',
 	#category : #'Famix-Traits-AnnotationInstanceAttribute'
 }
 
@@ -22,31 +24,18 @@ Trait {
 FamixTAnnotationInstanceAttribute classSide >> annotation [
 
 	<MSEClass: #TAnnotationInstanceAttribute super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTAnnotationInstanceAttribute classSide >> generatedSlotNames [
-	<generated>
-	'FamixTAnnotationInstanceAttribute class>>#generatedSlotNames'.
-	^ #(parentAnnotationInstance value)
-]
-
-{ #category : #generator }
-FamixTAnnotationInstanceAttribute classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTAnnotationInstanceAttribute >> parentAnnotationInstance [
+	"Relation named: #parentAnnotationInstance type: #FamixTWithAnnotationInstanceAttributes opposite: #attributes"
 
 	<generated>
 	<MSEComment: 'The instance of the annotation in which the attribute is used.'>
 	<container>
-
 	^ parentAnnotationInstance
 ]
 
@@ -60,11 +49,9 @@ FamixTAnnotationInstanceAttribute >> parentAnnotationInstance: anObject [
 
 { #category : #navigation }
 FamixTAnnotationInstanceAttribute >> parentAnnotationInstanceGroup [
-
 	<generated>
 	<navigation: 'ParentAnnotationInstance'>
-	^ MooseGroup
-			with: (self parentAnnotationInstance)
+	^ MooseGroup with: self parentAnnotationInstance
 ]
 
 { #category : #accessing }

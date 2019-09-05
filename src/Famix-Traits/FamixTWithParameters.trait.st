@@ -10,22 +10,9 @@ Trait {
 FamixTWithParameters classSide >> annotation [
 
 	<MSEClass: #TWithParameters super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithParameters classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithParameters class>>#generatedSlotNames'.
-	^ #(parameters)
-]
-
-{ #category : #generator }
-FamixTWithParameters classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #adding }
@@ -49,6 +36,7 @@ FamixTWithParameters >> numberOfParameters: aNumber [
 
 { #category : #accessing }
 FamixTWithParameters >> parameters [
+	"Relation named: #parameters type: #FamixTParameter opposite: #parentBehaviouralEntity"
 
 	<generated>
 	<MSEComment: 'List of formal parameters declared by this behaviour.'>

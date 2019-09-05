@@ -10,26 +10,14 @@ Trait {
 FamixTSub classSide >> annotation [
 
 	<MSEClass: #TSub super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTSub classSide >> generatedSlotNames [
-	<generated>
-	'FamixTSub class>>#generatedSlotNames'.
-	^ #(supers)
-]
-
-{ #category : #generator }
-FamixTSub classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTSub >> supers [
+	"Relation named: #supers type: #FamixTSuper opposite: #subs"
 
 	<generated>
 	^ supers

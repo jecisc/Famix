@@ -8,28 +8,6 @@ Trait {
 	#category : #'Moose-Query'
 }
 
-{ #category : #meta }
-TDependencyQueryResult classSide >> annotation [
-
-	<MSEClass: #TDependencyQueryResult super: #Trait>
-	<generated>
-	<package: #'Moose-Query'>
-	^self
-]
-
-{ #category : #generator }
-TDependencyQueryResult classSide >> generatedSlotNames [
-	<generated>
-	'TDependencyQueryResult class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-TDependencyQueryResult classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #filtering }
 TDependencyQueryResult >> allAtAnyScope: aCollectionOfFamixClasses [
 	^ self newObjectResultWith: (self storage inject: OrderedCollection new into: [ :res :dep | (self opposite: dep) allAtAnyScope: aCollectionOfFamixClasses in: res ]) asSet
@@ -113,21 +91,8 @@ TDependencyQueryResult >> opposites [
 ]
 
 { #category : #filtering }
-TDependencyQueryResult >> outOfClass: aFAMIXClass [ 
-	
-	^ self rejectDependencies: [ :dep | (self opposite: dep) isCollection ifTrue: [ (self opposite: dep) isNotEmpty and: [(self opposite: dep) anySatisfy: [ :anEntity | anEntity typeScope == aFAMIXClass ] ] ] ifFalse: [aFAMIXClass == (self opposite: dep) typeScope]]
-]
-
-{ #category : #filtering }
-TDependencyQueryResult >> outOfNamespace: aFAMIXNamespace [ 
-
-	^ self rejectDependencies: [ :dep | (self opposite: dep) isCollection ifTrue: [ (self opposite: dep) isNotEmpty and: [(self opposite: dep) anySatisfy: [ :anEntity | anEntity namespaceScope == aFAMIXNamespace ] ] ] ifFalse: [aFAMIXNamespace == (self opposite: dep) namespaceScope]]
-]
-
-{ #category : #filtering }
-TDependencyQueryResult >> outOfPackage: aFAMIXPackage [ 
-	
-	^ self rejectDependencies: [ :dep | (self opposite: dep) isCollection ifTrue: [ (self opposite: dep) isNotEmpty and: [(self opposite: dep) anySatisfy: [ :anEntity | anEntity packageScope == aFAMIXPackage ] ] ] ifFalse: [aFAMIXPackage == (self opposite: dep) packageScope]]
+TDependencyQueryResult >> outOf: aFamixEntity [
+	^ self newAssocResultWith: (self storage reject: [ :dep | (self opposite: dep) asCollection anySatisfy: [ :entity | (entity allAtScope: aFamixEntity class) includes: aFamixEntity ] ])
 ]
 
 { #category : #private }
@@ -170,29 +135,7 @@ TDependencyQueryResult >> withScope: aClassFamix [
 
 { #category : #filtering }
 TDependencyQueryResult >> within: aFamixEntity [
-	^self newAssocResultWith:
-		(self storage select: [ :dep | 
-			(self isOppositeMultivalued: dep)
-				ifTrue: [ (self opposite: dep) anySatisfy: [ :entity |  {aFamixEntity} = (entity atScope: aFamixEntity class) ] ]
-				ifFalse: [ {aFamixEntity} = ((self opposite: dep) atScope: aFamixEntity class) ] ])
-]
-
-{ #category : #filtering }
-TDependencyQueryResult >> withinClass: aFAMIXClass [ 
-	
-	^ self within: aFAMIXClass 
-]
-
-{ #category : #filtering }
-TDependencyQueryResult >> withinNamespace: aFAMIXNamespace [ 
-
-	^ self within: aFAMIXNamespace 
-]
-
-{ #category : #filtering }
-TDependencyQueryResult >> withinPackage: aFAMIXPackage [ 
-	
-	^ self within: aFAMIXPackage 
+	^ self newAssocResultWith: (self storage select: [ :dep | (self opposite: dep) asCollection anySatisfy: [ :entity | (entity allAtScope: aFamixEntity class) includes: aFamixEntity ] ])
 ]
 
 { #category : #filtering }

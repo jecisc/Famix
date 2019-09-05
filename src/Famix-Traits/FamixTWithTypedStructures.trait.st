@@ -10,25 +10,12 @@ Trait {
 FamixTWithTypedStructures classSide >> annotation [
 
 	<MSEClass: #TWithTypedStructures super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithTypedStructures classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithTypedStructures class>>#generatedSlotNames'.
-	^ #(structuresWithDeclaredType)
-]
-
-{ #category : #generator }
-FamixTWithTypedStructures classSide >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
-{ #category : #deprecated }
+{ #category : #adding }
 FamixTWithTypedStructures >> addBehaviourWithDeclaredType: aBehaviour [
 	self structuresWithDeclaredType add: aBehaviour
 ]
@@ -38,20 +25,19 @@ FamixTWithTypedStructures >> addStructureWithDeclaredType: aStructuralEntity [
 	structuresWithDeclaredType add: aStructuralEntity
 ]
 
-{ #category : #deprecated }
-FamixTWithTypedStructures >> behavioursWithDeclaredType [
-
-	^ self structuresWithDeclaredType
+{ #category : #testing }
+FamixTWithTypedStructures >> entityHasIncomingTypeDeclarations [
+	^ self structuresWithDeclaredType isNotEmpty
 ]
 
-{ #category : #deprecated }
-FamixTWithTypedStructures >> behavioursWithDeclaredType: anObject [
-
-	^ self structuresWithDeclaredType: anObject
+{ #category : #accessing }
+FamixTWithTypedStructures >> incomingTypeDeclarations [
+	^ self structuresWithDeclaredType collect: [ :var | MooseQueryTypeDeclarationAssociation newFrom: var to: self ]
 ]
 
 { #category : #accessing }
 FamixTWithTypedStructures >> structuresWithDeclaredType [
+	"Relation named: #structuresWithDeclaredType type: #FamixTTypedStructure opposite: #declaredType"
 
 	<generated>
 	<MSEComment: 'Structural entities that have this type as declaredType'>

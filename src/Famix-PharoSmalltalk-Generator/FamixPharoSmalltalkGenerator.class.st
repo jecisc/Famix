@@ -20,11 +20,7 @@ Class {
 		'package',
 		'parameter',
 		'reference',
-		'structuralEntity',
 		'scopingEntity',
-		'smalltalkSourceLanguage',
-		'type',
-		'unknownSourceLanguage',
 		'unknownVariable'
 	],
 	#category : #'Famix-PharoSmalltalk-Generator'
@@ -43,11 +39,6 @@ FamixPharoSmalltalkGenerator class >> prefix [
 ]
 
 { #category : #accessing }
-FamixPharoSmalltalkGenerator class >> submetamodels [ 
-	^ { FamixCompatibilityGenerator }
-]
-
-{ #category : #accessing }
 FamixPharoSmalltalkGenerator class >> wantsAllEntitiesNavigation [
 
 	^ false
@@ -55,7 +46,6 @@ FamixPharoSmalltalkGenerator class >> wantsAllEntitiesNavigation [
 
 { #category : #initialization }
 FamixPharoSmalltalkGenerator >> defineClasses [
-
 	super defineClasses.
 
 	access := builder newClassNamed: #Access.
@@ -77,12 +67,7 @@ FamixPharoSmalltalkGenerator >> defineClasses [
 	parameter := builder newClassNamed: #Parameter.
 	reference := builder newClassNamed: #Reference.
 	scopingEntity := builder newClassNamed: #ScopingEntity.
-	structuralEntity := builder newClassNamed: #StructuralEntity.
-	smalltalkSourceLanguage := builder newClassNamed: #SmalltalkSourceLanguage.
-	type := builder newClassNamed: #Type.
-	unknownSourceLanguage := builder newClassNamed: #UnknownSourceLanguage.
-	unknownVariable := builder newClassNamed: #UnknownVariable.
-		
+	unknownVariable := builder newClassNamed: #UnknownVariable
 ]
 
 { #category : #initialization }
@@ -97,32 +82,26 @@ FamixPharoSmalltalkGenerator >> defineHierarchy [
 	annotationInstance --|> #TAnnotationInstance.
 	annotationInstance --|> #TWithAnnotationInstanceAttributes.
 	annotationInstance --|> #TTypedAnnotationInstance.
-	annotationInstance --|> #TEntityMetaLevelDependency.
-	annotationInstance --|> #TDependencyQueries.
 
 	annotationInstanceAttribute --|> sourcedEntity.
 	annotationInstanceAttribute --|> #TAnnotationInstanceAttribute.
 	annotationInstanceAttribute --|> #TTypedAnnotationInstanceAttribute.
-	annotationInstanceAttribute --|> #TEntityMetaLevelDependency.
-	annotationInstanceAttribute --|> #TDependencyQueries.
 
-	annotationType --|> type.
+	annotationType --|> containerEntity.
 	annotationType --|> #TAnnotationType.
+	annotationType --|> #TWithAttributes.
 
 	annotationTypeAttribute --|> attribute.
 	annotationTypeAttribute --|> #TAnnotationTypeAttribute.
 	annotationTypeAttribute --|> #TTypedAnnotationInstanceAttribute.
 
-	attribute --|> structuralEntity.
+	attribute --|> namedEntity.
 	attribute --|> #TAttribute.
 	attribute --|> #TWithClassScope.
 
-	class --|> type.
+	class --|> containerEntity.
 	class --|> #TWithExceptions.
 	class --|> #TClass.
-	class --|> #TWithMethods.
-	class --|> #TWithSuperInheritances.
-	class --|> #TWithSubInheritances.
 	class --|> #TClassHierarchyNavigation.
 	
 	containerEntity --|> namedEntity.
@@ -131,10 +110,10 @@ FamixPharoSmalltalkGenerator >> defineHierarchy [
 	containerEntity --|> #TWithAnnotationTypes.
 	containerEntity --|> #TOODependencyQueries.
 
-	globalVariable --|> structuralEntity.
+	globalVariable --|> namedEntity.
 	globalVariable --|> #TGlobalVariable.
 
-	implicitVariable --|> structuralEntity.
+	implicitVariable --|> namedEntity.
 	implicitVariable --|> #TImplicitVariable.
 
 	inheritance --|> association.
@@ -145,21 +124,11 @@ FamixPharoSmalltalkGenerator >> defineHierarchy [
 	invocation --|> #TInvocation.
 	invocation --|> #TWithSignature.
 
-	localVariable --|> structuralEntity.
+	localVariable --|> namedEntity.
 	localVariable --|> #TLocalVariable.
 
 	method --|> containerEntity.
-	method --|> #TWithParameters.
-	method --|> #TInvocable.
-	method --|> #TWithInvocations.
-	method --|> #TWithReferences.
-	method --|> #TWithAccesses.
-	method --|> #TWithLocalVariables.
-	method --|> #TWithImplicitVariables.
-	method --|> #TWithSignature.
 	method --|> #TMethod.
-	method --|> #TWithClassScope.
-	method --|> #TTypedStructure.
 
 	namedEntity --|> #TPackageable.
 	namedEntity --|> #TInvocationsReceiver.
@@ -169,35 +138,24 @@ FamixPharoSmalltalkGenerator >> defineHierarchy [
 
 	namespace --|> scopingEntity.
 	namespace --|> #TNamespace.
+	namespace --|> #TInvocationsReceiver.
 
 	package --|> scopingEntity.
 	package --|> #TPackage.
+	package --|> #TCohesionCouplingMetrics.
 
-	parameter --|> structuralEntity.
+	parameter --|> namedEntity.
 	parameter --|> #TParameter.
 
 	reference --|> association.
 	reference --|> #TReference.
 
-	smalltalkSourceLanguage --|> sourceLanguage.
-
 	scopingEntity --|> containerEntity.
 	scopingEntity --|> #TGlobalVariableScope.
 	scopingEntity --|> #TScopingEntity.
 
-	structuralEntity --|> namedEntity.
-	structuralEntity --|> #TAccessible.
-	structuralEntity --|> #TTypedStructure.
-
-	type --|> containerEntity.
-	type --|> #TType.
-	type --|> #TReferenceable.
-	type --|> #TWithAttributes.
-	type --|> #TWithTypedStructures.
-
-	unknownSourceLanguage --|> sourceLanguage.
-
-	unknownVariable --|> structuralEntity.
+	unknownVariable --|> namedEntity.
+	unknownVariable --|> #TStructuralEntity.
 
 	sourceAnchor --|> #TWithImmediateSource.
 	
@@ -215,11 +173,7 @@ FamixPharoSmalltalkGenerator >> defineProperties [
 
 { #category : #initialization }
 FamixPharoSmalltalkGenerator >> newBuilder [
-
-	^ self builderWithStandardTraits
+	^ super newBuilder
 		withImportingContext;
 		yourself
-		
-		
-	
 ]

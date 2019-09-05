@@ -37,7 +37,7 @@ FamixTest3Test >> setUp [
 
 	super setUp.
 
-	model := MooseModel new.
+	model := FamixTest3MooseModel new.
 	model metamodel: FamixTest3Class metamodel.
 	c1 := FamixTest3Class named: 'Class1'.
 	c2 := FamixTest3Class named: 'Class2'.
@@ -49,6 +49,7 @@ FamixTest3Test >> setUp [
 	pt2 := FamixTest3PrimitiveType named: 'float'. 
 	
 	ref1 := FamixTest3Reference new.
+	ref2 := FamixTest3Reference new.
 	inv1 := FamixTest3Invocation new.
 	
 	model addAll: { c1. c2. m1. m2. pt1. pt2 }.
@@ -59,6 +60,9 @@ FamixTest3Test >> setUp [
 	ref1 
 		source: m1; 
 		target: pt1.
+	ref2 
+		source: m1; 
+		target: c1.
 	inv1
 		from: m1;
 		to: {m1}.
@@ -66,64 +70,53 @@ FamixTest3Test >> setUp [
 
 { #category : #running }
 FamixTest3Test >> testAllClients [
-
-	self assertCollection: (pt1 allClients) hasSameElements: { m1 }
+	self assertCollection: pt1 allClients hasSameElements: {m1}
 ]
 
 { #category : #running }
 FamixTest3Test >> testAllClientsAtScope [
-
-	self assertCollection: (pt1 allClientsAtScope: FamixTClass) hasSameElements: { c1 }	.
-	self assertCollection: (pt1 allClientsAtScope: FamixTest3Class) hasSameElements: { c1 }
+	self assertCollection: (pt1 allClientsAtScope: FamixTClass) hasSameElements: {c1}.
+	self assertCollection: (pt1 allClientsAtScope: FamixTest3Class) hasSameElements: {c1}
 ]
 
 { #category : #running }
 FamixTest3Test >> testAllProviders [
-
-	self assertCollection: (m1 allProviders) hasSameElements: { pt1 }
+	self assertCollection: m1 allProviders hasSameElements: {c1 . pt1}
 ]
 
 { #category : #running }
 FamixTest3Test >> testAllProvidersAtScope [
-
-	self assertCollection: (m1 allProvidersAtScope: FamixTClass) hasSameElements: { c1. pt1 }.
-	self assertCollection: (m1 allProvidersAtScope: FamixTest3Class) hasSameElements: { c1. pt1 }.
+	self assertCollection: (m1 allProvidersAtScope: FamixTClass) hasSameElements: {c1 . pt1}.
+	self assertCollection: (m1 allProvidersAtScope: FamixTest3Class) hasSameElements: {c1 . pt1}
 ]
 
 { #category : #running }
 FamixTest3Test >> testAtScope [
-
-	self assertCollection: (m1 atScope: FamixTClass) hasSameElements: { c1 }.
-	self assertCollection: (m1 atScope: FamixTest3Class) hasSameElements: { c1 }.
-	
-
+	self assertCollection: (m1 atScope: FamixTClass) hasSameElements: {c1}.
+	self assertCollection: (m1 atScope: FamixTest3Class) hasSameElements: {c1}
 ]
 
 { #category : #running }
 FamixTest3Test >> testAtScopeOnQueryResult [
 	| mooseQueryResult |
-	mooseQueryResult := MooseObjectQueryResult on: c1 withAll: { m1 . m2 . pt1 . pt2 }.
+	mooseQueryResult := MooseObjectQueryResult on: c1 withAll: {m1 . m2 . pt1 . pt2}.
 
-	self assertCollection: (mooseQueryResult atScope: FamixTClass) hasSameElements: { c1 . c2 }.
-	self assertCollection: (mooseQueryResult atScope: FamixTest3Class) hasSameElements: { c1 . c2 }.
-	
+	self assertCollection: (mooseQueryResult atScope: FamixTClass) hasSameElements: {c1 . c2}.
+	self assertCollection: (mooseQueryResult atScope: FamixTest3Class) hasSameElements: {c1 . c2}
 ]
 
 { #category : #running }
 FamixTest3Test >> testAtScopeWithNonMatchingEntitiesDo [
-
 	self checkAtScopeWithNonMatchingEntitiesDoWith: FamixTClass.
-	self checkAtScopeWithNonMatchingEntitiesDoWith: FamixTest3Class.
+	self checkAtScopeWithNonMatchingEntitiesDoWith: FamixTest3Class
 ]
 
 { #category : #running }
 FamixTest3Test >> testIncomingReferences [
-
-	self assertCollection: pt1 incomingReferences hasSameElements: { ref1 }
+	self assertCollection: pt1 incomingReferences hasSameElements: {ref1}
 ]
 
 { #category : #running }
 FamixTest3Test >> testQueryIncomingDependencies [
-
-	self assertCollection: pt1 queryIncomingDependencies hasSameElements: { ref1 }
+	self assertCollection: pt1 queryIncomingDependencies hasSameElements: {ref1}
 ]

@@ -13,36 +13,11 @@ FamixStEntity class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FamixStEntity class >> generatedSlotNames [
-	<generated>
-	'FamixStEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStEntity class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FamixStEntity class >> metamodel [
 
 	<generated>
 	^ (self class environment at: #FamixPharoSmalltalkGenerator) metamodel
-]
-
-{ #category : #meta }
-FamixStEntity class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #'as yet unclassified' }
-FamixStEntity class >> resetMooseQueryCaches [
-	"Here do nothing. Customize in subclasses."
 ]
 
 { #category : #testing }
@@ -74,7 +49,7 @@ FamixStEntity >> isClass [
 ]
 
 { #category : #testing }
-FamixStEntity >> isFunction [
+FamixStEntity >> isImplicitVariable [
 
 	<generated>
 	^ false
@@ -117,6 +92,18 @@ FamixStEntity >> isPackage [
 
 { #category : #testing }
 FamixStEntity >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FamixStEntity >> isSharedVariable [
+	^ false
+]
+
+{ #category : #testing }
+FamixStEntity >> isStructuralEntity [
 
 	<generated>
 	^ false

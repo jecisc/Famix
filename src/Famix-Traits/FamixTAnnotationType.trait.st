@@ -18,8 +18,8 @@ Trait {
 FamixTAnnotationType classSide >> annotation [
 
 	<MSEClass: #TAnnotationType super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -31,26 +31,20 @@ FamixTAnnotationType classSide >> famixTAnnotationTypeRelatedGroup [
 	^ FAMIXAnnotationTypeGroup
 ]
 
-{ #category : #generator }
-FamixTAnnotationType classSide >> generatedSlotNames [
-	<generated>
-	'FamixTAnnotationType class>>#generatedSlotNames'.
-	^ #(annotationTypesContainer instances)
-]
+{ #category : #accessing }
+FamixTAnnotationType >> addInstance: anObject [
 
-{ #category : #generator }
-FamixTAnnotationType classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+	instances add: anObject
+
 ]
 
 { #category : #accessing }
 FamixTAnnotationType >> annotationTypesContainer [
+	"Relation named: #annotationTypesContainer type: #FamixTWithAnnotationTypes opposite: #definedAnnotationTypes"
 
 	<generated>
 	<MSEComment: 'Container in which an AnnotationType may reside'>
 	<container>
-
 	^ annotationTypesContainer
 ]
 
@@ -64,15 +58,14 @@ FamixTAnnotationType >> annotationTypesContainer: anObject [
 
 { #category : #navigation }
 FamixTAnnotationType >> annotationTypesContainerGroup [
-
 	<generated>
 	<navigation: 'AnnotationTypesContainer'>
-	^ MooseGroup
-			with: (self annotationTypesContainer)
+	^ MooseGroup with: self annotationTypesContainer
 ]
 
 { #category : #accessing }
 FamixTAnnotationType >> instances [
+	"Relation named: #instances type: #FamixTTypedAnnotationInstance opposite: #annotationType"
 
 	<generated>
 	<MSEComment: 'Annotations of this type'>
@@ -85,4 +78,15 @@ FamixTAnnotationType >> instances: anObject [
 	<generated>
 	instances value: anObject
 
+]
+
+{ #category : #printing }
+FamixTAnnotationType >> mooseNameOn: aStream [
+	self annotationTypesContainer
+		ifNotNil: [ :parent | 
+			parent mooseNameOn: aStream.
+			aStream
+				nextPut: $:;
+				nextPut: $: ].
+	self name ifNotNil: [ aStream nextPutAll: self name ]
 ]

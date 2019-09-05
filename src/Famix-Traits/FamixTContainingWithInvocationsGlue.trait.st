@@ -7,29 +7,16 @@ Trait {
 FamixTContainingWithInvocationsGlue classSide >> annotation [
 
 	<MSEClass: #TContainingWithInvocationsGlue super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTContainingWithInvocationsGlue classSide >> generatedSlotNames [
-	<generated>
-	'FamixTContainingWithInvocationsGlue class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTContainingWithInvocationsGlue classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #metrics }
 FamixTContainingWithInvocationsGlue >> incomingInvocations [
 
 	| withInvocations |
-	withInvocations :=  self children select: [ :child | child usesTrait: FamixTWithInvocations].
+	withInvocations :=  self children select: [ :child | child usesFamixTrait: FamixTWithInvocations].
 	^ withInvocations flatCollect: [ :each | each incomingInvocations ]
 ]
 
@@ -48,7 +35,7 @@ FamixTContainingWithInvocationsGlue >> incomingInvocationsGroup [
 FamixTContainingWithInvocationsGlue >> outgoingInvocations [
 
 	| withInvocations |
-	withInvocations :=  self children select: [ :child | child usesTrait: FamixTWithInvocations].
+	withInvocations :=  self children select: [ :child | child usesFamixTrait: FamixTWithInvocations].
 	^ withInvocations flatCollect: [ :each | each outgoingInvocations ]
 ]
 

@@ -13,47 +13,11 @@ FAMIXEntity class >> annotation [
 	^self
 ]
 
-{ #category : #generator }
-FAMIXEntity class >> generatedSlotNames [
-	<generated>
-	'FAMIXEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FAMIXEntity class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #meta }
 FAMIXEntity class >> metamodel [
 
 	<generated>
 	^ (self class environment at: #FamixCompatibilityGenerator) metamodel
-]
-
-{ #category : #meta }
-FAMIXEntity class >> requirements [
-
-	<generated>
-	^ {  }
-]
-
-{ #category : #'Moose-Query-Extensions' }
-FAMIXEntity class >> resetMSEProperties [
-	"
-	self resetMSEProperties
-		"
-
-	self allSubclasses
-		do: [ :aSubClass | 
-			aSubClass resetMooseQueryCaches.]
-]
-
-{ #category : #'Moose-Query-Extensions' }
-FAMIXEntity class >> resetMooseQueryCaches [
-	"Here do nothing. Customize in subclasses."
 ]
 
 { #category : #accessing }
@@ -97,14 +61,14 @@ FAMIXEntity >> isClass [
 ]
 
 { #category : #testing }
-FAMIXEntity >> isContainerEntity [
+FAMIXEntity >> isFunction [
 
 	<generated>
 	^ false
 ]
 
 { #category : #testing }
-FAMIXEntity >> isFunction [
+FAMIXEntity >> isImplicitVariable [
 
 	<generated>
 	^ false
@@ -154,6 +118,13 @@ FAMIXEntity >> isPrimitiveType [
 
 { #category : #testing }
 FAMIXEntity >> isReference [
+
+	<generated>
+	^ false
+]
+
+{ #category : #testing }
+FAMIXEntity >> isStructuralEntity [
 
 	<generated>
 	^ false

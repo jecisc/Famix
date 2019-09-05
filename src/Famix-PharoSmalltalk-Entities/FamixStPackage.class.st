@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixStPackage,
 	#superclass : #FamixStScopingEntity,
-	#traits : 'FamixTPackage + FamixTPackageWithClassesGlue',
-	#classTraits : 'FamixTPackage classTrait + FamixTPackageWithClassesGlue classTrait',
+	#traits : 'FamixTCohesionCouplingMetrics + FamixTPackage + FamixTPackageWithClassesGlue',
+	#classTraits : 'FamixTCohesionCouplingMetrics classTrait + FamixTPackage classTrait + FamixTPackageWithClassesGlue classTrait',
 	#category : #'Famix-PharoSmalltalk-Entities-Entities'
 }
 
@@ -13,26 +13,6 @@ FamixStPackage class >> annotation [
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixStPackage class >> generatedSlotNames [
-	<generated>
-	'FamixStPackage class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStPackage class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTPackage FamixTPackageWithClassesGlue)
-]
-
-{ #category : #meta }
-FamixStPackage class >> requirements [
-
-	<generated>
-	^ {  }
 ]
 
 { #category : #'Famix-Extensions-metrics' }
@@ -59,13 +39,6 @@ FamixStPackage >> classes [
 
 	^ self privateState 	cacheAt: #classes 
 							ifAbsentPut: [ self childEntities select: [ :child | child isClass ]]
-]
-
-{ #category : #accessing }
-FamixStPackage >> clientPackages [
-	"^ self inheritedByPackages union: self invokingPackages"
-
-	^ (self queryAllIncoming atScope: FamixTPackage) withoutSelfLoops
 ]
 
 { #category : #accessing }
@@ -126,13 +99,6 @@ FamixStPackage >> methods [
 ]
 
 { #category : #accessing }
-FamixStPackage >> namespaceScope [
-
-	self shouldNotImplement 
-
-]
-
-{ #category : #accessing }
 FamixStPackage >> numberOfClasses [
 	<MSEProperty: #numberOfClasses type: #Number>
 	<derived>
@@ -143,37 +109,16 @@ FamixStPackage >> numberOfClasses [
 
 { #category : #accessing }
 FamixStPackage >> numberOfClientPackages [
-"	<property: #CP longName: 'Number of client packages' description:
-			'The number of packages which depend on this package'>"
-
 	<MSEProperty: #numberOfClientPackages type: #Number>
 	<MSEComment: 'The number of packages which depend on this package'>
 	<derived>
-
-	^ self lookUpPropertyNamed: #numberOfClientPackages
-				 computedAs: [ self clientPackages size ]
+	^ self lookUpPropertyNamed: #numberOfClientPackages computedAs: [ self allClients size ]
 ]
 
 { #category : #accessing }
 FamixStPackage >> numberOfClientPackages: aNumber [
 
 	self privateState propertyAt: #numberOfClientPackages put: aNumber
-]
-
-{ #category : #accessing }
-FamixStPackage >> providerPackages [
-	"^ self inheritedPackages union: self invokedPackages"
-
-	^ (self queryAllOutgoing atScope: FamixTPackage) withoutSelfLoops
-]
-
-{ #category : #accessing }
-FamixStPackage >> providerTypes [
-	<MSEProperty: #providerTypes type: #FamixStType>
-	<derived>
-	<multivalued>
-	<MSEComment: 'All types that the receiver depends on'>
-	^ (self queryAllOutgoing atScope: FamixTType) withoutSelfLoops
 ]
 
 { #category : #accessing }

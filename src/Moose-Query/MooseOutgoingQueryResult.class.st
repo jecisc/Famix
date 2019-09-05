@@ -14,9 +14,7 @@ Class {
 
 { #category : #private }
 MooseOutgoingQueryResult >> isOppositeMultivalued: aDependency [
-
-	^ (aDependency attributesTogetherWithGenerated
-		detect: [ :att | att isTarget ]) isMultivalued
+	^ (aDependency attributesTogetherWithGenerated detect: [ :att | att isTarget ]) isMultivalued
 ]
 
 { #category : #private }
@@ -26,13 +24,11 @@ MooseOutgoingQueryResult >> opposite: aDependency [
 ]
 
 { #category : #accessing }
-MooseOutgoingQueryResult >> sourceClasses [
-
-	^ self sources collectAsSet: #typeScope
+MooseOutgoingQueryResult >> sources [
+	^ (self collectAsSet: #from) flattened
 ]
 
 { #category : #accessing }
-MooseOutgoingQueryResult >> sources [
-
-	^ self collectAsSet: #from
+MooseOutgoingQueryResult >> sourcesAtScope: aFamixTraitOrClass [
+	^ self sources flatCollectAsSet: [ :e | e atScope: aFamixTraitOrClass ]
 ]

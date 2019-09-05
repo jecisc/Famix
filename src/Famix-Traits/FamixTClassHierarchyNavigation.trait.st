@@ -7,22 +7,9 @@ Trait {
 FamixTClassHierarchyNavigation classSide >> annotation [
 
 	<MSEClass: #TClassHierarchyNavigation super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTClassHierarchyNavigation classSide >> generatedSlotNames [
-	<generated>
-	'FamixTClassHierarchyNavigation class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTClassHierarchyNavigation classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #metrics }
@@ -37,7 +24,8 @@ FamixTClassHierarchyNavigation >> addedMethods [
 { #category : #enumerating }
 FamixTClassHierarchyNavigation >> allSubclassesDo: aBlock [
 	self allSubclassesWithoutAliasesDo: aBlock.
-	self typeAliases do: [ :each | each allSubclassesWithoutAliasesDo: aBlock ]
+	self flag: 'Manage typeAlias in C metamodel'
+	"self typeAliases do: [ :each | each allSubclassesWithoutAliasesDo: aBlock ]"
 ]
 
 { #category : #enumerating }
@@ -48,7 +36,8 @@ FamixTClassHierarchyNavigation >> allSubclassesWithoutAliasesDo: aBlock [
 
 { #category : #enumerating }
 FamixTClassHierarchyNavigation >> allSuperclassesDo: aBlock [
-	self allSuperclassesWithoutAliasesDo: aBlock.
+	self superInheritances do: [:each | aBlock value: each superclass].
+	self superInheritances do: [:each | each superclass allSuperclassesDo: aBlock]
 
 ]
 
@@ -60,14 +49,9 @@ FamixTClassHierarchyNavigation >> allSuperclassesWithoutAliasesDo: aBlock [
 
 { #category : #enumerating }
 FamixTClassHierarchyNavigation >> anySuperclass [
-	"Mircea: this used to return interfaces too. fixed now. 
-	also added superclass that does the same thing"
-
-	self
-		allSuperclassesDo: [ :each | 
-			each isInterface
-				ifFalse: [ ^ each ] ].
-	^ nil
+	^ self superInheritances
+		ifEmpty: [ nil ]
+		ifNotEmpty: [ self superInheritances anyOne superclass ]
 ]
 
 { #category : #enumerating }
@@ -367,8 +351,9 @@ FamixTClassHierarchyNavigation >> totalNumberOfChildren: aNumber [
 FamixTClassHierarchyNavigation >> withSubclassHierarchy [
 	^ self subclassHierarchy 
 		addFirst: self realType;
-		addAll: self realType allTypeAliases;
-		yourself
+		flag: 'Manage TypeAlias for C metamodel';
+		"addAll: self realType allTypeAliases;"
+		yourself.
 ]
 
 { #category : #'Famix-Implementation' }
@@ -387,9 +372,10 @@ FamixTClassHierarchyNavigation >> withSubclassesDo: aBlock [
 
 { #category : #'Famix-Implementation' }
 FamixTClassHierarchyNavigation >> withSuperclassHierarchy [
+	self flag: #'We should add something to handle the typeAliases in C++, etc.'.
 	^ self realType superclassHierarchy 
-		addFirst: self realType; 
-		addAll: self realType allTypeAliases;
+		addFirst: self realType;
+		"addAll: self realType allTypeAliases;"
 		yourself
 ]
 

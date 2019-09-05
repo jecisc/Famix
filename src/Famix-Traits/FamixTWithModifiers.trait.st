@@ -1,7 +1,7 @@
 Trait {
 	#name : #FamixTWithModifiers,
 	#instVars : [
-		'modifiers'
+		'#modifiers => FMProperty'
 	],
 	#category : #'Famix-Traits-Modifiers'
 }
@@ -10,22 +10,9 @@ Trait {
 FamixTWithModifiers classSide >> annotation [
 
 	<MSEClass: #TWithModifiers super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTWithModifiers classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithModifiers class>>#generatedSlotNames'.
-	^ #(modifiers)
-]
-
-{ #category : #generator }
-FamixTWithModifiers classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #'Famix-Implementation' }

@@ -16,8 +16,8 @@ Trait {
 FamixTPackage classSide >> annotation [
 
 	<MSEClass: #TPackage super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -29,21 +29,15 @@ FamixTPackage classSide >> famixTPackageRelatedGroup [
 	^ FAMIXPackageGroup
 ]
 
-{ #category : #generator }
-FamixTPackage classSide >> generatedSlotNames [
-	<generated>
-	'FamixTPackage class>>#generatedSlotNames'.
-	^ #(childEntities packageOwner)
-]
+{ #category : #accessing }
+FamixTPackage >> addChildEntity: anObject [
+	childEntities add: anObject
 
-{ #category : #generator }
-FamixTPackage classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTPackage >> childEntities [
+	"Relation named: #childEntities type: #FamixTPackageable opposite: #parentPackage"
 
 	<generated>
 	^ childEntities
@@ -66,6 +60,7 @@ FamixTPackage >> isPackage [
 
 { #category : #accessing }
 FamixTPackage >> packageOwner [
+	"Relation named: #packageOwner type: #FamixTWithPackages opposite: #packages"
 
 	<generated>
 	^ packageOwner
@@ -77,10 +72,4 @@ FamixTPackage >> packageOwner: anObject [
 	<generated>
 	packageOwner := anObject
 
-]
-
-{ #category : #accessing }
-FamixTPackage >> packageScope [
-
-	^ self
 ]

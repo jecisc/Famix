@@ -17,26 +17,14 @@ Trait {
 FamixTDereferencedInvocation classSide >> annotation [
 
 	<MSEClass: #TDereferencedInvocation super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTDereferencedInvocation classSide >> generatedSlotNames [
-	<generated>
-	'FamixTDereferencedInvocation class>>#generatedSlotNames'.
-	^ #(referencer)
-]
-
-{ #category : #generator }
-FamixTDereferencedInvocation classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTDereferencedInvocation >> referencer [
+	"Relation named: #referencer type: #FamixTWithDereferencedInvocations opposite: #dereferencedInvocations"
 
 	<generated>
 	<MSEComment: 'Structural entity that references the BehaviouralEntity invoked'>

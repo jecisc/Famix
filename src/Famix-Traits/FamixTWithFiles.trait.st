@@ -10,26 +10,20 @@ Trait {
 FamixTWithFiles classSide >> annotation [
 
 	<MSEClass: #TWithFiles super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithFiles classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithFiles class>>#generatedSlotNames'.
-	^ #(containerFiles)
-]
+{ #category : #accessing }
+FamixTWithFiles >> addContainerFile: anObject [
+	containerFiles add: anObject
 
-{ #category : #generator }
-FamixTWithFiles classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithFiles >> containerFiles [
+	"Relation named: #containerFiles type: #FamixTFile opposite: #entities"
 
 	<generated>
 	<MSEComment: 'List of files containing the entity'>

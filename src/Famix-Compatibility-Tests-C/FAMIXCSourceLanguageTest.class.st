@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 FAMIXCSourceLanguageTest >> testIsC [
 	| model |
-	MooseModel resetMeta.
+	self skip: 'Test skipped until C metamodel definition'.
 	model := MooseModel new.
 	
 	model importFromMSEStream: '(
@@ -20,10 +20,12 @@ FAMIXCSourceLanguageTest >> testIsC [
 
 { #category : #tests }
 FAMIXCSourceLanguageTest >> testIsUnknown [
-	self assert: FAMIXJavaSourceLanguage new isUnknown not
+	self skip: 'Test skipped until C metamodel definition'.
+	self assert: FAMIXCSourceLanguage new isUnknown not
 ]
 
 { #category : #tests }
 FAMIXCSourceLanguageTest >> testName [
-	self assert: FAMIXJavaSourceLanguage new name equals: 'Java'
+	self skip: 'Test skipped until C metamodel definition'.
+	self assert: FAMIXCSourceLanguage new name equals: 'C'
 ]

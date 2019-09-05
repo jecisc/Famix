@@ -14,23 +14,3 @@ FamixTest2NamedEntity class >> annotation [
 	<generated>
 	^self
 ]
-
-{ #category : #generator }
-FamixTest2NamedEntity class >> generatedSlotNames [
-	<generated>
-	'FamixTest2NamedEntity class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixTest2NamedEntity class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTNamed TDependencyQueries TEntityMetaLevelDependency)
-]
-
-{ #category : #meta }
-FamixTest2NamedEntity class >> requirements [
-
-	<generated>
-	^ {  }
-]

@@ -1,8 +1,8 @@
 Trait {
 	#name : #FamixTIndexedFileNavigation,
 	#instVars : [
-		'endPos',
-		'startPos'
+		'#endPos => FMProperty',
+		'#startPos => FMProperty'
 	],
 	#category : #'Famix-Traits-Traits'
 }
@@ -11,8 +11,8 @@ Trait {
 FamixTIndexedFileNavigation classSide >> annotation [
 
 	<MSEClass: #TIndexedFileNavigation super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
@@ -33,19 +33,6 @@ FamixTIndexedFileNavigation classSide >> fileName: aString startPos: anInteger e
 		startPos: anInteger;
 		endPos: anotherInteger;
 		yourself
-]
-
-{ #category : #generator }
-FamixTIndexedFileNavigation classSide >> generatedSlotNames [
-	<generated>
-	'FamixTIndexedFileNavigation class>>#generatedSlotNames'.
-	^ #(endPos startPos)
-]
-
-{ #category : #generator }
-FamixTIndexedFileNavigation classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #private }

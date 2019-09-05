@@ -13,26 +13,14 @@ Trait {
 FamixTSourceAnchor classSide >> annotation [
 
 	<MSEClass: #TSourceAnchor super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixTSourceAnchor classSide >> generatedSlotNames [
-	<generated>
-	'FamixTSourceAnchor class>>#generatedSlotNames'.
-	^ #(element)
-]
-
-{ #category : #generator }
-FamixTSourceAnchor classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTSourceAnchor >> element [
+	"Relation named: #element type: #FamixTWithSourceAnchor opposite: #sourceAnchor"
 
 	<generated>
 	<MSEComment: 'Enable the accessibility to the famix entity that this class is a source pointer for'>

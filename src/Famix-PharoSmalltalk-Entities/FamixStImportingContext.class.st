@@ -4,19 +4,6 @@ Class {
 	#category : #'Famix-PharoSmalltalk-Entities'
 }
 
-{ #category : #generator }
-FamixStImportingContext class >> generatedSlotNames [
-	<generated>
-	'FamixStImportingContext class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStImportingContext class >> generatedTraitNames [
-	<generated>
-	^ #()
-]
-
 { #category : #testing }
 FamixStImportingContext >> importAccess [
 
@@ -179,13 +166,6 @@ FamixStImportingContext >> importScopingEntity [
 ]
 
 { #category : #testing }
-FamixStImportingContext >> importSmalltalkSourceLanguage [
-
-	<generated>
-	^ self import: FamixStSmalltalkSourceLanguage
-]
-
-{ #category : #testing }
 FamixStImportingContext >> importSourceAnchor [
 
 	<generated>
@@ -211,20 +191,6 @@ FamixStImportingContext >> importSourcedEntity [
 
 	<generated>
 	^ self import: FamixStSourcedEntity
-]
-
-{ #category : #testing }
-FamixStImportingContext >> importStructuralEntity [
-
-	<generated>
-	^ self import: FamixStStructuralEntity
-]
-
-{ #category : #testing }
-FamixStImportingContext >> importType [
-
-	<generated>
-	^ self import: FamixStType
 ]
 
 { #category : #testing }
@@ -403,13 +369,6 @@ FamixStImportingContext >> shouldImportScopingEntity [
 ]
 
 { #category : #testing }
-FamixStImportingContext >> shouldImportSmalltalkSourceLanguage [
-
-	<generated>
-	^ self shouldImport: FamixStSmalltalkSourceLanguage
-]
-
-{ #category : #testing }
 FamixStImportingContext >> shouldImportSourceAnchor [
 
 	<generated>
@@ -435,20 +394,6 @@ FamixStImportingContext >> shouldImportSourcedEntity [
 
 	<generated>
 	^ self shouldImport: FamixStSourcedEntity
-]
-
-{ #category : #testing }
-FamixStImportingContext >> shouldImportStructuralEntity [
-
-	<generated>
-	^ self shouldImport: FamixStStructuralEntity
-]
-
-{ #category : #testing }
-FamixStImportingContext >> shouldImportType [
-
-	<generated>
-	^ self shouldImport: FamixStType
 ]
 
 { #category : #testing }

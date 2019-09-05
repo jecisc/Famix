@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixStLocalVariable,
-	#superclass : #FamixStStructuralEntity,
+	#superclass : #FamixStNamedEntity,
 	#traits : 'FamixTLocalVariable',
 	#classTraits : 'FamixTLocalVariable classTrait',
 	#category : #'Famix-PharoSmalltalk-Entities-Entities'
@@ -9,30 +9,10 @@ Class {
 { #category : #meta }
 FamixStLocalVariable class >> annotation [
 
-	<MSEClass: #LocalVariable super: #FamixStStructuralEntity>
+	<MSEClass: #LocalVariable super: #FamixStNamedEntity>
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixStLocalVariable class >> generatedSlotNames [
-	<generated>
-	'FamixStLocalVariable class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStLocalVariable class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTLocalVariable)
-]
-
-{ #category : #meta }
-FamixStLocalVariable class >> requirements [
-
-	<generated>
-	^ { FamixStMethod }
 ]
 
 { #category : #accessing }
@@ -59,9 +39,4 @@ FamixStLocalVariable >> mooseNameOn: stream [
 		[ parent mooseNameOn: stream.
 		stream nextPut: $. ].
 	self name ifNotNil: [stream nextPutAll: self name]
-]
-
-{ #category : #accessing }
-FamixStLocalVariable >> packageScope [
-	^ self parentBehaviouralEntity packageScope
 ]

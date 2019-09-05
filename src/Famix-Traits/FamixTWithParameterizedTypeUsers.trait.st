@@ -10,26 +10,22 @@ Trait {
 FamixTWithParameterizedTypeUsers classSide >> annotation [
 
 	<MSEClass: #TWithParameterizedTypeUsers super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithParameterizedTypeUsers classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithParameterizedTypeUsers class>>#generatedSlotNames'.
-	^ #(arguments)
-]
+{ #category : #accessing }
+FamixTWithParameterizedTypeUsers >> addArgument: anObject [
 
-{ #category : #generator }
-FamixTWithParameterizedTypeUsers classSide >> generatedTraitNames [
-	<generated>
-	^ #()
+	arguments add: anObject.
+	self resetMooseName.
+
 ]
 
 { #category : #accessing }
 FamixTWithParameterizedTypeUsers >> arguments [
+	"Relation named: #arguments type: #FamixTParameterizedTypeUser opposite: #argumentsInParameterizedTypes"
 
 	<generated>
 	^ arguments

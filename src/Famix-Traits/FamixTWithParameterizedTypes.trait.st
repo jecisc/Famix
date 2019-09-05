@@ -10,26 +10,20 @@ Trait {
 FamixTWithParameterizedTypes classSide >> annotation [
 
 	<MSEClass: #TWithParameterizedTypes super: #Trait>
-	<generated>
 	<package: #'Famix-Traits'>
+	<generated>
 	^self
 ]
 
-{ #category : #generator }
-FamixTWithParameterizedTypes classSide >> generatedSlotNames [
-	<generated>
-	'FamixTWithParameterizedTypes class>>#generatedSlotNames'.
-	^ #(parameterizedTypes)
-]
+{ #category : #accessing }
+FamixTWithParameterizedTypes >> addParameterizedType: anObject [
+	parameterizedTypes add: anObject
 
-{ #category : #generator }
-FamixTWithParameterizedTypes classSide >> generatedTraitNames [
-	<generated>
-	^ #()
 ]
 
 { #category : #accessing }
 FamixTWithParameterizedTypes >> parameterizedTypes [
+	"Relation named: #parameterizedTypes type: #FamixTParameterizedType opposite: #parameterizableClass"
 
 	<generated>
 	^ parameterizedTypes

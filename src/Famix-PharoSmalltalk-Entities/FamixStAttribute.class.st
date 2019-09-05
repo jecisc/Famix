@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixStAttribute,
-	#superclass : #FamixStStructuralEntity,
+	#superclass : #FamixStNamedEntity,
 	#traits : 'FamixTAttribute + FamixTWithClassScope',
 	#classTraits : 'FamixTAttribute classTrait + FamixTWithClassScope classTrait',
 	#instVars : [
@@ -12,30 +12,17 @@ Class {
 { #category : #meta }
 FamixStAttribute class >> annotation [
 
-	<MSEClass: #Attribute super: #FamixStStructuralEntity>
+	<MSEClass: #Attribute super: #FamixStNamedEntity>
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixStAttribute class >> generatedSlotNames [
-	<generated>
-	'FamixStAttribute class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixStAttribute class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTAttribute FamixTWithClassScope)
 ]
 
 { #category : #meta }
 FamixStAttribute class >> requirements [
 
 	<generated>
-	^ { FamixStType }
+	^ { FamixStAnnotationType }
 ]
 
 { #category : #'Famix-Implementation' }
@@ -112,9 +99,4 @@ FamixStAttribute >> mooseNameOn: aStream [
 		[ parent mooseNameOn: aStream.
 		aStream nextPut: $. ].
 	self name ifNotNil: [ aStream nextPutAll: self name ].
-]
-
-{ #category : #'Famix-Implementation' }
-FamixStAttribute >> typeScope [
-	^ self parentType
 ]

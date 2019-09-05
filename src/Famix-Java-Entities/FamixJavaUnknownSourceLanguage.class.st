@@ -1,6 +1,6 @@
 Class {
 	#name : #FamixJavaUnknownSourceLanguage,
-	#superclass : #FamixJavaEntity,
+	#superclass : #FamixJavaSourceLanguage,
 	#traits : 'FamixTSourceLanguage',
 	#classTraits : 'FamixTSourceLanguage classTrait',
 	#category : #'Famix-Java-Entities-Entities'
@@ -9,30 +9,10 @@ Class {
 { #category : #meta }
 FamixJavaUnknownSourceLanguage class >> annotation [
 
-	<MSEClass: #UnknownSourceLanguage super: #FamixJavaEntity>
+	<MSEClass: #UnknownSourceLanguage super: #FamixJavaSourceLanguage>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #generator }
-FamixJavaUnknownSourceLanguage class >> generatedSlotNames [
-	<generated>
-	'FamixJavaUnknownSourceLanguage class>>#generatedSlotNames'.
-	^ #()
-]
-
-{ #category : #generator }
-FamixJavaUnknownSourceLanguage class >> generatedTraitNames [
-	<generated>
-	^ #(FamixTSourceLanguage)
-]
-
-{ #category : #meta }
-FamixJavaUnknownSourceLanguage class >> requirements [
-
-	<generated>
-	^ {  }
 ]
 
 { #category : #'as yet unclassified' }
