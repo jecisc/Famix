@@ -24,7 +24,7 @@ Class {
 { #category : #meta }
 FamixJavaEntity class >> annotation [
 
-	<MSEClass: #Entity super: #MooseEntity>
+	<FMClass: #Entity super: #MooseEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
@@ -34,14 +34,7 @@ FamixJavaEntity class >> annotation [
 FamixJavaEntity class >> metamodel [
 
 	<generated>
-	^ (self class environment at: #FamixJavaGenerator) metamodel
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaEntity >> belongsTo [
-	"Return the primary container of the entity if it exist"
-	
-	^ self subclassResponsibility
+	^ FamixJavaModel metamodel
 ]
 
 { #category : #testing }

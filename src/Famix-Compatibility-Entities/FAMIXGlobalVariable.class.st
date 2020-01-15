@@ -9,33 +9,10 @@ Class {
 { #category : #meta }
 FAMIXGlobalVariable class >> annotation [
 
-	<MSEClass: #GlobalVariable super: #FAMIXStructuralEntity>
+	<FMClass: #GlobalVariable super: #FAMIXStructuralEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FAMIXGlobalVariable class >> requirements [
-
-	<generated>
-	^ { FAMIXScopingEntity }
-]
-
-{ #category : #accessing }
-FAMIXGlobalVariable >> belongsTo [
-
-	<generated>
-	^ self parentScope
-
-]
-
-{ #category : #accessing }
-FAMIXGlobalVariable >> belongsTo: anObject [
-
-	<generated>
-	self parentScope: anObject
-
 ]
 
 { #category : #'Famix-Extensions' }

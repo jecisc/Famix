@@ -9,26 +9,10 @@ Class {
 { #category : #meta }
 FamixJavaImplicitVariable class >> annotation [
 
-	<MSEClass: #ImplicitVariable super: #FamixJavaNamedEntity>
+	<FMClass: #ImplicitVariable super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #accessing }
-FamixJavaImplicitVariable >> belongsTo [
-
-	<generated>
-	^ self parentBehaviouralEntity
-
-]
-
-{ #category : #accessing }
-FamixJavaImplicitVariable >> belongsTo: anObject [
-
-	<generated>
-	self parentBehaviouralEntity: anObject
-
 ]
 
 { #category : #'as yet unclassified' }

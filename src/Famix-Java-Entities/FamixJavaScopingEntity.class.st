@@ -9,17 +9,10 @@ Class {
 { #category : #meta }
 FamixJavaScopingEntity class >> annotation [
 
-	<MSEClass: #ScopingEntity super: #FamixJavaContainerEntity>
+	<FMClass: #ScopingEntity super: #FamixJavaContainerEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixJavaScopingEntity class >> requirements [
-
-	<generated>
-	^ { FamixJavaScopingEntity }
 ]
 
 { #category : #'Famix-Extensions-metrics' }
@@ -48,20 +41,6 @@ FamixJavaScopingEntity >> allClasses [
 FamixJavaScopingEntity >> allClassesGroup [
 	<navigation: 'All classes'>
 	^ FAMIXTypeGroup withAll: self allClasses withDescription: 'All classes from ', self printString
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaScopingEntity >> belongsTo [
-	
-	^ self parentScope ifNil: [ self parentPackage ]
-]
-
-{ #category : #accessing }
-FamixJavaScopingEntity >> belongsTo: anObject [
-
-	<generated>
-	self parentScope: anObject
-
 ]
 
 { #category : #'Famix-Extensions-metrics' }

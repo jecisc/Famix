@@ -9,24 +9,8 @@ Class {
 { #category : #meta }
 FamixTestComposed1Method class >> annotation [
 
-	<MSEClass: #Method super: #FamixTestComposed1NamedEntity>
+	<FMClass: #Method super: #FamixTestComposed1NamedEntity>
 	<package: #'Famix-TestComposedSubmetamodel1-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #accessing }
-FamixTestComposed1Method >> belongsTo [
-
-	<generated>
-	^ self parentType
-
-]
-
-{ #category : #accessing }
-FamixTestComposed1Method >> belongsTo: anObject [
-
-	<generated>
-	self parentType: anObject
-
 ]

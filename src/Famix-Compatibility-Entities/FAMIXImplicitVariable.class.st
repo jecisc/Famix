@@ -9,33 +9,10 @@ Class {
 { #category : #meta }
 FAMIXImplicitVariable class >> annotation [
 
-	<MSEClass: #ImplicitVariable super: #FAMIXStructuralEntity>
+	<FMClass: #ImplicitVariable super: #FAMIXStructuralEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FAMIXImplicitVariable class >> requirements [
-
-	<generated>
-	^ { FAMIXBehaviouralEntity }
-]
-
-{ #category : #accessing }
-FAMIXImplicitVariable >> belongsTo [
-
-	<generated>
-	^ self parentBehaviouralEntity
-
-]
-
-{ #category : #accessing }
-FAMIXImplicitVariable >> belongsTo: anObject [
-
-	<generated>
-	self parentBehaviouralEntity: anObject
-
 ]
 
 { #category : #'Famix-Implementation' }

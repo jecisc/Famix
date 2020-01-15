@@ -6,64 +6,60 @@ Class {
 
 { #category : #running }
 MooseModelDescriptionTest >> msePropertyPragmaFor: aMethod [
-	^ aMethod pragmas detect: [:p | p keyword = #MSEProperty:type:opposite:] ifNone: [ nil ]
+	^ aMethod pragmas detect: [ :p | p selector = #FMProperty:type:opposite: ] ifNone: [ nil ]
 ]
 
 { #category : #tests }
 MooseModelDescriptionTest >> notTested_AllPropertyCommented [
 	| allProps |
 	"MSE properties with opposite"
-	allProps := SystemNavigation new allMethods select: [:e | e hasPragmaNamed: #MSEProperty:type:opposite: ].
-	self assert: (allProps select: [ :m | m pragmas noneSatisfy: [:p | p keyword = #MSEComment: ] ]) size
-		equals: 0.
-		
-	"MSE properties without opposite"
-	allProps := SystemNavigation new allMethods select: [:e | e hasPragmaNamed: #MSEProperty:type: ].
-	self assert: (allProps select: [ :m | m pragmas noneSatisfy: [:p | p keyword = #MSEComment: ] ]) size
-		equals: 0.
+	allProps := SystemNavigation new allMethods select: [ :e | e hasPragmaNamed: #'FMProperty::type:opposite:' ].
+	self assertEmpty: (allProps select: [ :m | m pragmas noneSatisfy: [ :p | p keyword = #FMComment: ] ]).
 
+	"MSE properties without opposite"
+	allProps := SystemNavigation new allMethods select: [ :e | e hasPragmaNamed: #FMProperty:type: ].
+	self assertEmpty: (allProps select: [ :m | m pragmas noneSatisfy: [ :p | p keyword = #FMComment: ] ])
 ]
 
 { #category : #tests }
-MooseModelDescriptionTest >> testAsMooseDescription [	
-	self assert: (FAMIXClass asMooseDescription isKindOf: FM3MetaDescription).
+MooseModelDescriptionTest >> testAsMooseDescription [
+	self assert: FamixTest1Class asMooseDescription isFM3Class
 ]
 
 { #category : #tests }
 MooseModelDescriptionTest >> testAsMooseDescriptionAttributes [
-	| fc ft |
-	fc := FAMIXClass asMooseDescription.
-	ft := FAMIXType asMooseDescription.
-	self assert: (ft attributes anySatisfy: [:each | each name = #methods]).
-	self assert: (fc allAttributes anySatisfy: [:each | each name = #methods])
+	| classDescription typeDescription |
+	classDescription := FamixTest3Class asMooseDescription.
+	typeDescription := FamixTest3Type asMooseDescription.
+	self assertEmpty: typeDescription properties.
+	self assert: (classDescription allProperties anySatisfy: [ :each | each name = #methods ])
 ]
 
 { #category : #tests }
 MooseModelDescriptionTest >> testOppositeOfOppositePropertyIsMyself [
 	| allSelector dictOpposite |
 
-	allSelector := SystemNavigation new allMethods select: [:e | e hasPragmaNamed: #MSEProperty:type:opposite: ].
+	allSelector := SystemNavigation new allMethods select: [:e | e hasPragmaNamed: #FMProperty:type:opposite: ].
 
 	dictOpposite := Dictionary new.
 	allSelector do: [ :s || pragma |
 		pragma := self msePropertyPragmaFor: s.
 		dictOpposite at: (pragma arguments second -> pragma arguments third) put: s selector
 	].
-	self assert: (allSelector reject: [ :s || pragma |
+
+	self assertEmpty: (allSelector reject: [ :s || pragma |
 							pragma := self msePropertyPragmaFor: s.
 							[(dictOpposite at: (s methodClass -> s selector)) = (pragma arguments third)]
 							on: KeyNotFound
 							do: [ true ] "ignore, will be treated by testOppositePropertyExist"
-						]) size
-			equals: 0.
-
+						]) 
 ]
 
 { #category : #tests }
 MooseModelDescriptionTest >> testOppositePropertyExist [
 	| allSelector |
 
-	allSelector := SystemNavigation new allMethods select: [:e | e hasPragmaNamed: #MSEProperty:type:opposite: ].
+	allSelector := SystemNavigation new allMethods select: [:e | e hasPragmaNamed: #FMProperty:type:opposite: ].
 
 	self assert: (allSelector reject: [ :s || pragma |
 							pragma := self msePropertyPragmaFor: s.

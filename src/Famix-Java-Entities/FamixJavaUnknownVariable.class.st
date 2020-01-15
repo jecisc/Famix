@@ -9,13 +9,8 @@ Class {
 { #category : #meta }
 FamixJavaUnknownVariable class >> annotation [
 
-	<MSEClass: #UnknownVariable super: #FamixJavaNamedEntity>
+	<FMClass: #UnknownVariable super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #'as yet unclassified' }
-FamixJavaUnknownVariable >> belongsTo [
-	^ nil
 ]

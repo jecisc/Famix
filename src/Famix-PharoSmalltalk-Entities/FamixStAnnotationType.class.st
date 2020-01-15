@@ -9,33 +9,10 @@ Class {
 { #category : #meta }
 FamixStAnnotationType class >> annotation [
 
-	<MSEClass: #AnnotationType super: #FamixStContainerEntity>
+	<FMClass: #AnnotationType super: #FamixStContainerEntity>
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixStAnnotationType class >> requirements [
-
-	<generated>
-	^ { FamixStContainerEntity }
-]
-
-{ #category : #accessing }
-FamixStAnnotationType >> belongsTo [
-
-	<generated>
-	^ self annotationTypesContainer
-
-]
-
-{ #category : #accessing }
-FamixStAnnotationType >> belongsTo: anObject [
-
-	<generated>
-	self annotationTypesContainer: anObject
-
 ]
 
 { #category : #compatibility }

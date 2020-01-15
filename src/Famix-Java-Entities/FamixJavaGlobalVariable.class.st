@@ -9,33 +9,10 @@ Class {
 { #category : #meta }
 FamixJavaGlobalVariable class >> annotation [
 
-	<MSEClass: #GlobalVariable super: #FamixJavaNamedEntity>
+	<FMClass: #GlobalVariable super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixJavaGlobalVariable class >> requirements [
-
-	<generated>
-	^ { FamixJavaScopingEntity }
-]
-
-{ #category : #accessing }
-FamixJavaGlobalVariable >> belongsTo [
-
-	<generated>
-	^ self parentScope
-
-]
-
-{ #category : #accessing }
-FamixJavaGlobalVariable >> belongsTo: anObject [
-
-	<generated>
-	self parentScope: anObject
-
 ]
 
 { #category : #'as yet unclassified' }

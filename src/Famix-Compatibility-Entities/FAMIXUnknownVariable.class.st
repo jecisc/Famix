@@ -7,13 +7,8 @@ Class {
 { #category : #meta }
 FAMIXUnknownVariable class >> annotation [
 
-	<MSEClass: #UnknownVariable super: #FAMIXStructuralEntity>
+	<FMClass: #UnknownVariable super: #FAMIXStructuralEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #accessing }
-FAMIXUnknownVariable >> belongsTo [
-	^ nil
 ]

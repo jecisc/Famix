@@ -9,17 +9,10 @@ Class {
 { #category : #meta }
 FamixStScopingEntity class >> annotation [
 
-	<MSEClass: #ScopingEntity super: #FamixStContainerEntity>
+	<FMClass: #ScopingEntity super: #FamixStContainerEntity>
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixStScopingEntity class >> requirements [
-
-	<generated>
-	^ { FamixStScopingEntity }
 ]
 
 { #category : #'Famix-Extensions-metrics' }
@@ -35,17 +28,4 @@ FamixStScopingEntity >> allClasses [
 	result := OrderedCollection new.
 	self withAllChildScopesDo: [ :each | result addAll: each classes ].
 	^ result
-]
-
-{ #category : #accessing }
-FamixStScopingEntity >> belongsTo [
-	^ self parentScope ifNil: [ self parentPackage ]
-]
-
-{ #category : #accessing }
-FamixStScopingEntity >> belongsTo: anObject [
-
-	<generated>
-	self parentScope: anObject
-
 ]

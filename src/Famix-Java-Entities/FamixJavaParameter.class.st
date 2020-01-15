@@ -9,26 +9,10 @@ Class {
 { #category : #meta }
 FamixJavaParameter class >> annotation [
 
-	<MSEClass: #Parameter super: #FamixJavaNamedEntity>
+	<FMClass: #Parameter super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #accessing }
-FamixJavaParameter >> belongsTo [
-
-	<generated>
-	^ self parentBehaviouralEntity
-
-]
-
-{ #category : #accessing }
-FamixJavaParameter >> belongsTo: anObject [
-
-	<generated>
-	self parentBehaviouralEntity: anObject
-
 ]
 
 { #category : #'as yet unclassified' }

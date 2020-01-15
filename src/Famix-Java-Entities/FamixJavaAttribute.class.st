@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixJavaAttribute,
 	#superclass : #FamixJavaNamedEntity,
-	#traits : 'FamixJavaTStructuralEntity + FamixTAttribute + FamixTWithClassScope',
-	#classTraits : 'FamixJavaTStructuralEntity classTrait + FamixTAttribute classTrait + FamixTWithClassScope classTrait',
+	#traits : 'FamixTAttribute + FamixTWithClassScope',
+	#classTraits : 'FamixTAttribute classTrait + FamixTWithClassScope classTrait',
 	#instVars : [
 		'#hasClassScope'
 	],
@@ -12,32 +12,16 @@ Class {
 { #category : #meta }
 FamixJavaAttribute class >> annotation [
 
-	<MSEClass: #Attribute super: #FamixJavaNamedEntity>
+	<FMClass: #Attribute super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
 ]
 
-{ #category : #accessing }
-FamixJavaAttribute >> belongsTo [
-
-	<generated>
-	^ self parentType
-
-]
-
-{ #category : #accessing }
-FamixJavaAttribute >> belongsTo: anObject [
-
-	<generated>
-	self parentType: anObject
-
-]
-
 { #category : #'as yet unclassified' }
 FamixJavaAttribute >> hasClassScope [
-	<MSEProperty: #hasClassScope type: #Boolean>
-	<MSEComment: 'True if class-side attribute'>
+	<FMProperty: #hasClassScope type: #Boolean>
+	<FMComment: 'True if class-side attribute'>
 
 	^ hasClassScope
 ]
@@ -50,9 +34,9 @@ FamixJavaAttribute >> hasClassScope: aBoolean [
 
 { #category : #'as yet unclassified' }
 FamixJavaAttribute >> hierarchyNestingLevel [
-	<MSEProperty: #hierarchyNestingLevel type: #Number>
+	<FMProperty: #hierarchyNestingLevel type: #Number>
 	<derived>
-	<MSEComment: 'Attribute hierarchy nesting level'>
+	<FMComment: 'Attribute hierarchy nesting level'>
 		
 	^self
 		lookUpPropertyNamed: #hierarchyNestingLevel

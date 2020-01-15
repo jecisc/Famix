@@ -9,33 +9,10 @@ Class {
 { #category : #meta }
 FAMIXAnnotationInstance class >> annotation [
 
-	<MSEClass: #AnnotationInstance super: #FAMIXSourcedEntity>
+	<FMClass: #AnnotationInstance super: #FAMIXSourcedEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FAMIXAnnotationInstance class >> requirements [
-
-	<generated>
-	^ { FAMIXNamedEntity }
-]
-
-{ #category : #accessing }
-FAMIXAnnotationInstance >> belongsTo [
-
-	<generated>
-	^ self annotatedEntity
-
-]
-
-{ #category : #accessing }
-FAMIXAnnotationInstance >> belongsTo: anObject [
-
-	<generated>
-	self annotatedEntity: anObject
-
 ]
 
 { #category : #accessing }
@@ -59,16 +36,4 @@ FAMIXAnnotationInstance >> name [
 			stream << '@'
 				<< (self annotationType ifNil: [ super name ] ifNotNil: [ :type | type name ])
 				<< ' on ' << (self annotatedEntity ifNotNil: #name ifNil: [ 'undefined' ]) ]
-]
-
-{ #category : #'query dependencies' }
-FAMIXAnnotationInstance >> throughAllTo [
-	"Collect all the targets of the receiver and its children.
-	
-	Example:
-		aFAMIXMethod throughAllTo.
-			--> Will return a MooseOutgoingQueryResult containing the class having aFAMIXClass or its children as source
-	"
-
-	^ (MooseQueryCalculator strategy: MooseQueryOutgoingDirectionStrategy) throughAllFor: self
 ]

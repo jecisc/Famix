@@ -1,6 +1,6 @@
 Class {
 	#name : #LANSmalltalkAccessTest,
-	#superclass : #MooseTestWithSmalltalkDependency,
+	#superclass : #TestCase,
 	#category : #'Moose-Tests-SmalltalkImporter-LAN'
 }
 
@@ -11,8 +11,8 @@ LANSmalltalkAccessTest >> testWhenDistinguishingClassAndMetaclassAccessWorks [
 	"this test tests that we can access smalltalk class and compiledMethod from famix when the class and metaclasses are not merged"
 
 	| model |
-	model := MooseModel new.
-	self newPharoImporterTask
+	model := FamixStModel new.
+	MoosePharoImporterTask new
 		importerClass: SmalltalkImporter;
 		model: model;
 		addFromPackageNamed: #'Moose-TestResources-LAN';
@@ -37,8 +37,8 @@ LANSmalltalkAccessTest >> testWhenMergingClassAndMetaclassAccessWorks [
 	"this test tests that we can access smalltalk class and compiledMethod from famix when the class and metaclasses are  merged"
 
 	| model importer |
-	model := MooseModel new.
-	importer := self newPharoImporterTask.
+	model := FamixStModel new.
+	importer := MoosePharoImporterTask new.
 	importer importerClass: SmalltalkImporter.
 	importer importingContext mergeClassAndMetaclass.
 	importer model: model.

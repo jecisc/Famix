@@ -11,39 +11,16 @@ Class {
 { #category : #meta }
 FamixTest4Teacher class >> annotation [
 
-	<MSEClass: #Teacher super: #FamixTest4Person>
+	<FMClass: #Teacher super: #FamixTest4Person>
 	<package: #'Famix-Test4-Entities'>
 	<generated>
 	^self
 ]
 
-{ #category : #meta }
-FamixTest4Teacher class >> requirements [
-
-	<generated>
-	^ { FamixTest4School }
-]
-
 { #category : #adding }
-FamixTest4Teacher >> addStudents: anObject [
+FamixTest4Teacher >> addStudent: anObject [
 	<generated>
 	^ self students add: anObject
-]
-
-{ #category : #accessing }
-FamixTest4Teacher >> belongsTo [
-
-	<generated>
-	^ self school
-
-]
-
-{ #category : #accessing }
-FamixTest4Teacher >> belongsTo: anObject [
-
-	<generated>
-	self school: anObject
-
 ]
 
 { #category : #accessing }
@@ -60,7 +37,6 @@ FamixTest4Teacher >> school: anObject [
 
 	<generated>
 	school := anObject
-
 ]
 
 { #category : #navigation }
@@ -83,7 +59,6 @@ FamixTest4Teacher >> students: anObject [
 
 	<generated>
 	students value: anObject
-
 ]
 
 { #category : #navigation }

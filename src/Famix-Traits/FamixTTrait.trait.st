@@ -13,7 +13,7 @@ Trait {
 { #category : #meta }
 FamixTTrait classSide >> annotation [
 
-	<MSEClass: #TTrait super: #Trait>
+	<FMClass: #TTrait super: #Object>
 	<package: #'Famix-Traits'>
 	<generated>
 	^self
@@ -31,6 +31,7 @@ FamixTTrait >> incomingTraitUsages [
 	"Relation named: #incomingTraitUsages type: #FamixTTraitUsage opposite: #trait"
 
 	<generated>
+	<derived>
 	^ incomingTraitUsages
 ]
 
@@ -39,7 +40,6 @@ FamixTTrait >> incomingTraitUsages: anObject [
 
 	<generated>
 	incomingTraitUsages value: anObject
-
 ]
 
 { #category : #accessing }
@@ -55,5 +55,4 @@ FamixTTrait >> traitOwner: anObject [
 
 	<generated>
 	traitOwner := anObject
-
 ]

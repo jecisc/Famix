@@ -9,49 +9,10 @@ Class {
 { #category : #meta }
 FAMIXSourcedEntity class >> annotation [
 
-	<MSEClass: #SourcedEntity super: #FAMIXEntity>
+	<FMClass: #SourcedEntity super: #FAMIXEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #'Famix-File' }
-FAMIXSourcedEntity >> containerFiles [
-	"this method returns a collection because a source entity can be defined in single as well as multiple files. Hence we support the language that allow the separation of declaration and definition"
-
-	<MSEProperty: #containerFiles type: #FAMIXFile>
-	<multivalued>
-	<MSEComment: 'List of files containing the entity'>
-	"<container> -> should not be on this side..."
-	
-	^ self sourceAnchor ifNotNil: [ self sourceAnchor containerFiles ] ifNil: [ #() ]
-]
-
-{ #category : #'Famix-File' }
-FAMIXSourcedEntity >> containerFiles: aColl [
-	"This method is a hack for now because we need an opposite to the files."
-
-	
-]
-
-{ #category : #'Famix-SourceAnchor' }
-FAMIXSourcedEntity >> defineMultiSourceAnchorWithPath: aPath [
-
-	 self ensureMultiSourceAnchor addFileAnchorWithPath: aPath
-]
-
-{ #category : #'Famix-SourceAnchor' }
-FAMIXSourcedEntity >> ensureMultiSourceAnchor [
-	"This method is also used by other packages"
-	^self sourceAnchor
-		ifNil: [ 
-			self
-				sourceAnchor:
-					(FAMIXMultipleFileAnchor new
-						element: self;
-						mooseModel: self mooseModel;
-						yourself);
-				sourceAnchor]
 ]
 
 { #category : #'Famix-SourceAnchor' }
@@ -84,7 +45,7 @@ FAMIXSourcedEntity >> fileAnchorPath: aString startPos: anInteger endPos: anothe
 
 { #category : #'Famix-Extensions' }
 FAMIXSourcedEntity >> numberOfJavaNullChecks [
-	<MSEProperty: #numberOfJavaNullChecks type: #Number> <derived>
+	<FMProperty: #numberOfJavaNullChecks type: #Number> <derived>
 	^self
 		lookUpPropertyNamed: #numberOfJavaNullChecks
 		computedAs: [

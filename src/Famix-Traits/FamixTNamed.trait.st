@@ -9,7 +9,7 @@ Trait {
 { #category : #meta }
 FamixTNamed classSide >> annotation [
 
-	<MSEClass: #TNamed super: #Trait>
+	<FMClass: #TNamed super: #Object>
 	<package: #'Famix-Traits'>
 	<generated>
 	^self
@@ -36,9 +36,9 @@ FamixTNamed >> mooseNameOn: stream [
 { #category : #accessing }
 FamixTNamed >> name [
 
-	<MSEProperty: #name type: #String>
+	<FMProperty: #name type: #String>
 	<generated>
-	<MSEComment: 'Basic name of the entity, not full reference.'>
+	<FMComment: 'Basic name of the entity, not full reference.'>
 	^ name
 ]
 
@@ -52,6 +52,6 @@ FamixTNamed >> name: anObject [
 
 { #category : #accessing }
 FamixTNamed >> resetMooseName [
-	super resetMooseName ifTrue: [ self children do: [ :entity | entity resetMooseName ] ].
+	(super resetMooseName and: [ self class withAllSuperclasses anySatisfy: [ :class | class isComposedBy: TEntityMetaLevelDependency ] ]) ifTrue: [ self children do: [ :entity | entity resetMooseName ] ].
 	^ false
 ]

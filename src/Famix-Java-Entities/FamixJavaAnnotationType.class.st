@@ -9,17 +9,10 @@ Class {
 { #category : #meta }
 FamixJavaAnnotationType class >> annotation [
 
-	<MSEClass: #AnnotationType super: #FamixJavaType>
+	<FMClass: #AnnotationType super: #FamixJavaType>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixJavaAnnotationType class >> requirements [
-
-	<generated>
-	^ { FamixJavaContainerEntity }
 ]
 
 { #category : #'as yet unclassified' }
@@ -31,22 +24,6 @@ FamixJavaAnnotationType >> annotatedEntities [
 FamixJavaAnnotationType >> annotatedEntitiesGroup [
 	<navigation: 'Annotated entities'>
 	^ self annotatedEntities asMooseGroup
-]
-
-{ #category : #accessing }
-FamixJavaAnnotationType >> belongsTo [
-
-	<generated>
-	^ self annotationTypesContainer
-
-]
-
-{ #category : #accessing }
-FamixJavaAnnotationType >> belongsTo: anObject [
-
-	<generated>
-	self annotationTypesContainer: anObject
-
 ]
 
 { #category : #'as yet unclassified' }

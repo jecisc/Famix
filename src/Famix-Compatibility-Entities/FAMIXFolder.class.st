@@ -1,6 +1,6 @@
 Class {
 	#name : #FAMIXFolder,
-	#superclass : #FAMIXAbstractFile,
+	#superclass : #FAMIXNamedEntity,
 	#traits : 'FamixTFolder',
 	#classTraits : 'FamixTFolder classTrait',
 	#category : #'Famix-Compatibility-Entities-Entities'
@@ -9,13 +9,8 @@ Class {
 { #category : #meta }
 FAMIXFolder class >> annotation [
 
-	<MSEClass: #Folder super: #FAMIXAbstractFile>
+	<FMClass: #Folder super: #FAMIXNamedEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #testing }
-FAMIXFolder >> isFolder [
-	^ true
 ]

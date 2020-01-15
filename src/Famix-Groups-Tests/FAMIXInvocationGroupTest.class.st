@@ -22,7 +22,7 @@ FAMIXInvocationGroupTest >> setUp [
 	fromMethod := FAMIXMethod new signature: 'fromMethod()'; yourself.
 	fromClass addMethod: fromMethod.
 	fromClass container: fromNamespace.
-	fromNamespace belongsTo: fromNamespaceNamespace.
+	fromNamespace parentScope: fromNamespaceNamespace.
 
 	toNamespaceNamespace := FAMIXNamespace new name: 'com'; yourself.
 	toNamespace := FAMIXNamespace new name: 'to'; yourself.
@@ -30,13 +30,13 @@ FAMIXInvocationGroupTest >> setUp [
 	toMethod := FAMIXMethod new signature: 'toMethod()'; yourself.
 	toClass addMethod: toMethod.
 	toClass container: toNamespace.
-	toNamespace belongsTo: toNamespaceNamespace.
+	toNamespace parentScope: toNamespaceNamespace.
 	
 	invocation := FAMIXInvocation new.
 	invocation from: fromMethod.
 	invocation addCandidate: toMethod.
 	
-	model := MooseModel new addAll: { fromMethod. fromClass. fromNamespace. fromNamespaceNamespace. invocation. toMethod. toClass.  toNamespace. toNamespaceNamespace }; yourself
+	model := FAMIXModel new addAll: { fromMethod. fromClass. fromNamespace. fromNamespaceNamespace. invocation. toMethod. toClass.  toNamespace. toNamespaceNamespace }; yourself
 ]
 
 { #category : #test }

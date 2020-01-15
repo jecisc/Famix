@@ -9,7 +9,7 @@ Trait {
 { #category : #meta }
 FamixTParameterizedTypeUser classSide >> annotation [
 
-	<MSEClass: #TParameterizedTypeUser super: #Trait>
+	<FMClass: #TParameterizedTypeUser super: #Object>
 	<package: #'Famix-Traits'>
 	<generated>
 	^self
@@ -27,6 +27,7 @@ FamixTParameterizedTypeUser >> argumentsInParameterizedTypes [
 	"Relation named: #argumentsInParameterizedTypes type: #FamixTWithParameterizedTypeUsers opposite: #arguments"
 
 	<generated>
+	<derived>
 	^ argumentsInParameterizedTypes
 ]
 
@@ -35,5 +36,4 @@ FamixTParameterizedTypeUser >> argumentsInParameterizedTypes: anObject [
 
 	<generated>
 	argumentsInParameterizedTypes value: anObject
-
 ]

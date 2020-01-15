@@ -12,17 +12,10 @@ Class {
 { #category : #meta }
 FAMIXAttribute class >> annotation [
 
-	<MSEClass: #Attribute super: #FAMIXStructuralEntity>
+	<FMClass: #Attribute super: #FAMIXStructuralEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FAMIXAttribute class >> requirements [
-
-	<generated>
-	^ { FAMIXType }
 ]
 
 { #category : #'Famix-Smalltalk' }
@@ -38,25 +31,9 @@ FAMIXAttribute >> beSharedVariable [
 ]
 
 { #category : #accessing }
-FAMIXAttribute >> belongsTo [
-
-	<generated>
-	^ self parentType
-
-]
-
-{ #category : #accessing }
-FAMIXAttribute >> belongsTo: anObject [
-
-	<generated>
-	self parentType: anObject
-
-]
-
-{ #category : #accessing }
 FAMIXAttribute >> hasClassScope [
-	<MSEProperty: #hasClassScope type: #Boolean>
-	<MSEComment: 'True if class-side attribute'>
+	<FMProperty: #hasClassScope type: #Boolean>
+	<FMComment: 'True if class-side attribute'>
 
 	^ hasClassScope
 ]
@@ -69,9 +46,9 @@ FAMIXAttribute >> hasClassScope: aBoolean [
 
 { #category : #'Famix-Extensions' }
 FAMIXAttribute >> hierarchyNestingLevel [
-	<MSEProperty: #hierarchyNestingLevel type: #Number>
+	<FMProperty: #hierarchyNestingLevel type: #Number>
 	<derived>
-	<MSEComment: 'Attribute hierarchy nesting level'>
+	<FMComment: 'Attribute hierarchy nesting level'>
 		
 	^self
 		lookUpPropertyNamed: #hierarchyNestingLevel

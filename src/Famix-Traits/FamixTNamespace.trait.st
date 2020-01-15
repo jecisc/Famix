@@ -17,7 +17,7 @@ Trait {
 { #category : #meta }
 FamixTNamespace classSide >> annotation [
 
-	<MSEClass: #TNamespace super: #Trait>
+	<FMClass: #TNamespace super: #Object>
 	<package: #'Famix-Traits'>
 	<generated>
 	^self
@@ -49,6 +49,7 @@ FamixTNamespace >> namespaceEntities [
 	"Relation named: #namespaceEntities type: #FamixTNamespaceEntity opposite: #parentNamespace"
 
 	<generated>
+	<derived>
 	^ namespaceEntities
 ]
 
@@ -57,7 +58,6 @@ FamixTNamespace >> namespaceEntities: anObject [
 
 	<generated>
 	namespaceEntities value: anObject
-
 ]
 
 { #category : #accessing }
@@ -73,5 +73,4 @@ FamixTNamespace >> namespaceOwner: anObject [
 
 	<generated>
 	namespaceOwner := anObject
-
 ]

@@ -9,7 +9,7 @@ Trait {
 { #category : #meta }
 FamixTWithNamespaces classSide >> annotation [
 
-	<MSEClass: #TWithNamespaces super: #Trait>
+	<FMClass: #TWithNamespaces super: #Object>
 	<package: #'Famix-Traits'>
 	<generated>
 	^self
@@ -26,6 +26,7 @@ FamixTWithNamespaces >> namespaces [
 	"Relation named: #namespaces type: #FamixTNamespace opposite: #namespaceOwner"
 
 	<generated>
+	<derived>
 	^ namespaces
 ]
 
@@ -34,5 +35,4 @@ FamixTWithNamespaces >> namespaces: anObject [
 
 	<generated>
 	namespaces value: anObject
-
 ]

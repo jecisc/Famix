@@ -17,7 +17,7 @@ MooseOutgoingQueryResultTest >> actualClass [
 { #category : #tests }
 MooseOutgoingQueryResultTest >> testWithoutSelfLoops [
 	| model namespace1 namespace2 class1 class2 |
-	model := FamixJavaMooseModel new.
+	model := FamixJavaModel new.
 	namespace1 := (FamixJavaNamespace named: 'namespace1')
 		mooseModel: model;
 		yourself.
@@ -27,11 +27,11 @@ MooseOutgoingQueryResultTest >> testWithoutSelfLoops [
 		yourself.
 	class1 := (FamixJavaClass named: 'class1')
 		mooseModel: model;
-		container: namespace2;
+		typeContainer: namespace2;
 		yourself.
 	class2 := (FamixJavaClass named: 'class2')
 		mooseModel: model;
-		container: namespace2;
+		typeContainer: namespace2;
 		yourself.
 	FamixJavaInheritance new
 		mooseModel: model;
