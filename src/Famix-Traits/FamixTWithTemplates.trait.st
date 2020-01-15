@@ -9,7 +9,7 @@ Trait {
 { #category : #meta }
 FamixTWithTemplates classSide >> annotation [
 
-	<MSEClass: #TWithTemplates super: #Trait>
+	<FMClass: #TWithTemplates super: #Object>
 	<package: #'Famix-Traits'>
 	<generated>
 	^self
@@ -26,6 +26,7 @@ FamixTWithTemplates >> templates [
 	"Relation named: #templates type: #FamixTTemplate opposite: #templateOwner"
 
 	<generated>
+	<derived>
 	^ templates
 ]
 
@@ -34,5 +35,4 @@ FamixTWithTemplates >> templates: anObject [
 
 	<generated>
 	templates value: anObject
-
 ]

@@ -9,33 +9,10 @@ Class {
 { #category : #meta }
 FAMIXLocalVariable class >> annotation [
 
-	<MSEClass: #LocalVariable super: #FAMIXStructuralEntity>
+	<FMClass: #LocalVariable super: #FAMIXStructuralEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FAMIXLocalVariable class >> requirements [
-
-	<generated>
-	^ { FAMIXBehaviouralEntity }
-]
-
-{ #category : #accessing }
-FAMIXLocalVariable >> belongsTo [
-
-	<generated>
-	^ self parentBehaviouralEntity
-
-]
-
-{ #category : #accessing }
-FAMIXLocalVariable >> belongsTo: anObject [
-
-	<generated>
-	self parentBehaviouralEntity: anObject
-
 ]
 
 { #category : #'Famix-Implementation' }

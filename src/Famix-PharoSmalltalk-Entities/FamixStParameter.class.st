@@ -9,26 +9,10 @@ Class {
 { #category : #meta }
 FamixStParameter class >> annotation [
 
-	<MSEClass: #Parameter super: #FamixStNamedEntity>
+	<FMClass: #Parameter super: #FamixStNamedEntity>
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #accessing }
-FamixStParameter >> belongsTo [
-
-	<generated>
-	^ self parentBehaviouralEntity
-
-]
-
-{ #category : #accessing }
-FamixStParameter >> belongsTo: anObject [
-
-	<generated>
-	self parentBehaviouralEntity: anObject
-
 ]
 
 { #category : #accessing }

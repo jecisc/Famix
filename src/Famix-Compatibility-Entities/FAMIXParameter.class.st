@@ -9,33 +9,10 @@ Class {
 { #category : #meta }
 FAMIXParameter class >> annotation [
 
-	<MSEClass: #Parameter super: #FAMIXStructuralEntity>
+	<FMClass: #Parameter super: #FAMIXStructuralEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FAMIXParameter class >> requirements [
-
-	<generated>
-	^ { FAMIXBehaviouralEntity }
-]
-
-{ #category : #accessing }
-FAMIXParameter >> belongsTo [
-
-	<generated>
-	^ self parentBehaviouralEntity
-
-]
-
-{ #category : #accessing }
-FAMIXParameter >> belongsTo: anObject [
-
-	<generated>
-	self parentBehaviouralEntity: anObject
-
 ]
 
 { #category : #'Famix-Implementation' }

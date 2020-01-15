@@ -45,6 +45,11 @@ MooseGroupTest >> testDefaultStorage [
 ]
 
 { #category : #tests }
+MooseGroupTest >> testDefaultStorageIterator [
+	self assert: group entityStorage iterator class equals: IteratorWithCollectionAPI
+]
+
+{ #category : #tests }
 MooseGroupTest >> testDistribution [
 	| referenceGroupOfGroups |
 	referenceGroupOfGroups := self actualClass new.
@@ -79,6 +84,27 @@ MooseGroupTest >> testDistributionAndEncapsulation [
 ]
 
 { #category : #tests }
+MooseGroupTest >> testEntityNamedIfAbsentPutWithCorrectEntityAsParameter [
+	| testClass |
+	testClass := FamixTest1Class new.
+	testClass name: 'MyTestMethod'.
+	self
+		assert: (group entityNamed: 'MyTestMethod' ifAbsentPut: [ testClass ])
+		identicalTo: testClass
+]
+
+{ #category : #tests }
+MooseGroupTest >> testEntityNamedIfAbsentPutWithIncorrectEntityAsParameter [
+	| testClass |
+	testClass := FamixTest1Class new.
+	testClass name: 'MyTestMethod'.
+	self
+		should:
+			[ group entityNamed: 'NonExistingMooseName' ifAbsentPut: [ testClass ] ]
+		raise: Error
+]
+
+{ #category : #tests }
 MooseGroupTest >> testExplicitEmptyCreation [
 	self assert: ((FAMIXTypeGroup withAll: #()) isKindOf: FAMIXTypeGroup)
 ]
@@ -96,12 +122,12 @@ MooseGroupTest >> testInitialization [
 { #category : #tests }
 MooseGroupTest >> testNumberOfPackages [
 	self assert: group numberOfPackages equals: 0.
-	group add: FAMIXPackage new.
-	group add: FAMIXPackage new.
+	group add: (MooseEntity new copyWithTalent: FamixTPackage).
+	group add: (MooseEntity new copyWithTalent: FamixTPackage).
 	self assert: group numberOfPackages equals: 2.
 	group := MooseModel new.
-	group add: FAMIXNamespace new.
-	group add: FAMIXNamespace new.
+	group add: (MooseEntity new copyWithTalent: FamixTNamespace).
+	group add: (MooseEntity new copyWithTalent: FamixTNamespace).
 	self assert: group numberOfPackages equals: 0
 ]
 

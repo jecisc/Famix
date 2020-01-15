@@ -9,31 +9,8 @@ Class {
 { #category : #meta }
 FamixJavaEnumValue class >> annotation [
 
-	<MSEClass: #EnumValue super: #FamixJavaNamedEntity>
+	<FMClass: #EnumValue super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FamixJavaEnumValue class >> requirements [
-
-	<generated>
-	^ { FamixJavaEnum }
-]
-
-{ #category : #accessing }
-FamixJavaEnumValue >> belongsTo [
-
-	<generated>
-	^ self parentEnum
-
-]
-
-{ #category : #accessing }
-FamixJavaEnumValue >> belongsTo: anObject [
-
-	<generated>
-	self parentEnum: anObject
-
 ]

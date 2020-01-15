@@ -6,13 +6,15 @@ Trait {
 	#instVars : [
 		'#entities => FMMany type: #FamixTWithFiles opposite: #containerFiles'
 	],
+	#traits : 'FamixTFileSystemEntity',
+	#classTraits : 'FamixTFileSystemEntity classTrait',
 	#category : #'Famix-Traits-File'
 }
 
 { #category : #meta }
 FamixTFile classSide >> annotation [
 
-	<MSEClass: #TFile super: #Trait>
+	<FMClass: #TFile super: #Object>
 	<package: #'Famix-Traits'>
 	<generated>
 	^self
@@ -32,11 +34,24 @@ FamixTFile >> addEntity: famixEntity [
 ]
 
 { #category : #accessing }
+FamixTFile >> averageNumberOfCharactersPerLine [
+	<FMProperty: #averageNumberOfCharactersPerLine type: #Number>
+	<FMComment: 'Average number of characters per line of text in a file.'>
+	<derived>
+	^ self
+		lookUpPropertyNamed: #averageNumberOfCharactersPerLine
+		computedAs: [ self numberOfLinesOfText isZero
+			ifFalse: [ (self numberOfCharacters / self numberOfLinesOfText) asFloat ]
+			ifTrue: [ 0 ] ]
+]
+
+{ #category : #accessing }
 FamixTFile >> entities [
 	"Relation named: #entities type: #FamixTWithFiles opposite: #containerFiles"
 
 	<generated>
-	<MSEComment: 'List of entities defined in the file'>
+	<FMComment: 'List of entities defined in the file'>
+	<derived>
 	^ entities
 ]
 
@@ -45,7 +60,6 @@ FamixTFile >> entities: anObject [
 
 	<generated>
 	entities value: anObject
-
 ]
 
 { #category : #accessing }
@@ -62,13 +76,13 @@ FamixTFile >> exists [
 
 { #category : #testing }
 FamixTFile >> fileExists [
-	name ifNil: [ ^ false ].
+	self name ifNil: [ ^ false ].
 	^ self fileReference exists
 ]
 
-{ #category : #enumerating }
+{ #category : #testing }
 FamixTFile >> ifFileExistsDo: aBlock [
-	name ifNil: [ ^ aBlock value ].
+	self name ifNil: [ ^ aBlock value ].
 	^ self fileExists ifTrue: [ aBlock value ]
 ]
 
@@ -80,8 +94,8 @@ FamixTFile >> isFolder [
 
 { #category : #properties }
 FamixTFile >> numberOfBytes [
-	<MSEProperty: #numberOfBytes type: #Number>
-	<MSEComment: 'Number of bytes in a file.'>
+	<FMProperty: #numberOfBytes type: #Number>
+	<FMComment: 'Number of bytes in a file.'>
 	<derived>
 	^ self
 		lookUpPropertyNamed: #numberOfBytes
@@ -92,16 +106,16 @@ FamixTFile >> numberOfBytes [
 
 { #category : #properties }
 FamixTFile >> numberOfCharacters [
-	<MSEProperty: #numberOfCharacters type: #Number>
-	<MSEComment: 'Number of characters in a file.'>
+	<FMProperty: #numberOfCharacters type: #Number>
+	<FMComment: 'Number of characters in a file.'>
 	<derived>
 	^ self lookUpPropertyNamed: #numberOfCharacters computedAs: [ self sourceText size ]
 ]
 
 { #category : #properties }
 FamixTFile >> numberOfEmptyLinesOfText [
-	<MSEProperty: #numberOfEmptyLinesOfText type: #Number>
-	<MSEComment: 'Number of empty lines of text'>
+	<FMProperty: #numberOfEmptyLinesOfText type: #Number>
+	<FMComment: 'Number of empty lines of text'>
 	<derived>
 	^ self
 		lookUpPropertyNamed: #numberOfEmptyLinesOfText
@@ -112,8 +126,8 @@ FamixTFile >> numberOfEmptyLinesOfText [
 
 { #category : #properties }
 FamixTFile >> numberOfKiloBytes [
-	<MSEProperty: #numberOfKiloBytes type: #Number>
-	<MSEComment: 'Number of kilo bytes in a file.'>
+	<FMProperty: #numberOfKiloBytes type: #Number>
+	<FMComment: 'Number of kilo bytes in a file.'>
 	<derived>
 	^ self lookUpPropertyNamed: #numberOfKiloBytes computedAs: [ (self numberOfBytes / 1024) asFloat ]
 ]
@@ -123,18 +137,34 @@ FamixTFile >> readStream [
 	^ self fileReference readStream
 ]
 
+{ #category : #accessing }
+FamixTFile >> sourceText [
+	^ self
+		lookUpPropertyNamed: #sourceText
+		computedAs: [ self fileExists
+				ifTrue: [ | stream source |
+					stream := self readStream.
+					source := [ stream contents asString ]
+						ensure: [ stream ifNotNil: [ stream close ] ].
+					source ]
+				ifFalse: [ '' ] ]
+]
+
+{ #category : #accessing }
+FamixTFile >> sourceText: aString [
+	^ self propertyNamed: #sourceText put: aString
+]
+
 { #category : #properties }
 FamixTFile >> totalNumberOfLinesOfText [
-	<MSEProperty: #totalNumberOfLinesOfText type: #Number>
-	<MSEComment: 'Number of lines of text'>
+	<FMProperty: #totalNumberOfLinesOfText type: #Number>
+	<FMComment: 'Number of lines of text'>
 	<derived>
 	^ self
 		lookUpPropertyNamed: #totalNumberOfLinesOfText
-		computedAs: [ 
-			self sourceText isEmpty
+		computedAs: [ self sourceText isEmpty
 				ifFalse: [ self sourceText lineCount ]
-				ifTrue: [ 
-					(name notNil and: [ self exists ])
-						ifTrue: [ (self sourceText select: [ :each | each = Character cr ]) size + 1 ]
-						ifFalse: [ 0 ] ] ]
+				ifTrue: [ (self name isNotNil and: [ self exists ])
+					ifTrue: [ (self sourceText select: [ :each | each = Character cr ]) size + 1 ]
+					ifFalse: [ 0 ] ] ]
 ]

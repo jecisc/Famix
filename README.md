@@ -11,7 +11,7 @@ To install Famix on your Pharo image you can just execute the following script:
 
 ```Smalltalk
     Metacello new
-    	githubUser: 'jecisc' project: 'Famix' commitish: 'v2.x.x' path: 'src';
+    	githubUser: 'jecisc' project: 'Famix' commitish: 'v4.x.x' path: 'src';
     	baseline: 'Famix';
     	load
 ```

@@ -15,7 +15,7 @@ Trait {
 { #category : #meta }
 FamixTPackage classSide >> annotation [
 
-	<MSEClass: #TPackage super: #Trait>
+	<FMClass: #TPackage super: #Object>
 	<package: #'Famix-Traits'>
 	<generated>
 	^self
@@ -40,6 +40,7 @@ FamixTPackage >> childEntities [
 	"Relation named: #childEntities type: #FamixTPackageable opposite: #parentPackage"
 
 	<generated>
+	<derived>
 	^ childEntities
 ]
 
@@ -48,7 +49,6 @@ FamixTPackage >> childEntities: anObject [
 
 	<generated>
 	childEntities value: anObject
-
 ]
 
 { #category : #testing }
@@ -71,5 +71,12 @@ FamixTPackage >> packageOwner: anObject [
 
 	<generated>
 	packageOwner := anObject
+]
 
+{ #category : #metrics }
+FamixTPackage >> weightedMethodCount [
+	<FMProperty: #weightedMethodCount type: #Number>
+	<FMComment: 'The sum of the complexity in a package'>
+	<derived>
+	^ self lookUpPropertyNamed: #WMC computedAs: [ (self toScope: FamixTWithMethods) detectSum: #weightedMethodCount ]
 ]

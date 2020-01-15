@@ -9,26 +9,10 @@ Class {
 { #category : #meta }
 FamixStImplicitVariable class >> annotation [
 
-	<MSEClass: #ImplicitVariable super: #FamixStNamedEntity>
+	<FMClass: #ImplicitVariable super: #FamixStNamedEntity>
 	<package: #'Famix-PharoSmalltalk-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #accessing }
-FamixStImplicitVariable >> belongsTo [
-
-	<generated>
-	^ self parentBehaviouralEntity
-
-]
-
-{ #category : #accessing }
-FamixStImplicitVariable >> belongsTo: anObject [
-
-	<generated>
-	self parentBehaviouralEntity: anObject
-
 ]
 
 { #category : #testing }

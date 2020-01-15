@@ -81,17 +81,10 @@ LANImporterTest >> testClassName [
 
 { #category : #tests }
 LANImporterTest >> testClassNameAndUniqueName [
-	"self debug: #testClassNameAndUniqueName"
-
 	| mseClass |
 	mseClass := self model entityNamed: LANNode mooseName.
 	self assert: mseClass name equals: #LANNode.
-	self
-		assert: mseClass mooseName
-		equals:
-			(FamixSmalltalkNameResolver
-				uniqueNameForClassNamed: LANNode name
-				scope: (FamixSmalltalkNameResolver moosify: LANNode environment absoluteName)).
+	self assert: mseClass mooseName equals: 'Smalltalk::LANNode'.
 	self assert: mseClass mooseName equals: LANNode mooseName
 ]
 
@@ -105,15 +98,14 @@ LANImporterTest >> testClassNameDoesNotIncludeSpace [
 ]
 
 { #category : #tests }
-LANImporterTest >> testClassSides [ 
-	 
-	| node nodeClass | 
-	node := self model entityNamed: LANNode mooseName. 
-	nodeClass := self model entityNamed: LANNode class mooseName. 
-	self assert: node instanceSide == node. 
-	self assert: node classSide == nodeClass. 
-	self assert: nodeClass classSide == nodeClass. 
-	self assert: nodeClass instanceSide == node
+LANImporterTest >> testClassSides [
+	| node nodeClass |
+	node := self model entityNamed: LANNode mooseName.
+	nodeClass := self model entityNamed: LANNode class mooseName.
+	self assert: node instanceSide identicalTo: node.
+	self assert: node classSide identicalTo: nodeClass.
+	self assert: nodeClass classSide identicalTo: nodeClass.
+	self assert: nodeClass instanceSide identicalTo: node
 ]
 
 { #category : #tests }
@@ -179,7 +171,7 @@ LANImporterTest >> testEntityUniquelyNamed [
 			(classes entityNamed: LANNode class mooseName) isNil not
 ]
 
-{ #category : #errors }
+{ #category : #tests }
 LANImporterTest >> testHierarchyRoot [ 
 	self assert: (self model entityNamed: LANNode mooseName) isHierarchyRoot. 
 	self deny: ((self model entityNamed: LANNode mooseName) 
@@ -287,14 +279,14 @@ LANImporterTest >> testIsClassAbstract [
 	
 ]
 
-{ #category : #errors }
+{ #category : #tests }
 LANImporterTest >> testLonely [
 	| lonely |
 	lonely := self model allModelClasses select: [ :each | each isLonelyWithin: self model allModelClasses ].
 	self assert: lonely size equals: 8
 ]
 
-{ #category : #errors }
+{ #category : #tests }
 LANImporterTest >> testMethodOverriding [ 
 	 
 	self assert: (self model entityNamed: (LANOutputServer>>#canOutput) mooseName) isOverriding. 
@@ -325,38 +317,32 @@ LANImporterTest >> testMooseName [
 LANImporterTest >> testNameAndUniqueName [
 	| mseClass mseMethod mseAttribute mseGlobalVar mseImplicitVar mseLocalVariable mseFormalParameter transcriptName |
 	mseClass := self model entityNamed: LANNode mooseName.
-	self assert: mseClass name == #LANNode.
-	self
-		assert:
-			mseClass mooseName
-				==
-					(FamixSmalltalkNameResolver
-						uniqueNameForClassNamed: LANNode name
-						scope: (FamixSmalltalkNameResolver moosify: LANNode environment absoluteName)).
-	self assert: mseClass mooseName == LANNode mooseName.
+	self assert: mseClass name identicalTo: #LANNode.
+	self assert: mseClass mooseName identicalTo: #'Smalltalk::LANNode'.
+	self assert: mseClass mooseName identicalTo: LANNode mooseName.
 	mseMethod := self model entityNamed: #'Smalltalk::LANPacket.printOn:(Object)'.
-	self assert: mseMethod name == #printOn:.
-	self assert: mseMethod mooseName == #'Smalltalk::LANPacket.printOn:(Object)'.
-	self assert: mseMethod signature == #'printOn:(Object)'.
+	self assert: mseMethod name identicalTo: #printOn:.
+	self assert: mseMethod mooseName identicalTo: #'Smalltalk::LANPacket.printOn:(Object)'.
+	self assert: mseMethod signature identicalTo: #'printOn:(Object)'.
 	mseAttribute := self model entityNamed: (LANNode mooseNameOf: 'name') asSymbol.
-	self assert: mseAttribute mooseName == (LANNode mooseNameOf: 'name').
-	self assert: mseAttribute name == #name.
+	self assert: mseAttribute mooseName identicalTo: (LANNode mooseNameOf: 'name').
+	self assert: mseAttribute name identicalTo: #name.
 	transcriptName := #Transcript.
 	mseGlobalVar := self model entityNamed: transcriptName.
-	self assert: mseGlobalVar name == transcriptName.
-	self assert: mseGlobalVar mooseName == transcriptName.	"self assert: (mseGlobalVar interfaceSignatures includes: #cr)."
+	self assert: mseGlobalVar name identicalTo: transcriptName.
+	self assert: mseGlobalVar mooseName identicalTo: transcriptName.	"self assert: (mseGlobalVar interfaceSignatures includes: #cr)."
 	mseImplicitVar := self model entityNamed: LANNode mooseName , '.accept:(Object).self'.
-	self assert: mseImplicitVar name == #self.
+	self assert: mseImplicitVar name identicalTo: #self.
 	self assert: mseImplicitVar mooseName equals: LANNode mooseName , '.accept:(Object).self'.	"self assert: (mseImplicitVar interfaceSignatures includes: #send:)."
 	mseImplicitVar := self model entityNamed: LANNode mooseName , '.printOn:(Object).super'.
-	self assert: mseImplicitVar name == #super.
-	self assert: mseImplicitVar mooseName == (LANNode mooseName , '.printOn:(Object).super') asSymbol.
+	self assert: mseImplicitVar name identicalTo: #super.
+	self assert: mseImplicitVar mooseName identicalTo: (LANNode mooseName , '.printOn:(Object).super') asSymbol.
 	mseLocalVariable := self model entityNamed: #'Smalltalk::LANInterface.originate().packet'.
-	self assert: mseLocalVariable name == #packet.
-	self assert: mseLocalVariable mooseName == #'Smalltalk::LANInterface.originate().packet'.
+	self assert: mseLocalVariable name identicalTo: #packet.
+	self assert: mseLocalVariable mooseName identicalTo: #'Smalltalk::LANInterface.originate().packet'.
 	mseFormalParameter := self model entityNamed: (LANNode mooseNameOf: 'nextNode:(Object).aNode').
-	self assert: mseFormalParameter name == #aNode.
-	self assert: mseFormalParameter mooseName == (LANNode mooseNameOf: 'nextNode:(Object).aNode')	"self assert: mseFormalParameter position = 1"
+	self assert: mseFormalParameter name identicalTo: #aNode.
+	self assert: mseFormalParameter mooseName identicalTo: (LANNode mooseNameOf: 'nextNode:(Object).aNode')	"self assert: mseFormalParameter position = 1"
 ]
 
 { #category : #tests }
@@ -369,10 +355,8 @@ LANImporterTest >> testNamespace [
 ]
 
 { #category : #tests }
-LANImporterTest >> testNamespaceReification [ 
-	 
-	self model allClasses 
-		do: [:each | self assert: (each belongsTo usesFamixTrait: FamixTNamespace)]
+LANImporterTest >> testNamespaceReification [
+	self model allClasses do: [ :each | self assert: (each parents anySatisfy: [ :p | p usesFamixTrait: FamixTNamespace ]) ]
 ]
 
 { #category : #tests }
@@ -414,11 +398,10 @@ LANImporterTest >> testPoolVariablesAreReified [
 ]
 
 { #category : #tests }
-LANImporterTest >> testReferenceModelInEntities [ 
+LANImporterTest >> testReferenceModelInEntities [
 	"self debug: #testReferenceModelInEntities"
-	
-	self model entities 
-		do: [:each | self assert: each mooseModel == self model]
+
+	self model entities do: [ :each | self assert: each mooseModel identicalTo: self model ]
 ]
 
 { #category : #tests }
@@ -429,7 +412,7 @@ LANImporterTest >> testStubClassesCreation [
 	self assert: (self model allClasses select: [ :each | each isStub not ]) size equals: 22
 ]
 
-{ #category : #errors }
+{ #category : #tests }
 LANImporterTest >> testSubClassHierarchy [
 	self assert: (self model entityNamed: LANNode mooseName) subclassHierarchy size equals: 4.
 	self assert: (self model entityNamed: LANNode mooseName) withSubclassHierarchy size equals: 5

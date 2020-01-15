@@ -9,26 +9,10 @@ Class {
 { #category : #meta }
 FamixJavaLocalVariable class >> annotation [
 
-	<MSEClass: #LocalVariable super: #FamixJavaNamedEntity>
+	<FMClass: #LocalVariable super: #FamixJavaNamedEntity>
 	<package: #'Famix-Java-Entities'>
 	<generated>
 	^self
-]
-
-{ #category : #accessing }
-FamixJavaLocalVariable >> belongsTo [
-
-	<generated>
-	^ self parentBehaviouralEntity
-
-]
-
-{ #category : #accessing }
-FamixJavaLocalVariable >> belongsTo: anObject [
-
-	<generated>
-	self parentBehaviouralEntity: anObject
-
 ]
 
 { #category : #'as yet unclassified' }

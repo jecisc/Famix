@@ -9,17 +9,10 @@ Class {
 { #category : #meta }
 FAMIXScopingEntity class >> annotation [
 
-	<MSEClass: #ScopingEntity super: #FAMIXContainerEntity>
+	<FMClass: #ScopingEntity super: #FAMIXContainerEntity>
 	<package: #FAMIX>
 	<generated>
 	^self
-]
-
-{ #category : #meta }
-FAMIXScopingEntity class >> requirements [
-
-	<generated>
-	^ { FAMIXScopingEntity }
 ]
 
 { #category : #'Famix-Extensions-metrics' }
@@ -48,20 +41,6 @@ FAMIXScopingEntity >> allClasses [
 FAMIXScopingEntity >> allClassesGroup [
 	<navigation: 'All classes'>
 	^ FAMIXTypeGroup withAll: self allClasses withDescription: 'All classes from ', self printString
-]
-
-{ #category : #accessing }
-FAMIXScopingEntity >> belongsTo [
-
-	^ self parentScope ifNil: [ self parentPackage ]
-]
-
-{ #category : #accessing }
-FAMIXScopingEntity >> belongsTo: anObject [
-
-	<generated>
-	self parentScope: anObject
-
 ]
 
 { #category : #'Famix-Extensions-metrics' }
