@@ -166,7 +166,6 @@ FamixCompatibilityGenerator >> defineHierarchy [
 
 	entity <|-- exception.
 	
-	access --|> association.
 	access --|> #TAccess.
 
 	annotationInstance --|> sourcedEntity.
@@ -194,12 +193,12 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	behaviouralEntity --|> #TInvocable.
 	behaviouralEntity --|> #TWithInvocations.
 	behaviouralEntity --|> #TWithReferences.
-	behaviouralEntity --|> #TTypedStructure.
+	behaviouralEntity --|> #TTypedEntity.
 	behaviouralEntity --|> #TWithAccesses.
 	behaviouralEntity --|> #TWithLocalVariables.
 	behaviouralEntity --|> #TWithImplicitVariables.
 	behaviouralEntity --|> #TWithDereferencedInvocations.
-	behaviouralEntity --|> #TWithSignature.
+	behaviouralEntity --|> #THasSignature.
 	behaviouralEntity --|> #TWithStatements.
 
 	cFile --|> file.
@@ -210,7 +209,7 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	cSourceLanguage --|> sourceLanguage.
 
 	cUSTOMSourceLanguage --|> sourceLanguage.
-	cUSTOMSourceLanguage --|> #TNamed.
+	cUSTOMSourceLanguage --|> #TNamedEntity.
 
 	caughtException --|> exception.
 	caughtException --|> #TCaughtException.
@@ -258,15 +257,12 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	implicitVariable --|> structuralEntity.
 	implicitVariable --|> #TImplicitVariable.
 
-	include --|> association.
 	include --|> #TFileInclude.
 
-	inheritance --|> association.
 	inheritance --|> #TInheritance.
 
-	invocation --|> association.
 	invocation --|> #TInvocation.
-	invocation --|> #TWithSignature.
+	invocation --|> #THasSignature.
 
 	jAVASourceLanguage --|> sourceLanguage.
 
@@ -289,7 +285,7 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	namedEntity --|> #TPackageable.
 	namedEntity --|> #TInvocationsReceiver.
 	namedEntity --|> #TWithAnnotationInstances.
-	namedEntity --|> #TWithModifiers.
+	namedEntity --|> #THasModifiers.
 
 	namespace --|> scopingEntity.
 	namespace --|> #TNamespace.
@@ -322,13 +318,12 @@ FamixCompatibilityGenerator >> defineHierarchy [
 
 	primitiveType --|> type.
 
-	reference --|> association.
 	reference --|> #TReference.
 
 	sMALLTALKSourceLanguage --|> sourceLanguage.
 
 	scopingEntity --|> containerEntity.
-	scopingEntity --|> #TGlobalVariableScope.
+	scopingEntity --|> #TWithGlobalVariables.
 	scopingEntity --|> #TScopingEntity.
 
 	structuralEntity --|> leafEntity.
@@ -356,8 +351,14 @@ FamixCompatibilityGenerator >> defineHierarchy [
 	trait --|> type.
 	trait --|> #TTrait.
 	
-	traitUsage --|> association.
 	traitUsage --|> #TTraitUsage.
 	
 
+]
+
+{ #category : #definition }
+FamixCompatibilityGenerator >> newBuilder [
+	^ super newBuilder
+		withImportingContext;
+		yourself
 ]
