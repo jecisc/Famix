@@ -118,7 +118,6 @@ FamixJavaGenerator >> defineHierarchy [
 
 	entity <|-- exception.
 	
-	access --|> association.
 	access --|> #TAccess.
 
 	annotationInstance --|> sourcedEntity.
@@ -182,12 +181,10 @@ FamixJavaGenerator >> defineHierarchy [
 	implicitVariable --|> tStructuralEntity.
 	implicitVariable --|> #TImplicitVariable.
 
-	inheritance --|> association.
 	inheritance --|> #TInheritance.
 
-	invocation --|> association.
 	invocation --|> #TInvocation.
-	invocation --|> #TWithSignature.
+	invocation --|> #THasSignature.
 
 	localVariable --|> namedEntity.
 	localVariable --|> tStructuralEntity.
@@ -196,7 +193,7 @@ FamixJavaGenerator >> defineHierarchy [
 	namedEntity --|> #TPackageable.
 	namedEntity --|> #TInvocationsReceiver.
 	namedEntity --|> #TWithAnnotationInstances.
-	namedEntity --|> #TWithModifiers.
+	namedEntity --|> #THasModifiers.
 
 	namespace --|> scopingEntity.
 	namespace --|> #TNamespace.
@@ -221,11 +218,10 @@ FamixJavaGenerator >> defineHierarchy [
 
 	primitiveType --|> type.
 
-	reference --|> association.
 	reference --|> #TReference.
 
 	scopingEntity --|> containerEntity.
-	scopingEntity --|> #TGlobalVariableScope.
+	scopingEntity --|> #TWithGlobalVariables.
 	scopingEntity --|> #TScopingEntity.
 
 	thrownException --|> exception.

@@ -69,7 +69,6 @@ FamixPharoSmalltalkGenerator >> defineHierarchy [
 
 	super defineHierarchy.
 
-	access --|> association.
 	access --|> #TAccess.
 
 	annotationInstance --|> sourcedEntity.
@@ -110,12 +109,10 @@ FamixPharoSmalltalkGenerator >> defineHierarchy [
 	implicitVariable --|> namedEntity.
 	implicitVariable --|> #TImplicitVariable.
 
-	inheritance --|> association.
 	inheritance --|> #TInheritance.
 
-	invocation --|> association.
 	invocation --|> #TInvocation.
-	invocation --|> #TWithSignature.
+	invocation --|> #THasSignature.
 
 	localVariable --|> namedEntity.
 	localVariable --|> #TLocalVariable.
@@ -126,7 +123,7 @@ FamixPharoSmalltalkGenerator >> defineHierarchy [
 	namedEntity --|> #TPackageable.
 	namedEntity --|> #TInvocationsReceiver.
 	namedEntity --|> #TWithAnnotationInstances.
-	namedEntity --|> #TWithModifiers.
+	namedEntity --|> #THasModifiers.
 
 	namespace --|> scopingEntity.
 	namespace --|> #TNamespace.
@@ -139,17 +136,16 @@ FamixPharoSmalltalkGenerator >> defineHierarchy [
 	parameter --|> namedEntity.
 	parameter --|> #TParameter.
 
-	reference --|> association.
 	reference --|> #TReference.
 
 	scopingEntity --|> containerEntity.
-	scopingEntity --|> #TGlobalVariableScope.
+	scopingEntity --|> #TWithGlobalVariables.
 	scopingEntity --|> #TScopingEntity.
 
 	unknownVariable --|> namedEntity.
 	unknownVariable --|> #TStructuralEntity.
 
-	sourceAnchor --|> #TWithImmediateSource.
+	sourceAnchor --|> #THasImmediateSource.
 	
 
 	

@@ -6,7 +6,6 @@ Class {
 		'sourceAnchor',
 		'sourceLanguage',
 		'sourcedEntity',
-		'association',
 		'comment',
 		'namedEntity',
 		'sourceTextAnchor',
@@ -35,7 +34,6 @@ FamixBasicInfrastructureGenerator >> defineClasses [
 	sourceLanguage := builder newClassNamed: #SourceLanguage.
 	unknownSourceLanguage := builder newClassNamed: #UnknownSourceLanguage.
 	sourcedEntity := builder newClassNamed: #SourcedEntity.
-	association := builder newClassNamed: #Association.
 	comment := builder newClassNamed: #Comment.
 	namedEntity := builder newClassNamed: #NamedEntity.
 	sourceTextAnchor := builder newClassNamed: #SourceTextAnchor.
@@ -54,21 +52,16 @@ FamixBasicInfrastructureGenerator >> defineHierarchy [
 	sourcedEntity --|> #TSourceEntity.
 	sourcedEntity --|> #TWithComments.
 
-	association --|> sourcedEntity.
-	association --|> #TAssociation.
-
-	association --|> #TAssociationMetaLevelDependency.
-
 	comment --|> sourcedEntity.
 	comment --|> #TComment.
 
 	namedEntity --|> sourcedEntity.
-	namedEntity --|> #TNamed.
+	namedEntity --|> #TNamedEntity.
 	namedEntity --|> #TDependencyQueries.
 	namedEntity --|> #TEntityMetaLevelDependency.
 
 	sourceTextAnchor --|> sourceAnchor.
-	sourceTextAnchor --|> #TWithImmediateSource.
+	sourceTextAnchor --|> #THasImmediateSource.
 
 	unknownSourceLanguage --|> sourceLanguage.
 	unknownSourceLanguage --|> #TUnknownSourceLanguage
