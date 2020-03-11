@@ -28,7 +28,8 @@ BaselineOfFamix >> baseline: spec [
 				referenceTestResources: spec;
 				neoCSV: spec;
 				roelTyper: spec;
-				singularizePluralize: spec.
+				singularizePluralize: spec;
+				talents: spec.
 
 			"Packages"
 			spec
@@ -63,7 +64,7 @@ BaselineOfFamix >> baseline: spec [
 
 				package: 'Moose-Query-Test' with: [ spec requires: #('Moose-Query' 'Famix-Java-Entities') ];
 				package: 'FamixTestGenerator' with: [ spec requires: #('BasicTraits') ];
-				package: 'Famix-Tests' with: [ spec requires: #('BasicTraits') ];
+				package: 'Famix-Tests' with: [ spec requires: #('BasicTraits' 'Talents') ];
 				package: 'Moose-Tests-Core' with: [ spec requires: #('TestModels') ];
 				package: 'Famix-Groups-Tests' with: [ spec requires: #('Famix-Groups' 'Moose-Tests-Core') ];
 				package: 'Moose-GenericImporters-Tests' with: [ spec requires: #('Moose-GenericImporter') ];
@@ -199,4 +200,13 @@ BaselineOfFamix >> roelTyper: spec [
 { #category : #baseline }
 BaselineOfFamix >> singularizePluralize: spec [
 	spec baseline: 'SingularizePluralize' with: [ spec repository: 'github://olekscode/SingularizePluralize:v1.0/src' ]
+]
+
+{ #category : #dependencies }
+BaselineOfFamix >> talents: spec [
+	spec
+		baseline: 'Talents'
+		with: [ spec
+				loads: 'core';
+				repository: 'github://tesonep/pharo-talents:v2.0.0/src' ]
 ]
