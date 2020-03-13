@@ -106,7 +106,10 @@ MooseQueryTest >> setUp [
 		addCandidate: method2;
 		receiver: var2;
 		mooseModel: model.
-	ref1 := FamixJavaReference source: method1 target: class2 model: model
+	ref1 := FamixJavaReference new
+		source: method1;
+		target: class2;
+		mooseModel: model
 ]
 
 { #category : #tests }
